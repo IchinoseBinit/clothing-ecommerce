@@ -50,38 +50,37 @@ class _SplashScreenState extends State<SplashScreen> {
     IntroProvider introProvider =
         Provider.of<IntroProvider>(context, listen: false);
     await introProvider.call();
-    if (await Permission.location.request().isGranted || Platform.isIOS) {
+     if (introProvider.hasAppToken) {
+      navigate(context, screen: const NavigationScreen());
+    } else if (introProvider.getisSeenWelcomeScreen) {
+      navigate(context, screen: const LoginScreen());
+    } else {
+      navigate(context, screen: const WelcomeScreen());
+    }
+    // if (await Permission.location.request().isGranted || Platform.isIOS) {
       // await Provider.of<LocationProvider>(context, listen: false)
       //     .setLocation(saveLocation: true);
-
-      if (introProvider.hasAppToken) {
-        navigate(context, screen: const NavigationScreen());
-      } else if (introProvider.getisSeenWelcomeScreen) {
-        navigate(context, screen: const LoginScreen());
-      } else {
-        navigate(context, screen: const WelcomeScreen());
-      }
-    } else {
-      AlertBottomSheet.showAlertBottomSheet(context,
-          iconImage: alert,
-          isDismissible: false,
-          enableDrag: false,
-          title: "Handle Permisson",
-          description:
-              "Please press OK to accept the required permission in settings",
-          okFunc: () async {
-        if (await Permission.location.request().isGranted) {
-          Navigator.pop(context);
-          _onSubmit();
-        } else {
-          await openAppSettings().whenComplete(() async {
-            if (await Permission.location.isGranted) {
-              Navigator.pop(context);
-            }
-          });
-        }
-      }, isCancelButton: false);
-    }
+    // } else {
+      // AlertBottomSheet.showAlertBottomSheet(context,
+      //     iconImage: alert,
+      //     isDismissible: false,
+      //     enableDrag: false,
+      //     title: "Handle Permisson",
+      //     description:
+      //         "Please press OK to accept the required permission in settings",
+      //     okFunc: () async {
+      //   if (await Permission.location.request().isGranted) {
+      //     Navigator.pop(context);
+      //     _onSubmit();
+      //   } else {
+      //     await openAppSettings().whenComplete(() async {
+      //       if (await Permission.location.isGranted) {
+      //         Navigator.pop(context);
+      //       }
+      //     });
+      //   }
+      // }, isCancelButton: false);
+    // }
   }
 
   @override

@@ -31,13 +31,13 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
 
-    compileSdkVersion 30
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
     }
 
 }

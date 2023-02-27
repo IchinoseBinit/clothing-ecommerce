@@ -25,10 +25,6 @@ main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-  //   statusBarColor: AppColors.primaryColor,
-  // ));
-  // HttpOverrides.global = MyHttpOverrides();p
   Stripe.publishableKey =
       "pk_test_51JT7jkCTAUDjRNFVfafy4Gskx1KzUNk8nPj8T51zzCPE18fA17DOFO6MqSZVTCxhVCSWGwouDSe0yjcObAznHLW600VBoGyDcg";
   await Stripe.instance.applySettings();
