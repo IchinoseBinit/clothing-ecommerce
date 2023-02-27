@@ -7,7 +7,6 @@ import '/main.dart';
 import '/models/cart_price_model.dart';
 import '/models/profile_model.dart';
 import '/utils/show_toast.dart';
-import 'coupon_provider.dart';
 
 class CartPriceProvider with ChangeNotifier {
   final _cartPriceApi = CartPriceApi();
@@ -49,8 +48,8 @@ class CartPriceProvider with ChangeNotifier {
 
     await _cartPriceApi.fetchCartPrice(body).then((value) {
       if (value.discount == -1) {
-        Provider.of<CouponProvider>(navKey.currentState!.context, listen: false)
-            .setCoupon("");
+        // Provider.of<CouponProvider>(navKey.currentState!.context, listen: false)
+        //     .setCoupon("");
         showToast("Invalid coupon. Check terms & expiry date.");
       }
       setCartPrice(ApiResponse.completed(value),

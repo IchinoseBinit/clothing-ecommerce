@@ -10,14 +10,12 @@ import '/providers/cart_price_provider.dart';
 import '/providers/conectivity_provider.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
-import '/providers/merchant_info_provider.dart';
 import '/providers/payment_gateway_provider.dart';
 import '/providers/place_order_provider.dart';
 import '/providers/profile_provider.dart';
 import '/screens/auth_screen/splash_screen.dart';
 import '/styles/themes.dart';
 import '/utils/navigation.dart';
-import 'providers/coupon_provider.dart';
 import 'providers/order_detail_provider.dart';
 import 'providers/orders_list_provider.dart';
 
@@ -58,12 +56,6 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<DatabaseHelperProvider>(
             create: (_) => DatabaseHelperProvider(),
-          ),
-          ChangeNotifierProvider<MerchantInfoProvider>(
-            create: (_) => MerchantInfoProvider(),
-          ),
-          ChangeNotifierProvider<CouponProvider>(
-            create: (_) => CouponProvider(),
           ),
           ChangeNotifierProvider<CartPriceProvider>(
             create: (_) => CartPriceProvider(),

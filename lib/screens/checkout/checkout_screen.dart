@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '/data/constants/image_constants.dart';
 import '/data/response/status.dart';
 import '/providers/cart_price_provider.dart';
-import '/providers/coupon_provider.dart';
 import '/providers/hive_database_helper.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
@@ -16,7 +15,6 @@ import '/widgets/custom_appbar.dart';
 import '/widgets/each_price_item.dart';
 import '/widgets/error_info_widget.dart';
 import '/widgets/general_textfield.dart';
-import '/widgets/offer_info.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final int merchantId;
@@ -65,11 +63,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           "delivery_type": merchantData["deliveryType"],
           "latitude": double.parse(latitude),
           "longitude": double.parse(longitude),
-          if (Provider.of<CouponProvider>(context, listen: false)
-                  .selectedCoupon !=
-              "")
-            "coupon_code": Provider.of<CouponProvider>(context, listen: false)
-                .selectedCoupon,
         };
         CartPriceProvider cartPriceProvider =
             Provider.of<CartPriceProvider>(context, listen: false);
@@ -83,26 +76,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         if (cartPriceProvider.cartPriceData.data!.invalidItems.isNotEmpty) {
           // await _checkIsValidItems(cpm: cartPriceProvider.cartPriceData.data!);
         }
-
       }
     }
   }
-
-
-
 
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
     if (isInit) {
-      Provider.of<CouponProvider>(context, listen: false)
-          .setCoupon("", noNotifier: true);
+      // Provider.of<CouponProvider>(context, listen: false)
+      //     .setCoupon("", noNotifier: true);
       await _apiCall();
 
       isInit = false;
     }
   }
-
 
   @override
   void dispose() {
@@ -147,8 +135,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         },
                         notes: notes,
                         merchantId: widget.merchantId,
-                        totalPrice:
-                            cartPriceProvider.cartPriceData.data!.total,
+                        totalPrice: cartPriceProvider.cartPriceData.data!.total,
                         merchantData: merchantData,
                         callDeliverySection: () async {
                           // await _checkTimeIsNotValid();
@@ -157,10 +144,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     : null,
                 appBar: CustomAppBar(
                   title: merchantData["name"],
-                  leadingFunc: widget.isFromDetail
-                      ? () {
-                        }
-                      : null,
+                  leadingFunc: widget.isFromDetail ? () {} : null,
                 ),
                 body: ScrollConfiguration(
                   behavior: MyBehaviour(),
@@ -189,12 +173,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   width: 10.w,
                                 ),
                                 Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      merchantData["deliveryType"] ==
-                                              "delivery"
+                                      merchantData["deliveryType"] == "delivery"
                                           ? "Delivery Location"
                                           : "Merchant Location",
                                       style: bodyText.copyWith(
@@ -202,16 +184,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           fontWeight: FontWeight.w600),
                                     ),
                                     SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width *
-                                              .70,
-                                      child: Text(
-                                          "Jaybageshowri kathmandu",
+                                      width: MediaQuery.of(context).size.width *
+                                          .70,
+                                      child: Text("Jaybageshowri kathmandu",
                                           softWrap: true,
                                           maxLines: 3,
                                           style: smallText.copyWith(
-                                            color:
-                                                AppColors.textSoftGreyColor,
+                                            color: AppColors.textSoftGreyColor,
                                           )),
                                     )
                                   ],
@@ -318,18 +297,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                           if (cartPriceProvider
                                                                   .cartPriceData
                                                                   .data!
-                                                                  .items[
-                                                                      index]
+                                                                  .items[index]
                                                                   .specialPrice !=
                                                               0.0)
                                                             Text(
                                                               "${cartPriceProvider.cartPriceData.data!.currency} ${cartPriceProvider.cartPriceData.data!.items[index].specialPrice.toStringAsFixed(2)}",
-                                                              style:
-                                                                  TextStyle(
+                                                              style: TextStyle(
                                                                 color: AppColors
                                                                     .textDarkColor,
-                                                                fontSize:
-                                                                    12.sp,
+                                                                fontSize: 12.sp,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -338,8 +314,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                           if (cartPriceProvider
                                                                   .cartPriceData
                                                                   .data!
-                                                                  .items[
-                                                                      index]
+                                                                  .items[index]
                                                                   .specialPrice !=
                                                               0.0)
                                                             SizedBox(
@@ -348,10 +323,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                           Text(
                                                             "${cartPriceProvider.cartPriceData.data!.currency} ${cartPriceProvider.cartPriceData.data!.items[index].retailPrice.toStringAsFixed(2)}",
                                                             style: smallText.copyWith(
-                                                                fontSize: cartPriceProvider.cartPriceData.data!.items[index].specialPrice !=
-                                                                        0.0
-                                                                    ? 10.sp
-                                                                    : 12.sp,
+                                                                fontSize:
+                                                                    cartPriceProvider.cartPriceData.data!.items[index].specialPrice !=
+                                                                            0.0
+                                                                        ? 10.sp
+                                                                        : 12.sp,
                                                                 color: cartPriceProvider.cartPriceData.data!.items[index].specialPrice !=
                                                                         0.0
                                                                     ? AppColors
@@ -391,8 +367,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                             BoxDecoration(
                                                           color: AppColors
                                                               .lightPrimaryColor
-                                                              .withOpacity(
-                                                                  0.5),
+                                                              .withOpacity(0.5),
                                                           border: Border.all(
                                                             color: AppColors
                                                                 .primaryColor,
@@ -411,25 +386,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                                   .spaceBetween,
                                                           children: <Widget>[
                                                             GestureDetector(
-                                                              onTap:
-                                                                  () async {
+                                                              onTap: () async {
                                                                 cartPriceProvider
                                                                     .decreaseQuantity(
                                                                   item: cartPriceProvider
                                                                       .cartPriceData
                                                                       .data!
                                                                       .items[index],
-                                                                  merchantId:
-                                                                      widget
-                                                                          .merchantId,
+                                                                  merchantId: widget
+                                                                      .merchantId,
                                                                 );
 
                                                                 _apiCall(
                                                                     isRefreshContent:
                                                                         true);
                                                               },
-                                                              child:
-                                                                  Container(
+                                                              child: Container(
                                                                 padding: const EdgeInsets
                                                                         .only(
                                                                     left: AppSizes
@@ -446,7 +418,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                                   ),
                                                                 ),
                                                                 child: Icon(
-                                                                  cartPriceProvider.cartPriceData.data!.items[index].selectedQuantity ==
+                                                                  cartPriceProvider
+                                                                              .cartPriceData
+                                                                              .data!
+                                                                              .items[
+                                                                                  index]
+                                                                              .selectedQuantity ==
                                                                           1
                                                                       ? Icons
                                                                           .delete_sweep_outlined
@@ -475,24 +452,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                               ),
                                                             ),
                                                             GestureDetector(
-                                                              onTap:
-                                                                  () async {
+                                                              onTap: () async {
                                                                 await cartPriceProvider
                                                                     .increaseQuantity(
                                                                   item: cartPriceProvider
                                                                       .cartPriceData
                                                                       .data!
                                                                       .items[index],
-                                                                  merchantId:
-                                                                      widget
-                                                                          .merchantId,
+                                                                  merchantId: widget
+                                                                      .merchantId,
                                                                 );
                                                                 _apiCall(
                                                                     isRefreshContent:
                                                                         true);
                                                               },
-                                                              child:
-                                                                  Container(
+                                                              child: Container(
                                                                 padding: const EdgeInsets
                                                                         .only(
                                                                     right: AppSizes
@@ -534,13 +508,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                           0.0)
                                                         Text(
                                                           "${cartPriceProvider.cartPriceData.data!.currency} ${cartPriceProvider.cartPriceData.data!.items[index].specialPriceTotal.toStringAsFixed(2)}",
-                                                          style: bodyText
-                                                              .copyWith(
+                                                          style:
+                                                              bodyText.copyWith(
                                                             color: AppColors
                                                                 .textDarkColor,
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .w500,
+                                                                FontWeight.w500,
                                                           ),
                                                         ),
                                                       if (cartPriceProvider
@@ -551,13 +524,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                           0.0)
                                                         Text(
                                                           "${cartPriceProvider.cartPriceData.data!.currency} ${cartPriceProvider.cartPriceData.data!.items[index].retailPriceTotal.toStringAsFixed(2)}",
-                                                          style: bodyText
-                                                              .copyWith(
+                                                          style:
+                                                              bodyText.copyWith(
                                                             color: AppColors
                                                                 .textDarkColor,
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .w500,
+                                                                FontWeight.w500,
                                                           ),
                                                         ),
                                                     ],
@@ -606,14 +578,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     "delivery")
                                   Column(
                                     children: [
-                                      if (cartPriceProvider.cartPriceData
-                                              .data!.deliveryFee !=
+                                      if (cartPriceProvider.cartPriceData.data!
+                                              .deliveryFee !=
                                           -1)
                                         const SizedBox(
                                           height: AppSizes.padding,
                                         ),
-                                      if (cartPriceProvider.cartPriceData
-                                              .data!.deliveryFee !=
+                                      if (cartPriceProvider.cartPriceData.data!
+                                              .deliveryFee !=
                                           -1)
                                         EachPriceItem(
                                             title: "Delivery Fee",
@@ -648,8 +620,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     // promoCode: cartPriceProvider
                                     //     .cartPriceData.data!.couponCode,
                                     title: "Discount",
-                                    value: cartPriceProvider.cartPriceData
-                                                .data!.discount ==
+                                    value: cartPriceProvider
+                                                .cartPriceData.data!.discount ==
                                             0.0
                                         ? ""
                                         : "${cartPriceProvider.cartPriceData.data!.currency} ${cartPriceProvider.cartPriceData.data!.discount.toStringAsFixed(2)}",
@@ -660,29 +632,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         if (databaseData?[widget.merchantId] != null)
                           Divider(
                             height: 20.h,
-                          ),
-                        if (databaseData?[widget.merchantId] != null)
-                          const SizedBox(
-                            height: AppSizes.padding / 2,
-                          ),
-                        if (databaseData?[widget.merchantId] != null)
-                          OfferInfo(
-                            merchantId: widget.merchantId,
-                            onBtnTap: (value) async {
-                              CouponProvider couponProvider =
-                                  Provider.of<CouponProvider>(context,
-                                      listen: false);
-                              if (value != null) {
-                                if (value == "") {
-                                  couponProvider.setCoupon("");
-                                  await _apiCall(isRefreshContent: true);
-                                } else {
-                                  Navigator.pop(context);
-                                  couponProvider.setCoupon(value);
-                                  await _apiCall(isRefreshContent: true);
-                                }
-                              }
-                            },
                           ),
                         if (databaseData?[widget.merchantId] != null)
                           const SizedBox(
