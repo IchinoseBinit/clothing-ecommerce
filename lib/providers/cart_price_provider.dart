@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
-
 import '/api/cart_price_api.dart';
 import '/data/response/api_response.dart';
-import '/main.dart';
 import '/models/cart_price_model.dart';
 import '/models/profile_model.dart';
 import '/utils/show_toast.dart';
@@ -55,22 +52,12 @@ class CartPriceProvider with ChangeNotifier {
       setCartPrice(ApiResponse.completed(value),
           isRefreshContent: isRefreshContent);
     }).onError((error, stackTrace) async {
-      // if (error.toString().toLowerCase().contains("coupon") ||
-      //     error.toString().toLowerCase().contains("invalid") ||
-      //     error.toString().toLowerCase().contains("code")) {
-      //   Provider.of<CouponProvider>(navKey.currentState!.context, listen: false)
-      //       .setCoupon("");
-      //   body.remove("coupon_code");
-      // await  fetchCartPrice(body, isRefreshContent: isRefreshContent);
-      // }
       showToast(error.toString());
 
       if (isRefreshContent) {
         contentRefreshLoading = false;
         notifyListeners();
       }
-      // setCartPrice(ApiResponse.error(error.toString()),
-      //     isRefreshContent: isRefreshContent);
     });
   }
 }
