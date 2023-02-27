@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:clothing_ecommerce/environment_config.dart';
 
 class AppUrl {
   static final String apiKey = Platform.isAndroid ? androidKey : androidKey;
@@ -18,7 +17,9 @@ class AppUrl {
       "JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R";
   // static const String esewaTestSecretKey =
   //     "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==";
-  static var baseUrl = 'https://myfoodapi.indulgemall.com/api/v1';
+  static var baseUrl = EnvironmentConfig.isProd == "true"
+      ? ""
+      : 'https://myfoodapi.indulgemall.com/api/v1';
   static const String androidKey = 'AIzaSyDfjyHuSMqkLHM-vw9Dvj71yJ9MqoF3d20';
   static String loginUrl = '$baseUrl/auth/customers/jwt/token/';
   static String registerApiUrl = '$baseUrl/auth/customers/registration/';
