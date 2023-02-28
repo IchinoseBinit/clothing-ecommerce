@@ -1,6 +1,6 @@
 const String baseAsset = "assets/images";
-const String defaultBanner = "$baseAsset/default_banner.png";
 const String noInternet = "$baseAsset/no_internet.png";
+const String defaultBanner = "$baseAsset/default_banner.jpg";
 const String pageNotFound = "$baseAsset/page_not_found.svg";
 const String userMarker = "$baseAsset/user_marker.png";
 const String merchantMarker = "$baseAsset/shop_marker.png";

@@ -13,7 +13,7 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
 
-  late List<Widget> meroWidget = <Widget>[
+  late List<Widget> navScreens = <Widget>[
     // const MerchantListScreen(),
     // const FavouriteMerchantListScreen(),
     // const CartScreen(),
@@ -31,7 +31,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: meroWidget.elementAt(_selectedIndex),
+        child: navScreens.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.white,
