@@ -45,11 +45,7 @@ class ErrorInfoWidget extends StatelessWidget {
                 ),
               if (!dontShowImage && !isCart)
                 SvgPicture.asset(
-                  isLocation
-                      ? noLocationFound
-                      : isFoodItems
-                          ? noFood
-                          : pageNotFound,
+                  pageNotFound,
                   height: 110.h,
                   color: (isFoodItems || isLocation)
                       ? null
