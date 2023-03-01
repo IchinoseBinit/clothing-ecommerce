@@ -16,10 +16,10 @@ eachHelpText() {
       ),
       GestureDetector(
         onTap: () {
-          launchUrl(Uri.parse("mailto:hello@rhinopass.com"));
+          launchUrl(Uri.parse("mailto:hello@clothing-ecommerence.com"));
         },
         child: Text(
-          "hello@rhinopass.com.",
+          "hello@clothing-ecommerence.com.",
           style: smallText.copyWith(
             color: AppColors.primaryColor,
           ),

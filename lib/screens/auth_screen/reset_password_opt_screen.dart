@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:clothing_ecommerce/data/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -17,6 +18,7 @@ import '/utils/validation_mixin.dart';
 import '/widgets/custom_appbar.dart';
 import '/widgets/general_textfield.dart';
 import '/widgets/reusable_widgets.dart';
+import 'login_screen.dart';
 
 class ResetPasswordOptScreen extends StatefulWidget {
   final String email;
@@ -84,33 +86,19 @@ class _ResetPasswordOptScreenState extends State<ResetPasswordOptScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 60.h,
+                      height: 20.h,
+                    ),
+                    AuthTemplate(
+                      title: "Enter Code",
+                      subTitle: "Code has been sent to ${widget.email}.",
+                      image: otpIcon,
+                    ),
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Enter Code",
-                              style: bigTitleText.copyWith(
-                                  fontWeight: FontWeight.w500, height: 0),
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Text(
-                              "Code has been sent to ${widget.email}.",
-                              style: bodyText.copyWith(
-                                color: AppColors.textSoftGreyColor,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 24.h,
-                        ),
                         Column(
                           children: [
                             OTPTextField(

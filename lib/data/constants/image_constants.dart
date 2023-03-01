@@ -20,5 +20,5 @@ const String appLogo = "$baseAsset/logo.png";
 const String changePasswordIcon = "$baseAsset/auth/change password.svg";
 const String loginIcon = "$baseAsset/auth/login.svg";
 const String otpIcon = "$baseAsset/auth/opt.svg";
-const String forgetPasswordIcon = "$baseAsset/forget password.svg";
+const String forgetPasswordIcon = "$baseAsset/auth/forget password.svg";
 // const String staticImageUrl = "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80";

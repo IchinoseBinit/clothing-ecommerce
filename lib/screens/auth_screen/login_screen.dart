@@ -1,5 +1,7 @@
+import 'package:clothing_ecommerce/data/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '/data/constants/routes_name.dart';
@@ -131,71 +133,52 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 60.h,
+                      height: 20.h,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Welcome Back!",
-                              style: bigTitleText.copyWith(
-                                  fontWeight: FontWeight.w500, height: 0),
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Text(
-                              "Please log in to continue.",
-                              style: bodyText.copyWith(
-                                color: AppColors.textSoftGreyColor,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 24.h,
-                        ),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              //Email Text Field
-                              GeneralTextField(
-                                textInputAction: TextInputAction.done,
-                                validate: Validation().validateEmail,
-                                keywordType: TextInputType.emailAddress,
-                                focusNode: emailFocusNode,
-                                labelText: 'E-mail',
-                                controller: _emailController,
-                              ),
-                              SizedBox(
-                                height: 16.h,
-                              ),
-                              GeneralTextField(
-                                obscureText: _dontShowPassword,
-                                suffixIcon: _dontShowPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                onClickPsToggle: () {
-                                  setState(() {
-                                    _dontShowPassword = !_dontShowPassword;
-                                  });
-                                },
-                                textInputAction: TextInputAction.done,
-                                validate: (value) => Validation()
-                                    .validate(value, title: "Password"),
-                                keywordType: TextInputType.emailAddress,
-                                focusNode: passwordFocusNode,
-                                labelText: 'Password',
-                                controller: _passwordController,
-                              ),
-                            ],
+                    const AuthTemplate(
+                      title: "Welcome Back!",
+                      subTitle: "Please log in to continue.",
+                      image: loginIcon,
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          //Email Text Field
+                          GeneralTextField(
+                            textInputAction: TextInputAction.done,
+                            validate: Validation().validateEmail,
+                            keywordType: TextInputType.emailAddress,
+                            focusNode: emailFocusNode,
+                            labelText: 'E-mail',
+                            controller: _emailController,
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          GeneralTextField(
+                            obscureText: _dontShowPassword,
+                            suffixIcon: _dontShowPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            onClickPsToggle: () {
+                              setState(() {
+                                _dontShowPassword = !_dontShowPassword;
+                              });
+                            },
+                            textInputAction: TextInputAction.done,
+                            validate: (value) => Validation()
+                                .validate(value, title: "Password"),
+                            keywordType: TextInputType.emailAddress,
+                            focusNode: passwordFocusNode,
+                            labelText: 'Password',
+                            controller: _passwordController,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 8.h,
@@ -287,5 +270,47 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     ]);
+  }
+}
+
+class AuthTemplate extends StatelessWidget {
+  final String title;
+  final String subTitle;
+  final String image;
+  const AuthTemplate({
+    Key? key,
+    required this.title,
+    required this.subTitle,
+    required this.image,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Center(
+          child: SvgPicture.asset(
+            image,
+          ),
+        ),
+        SizedBox(
+          height: 20.h,
+        ),
+        Text(
+          title,
+          style: bigTitleText.copyWith(fontWeight: FontWeight.w500, height: 0),
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        Text(
+          subTitle,
+          style: bodyText.copyWith(
+            color: AppColors.textSoftGreyColor,
+          ),
+        )
+      ],
+    );
   }
 }

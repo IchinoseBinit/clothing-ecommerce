@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:clothing_ecommerce/data/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -8,15 +9,14 @@ import 'package:provider/provider.dart';
 
 import '/providers/auth_provider.dart';
 import '/screens/merchant_list/widgets/general_elevated_button.dart';
-import '/screens/navigation_screen.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 import '/styles/styles.dart';
 import '/utils/custom_scroll_behaviour.dart';
-import '/utils/navigation_util.dart';
 import '/utils/show_toast.dart';
 import '/widgets/custom_appbar.dart';
 import '/widgets/reusable_widgets.dart';
+import 'login_screen.dart';
 
 class RegisterOptScreen extends StatefulWidget {
   final String email;
@@ -82,67 +82,44 @@ class _RegisterOptScreenState extends State<RegisterOptScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 60.h,
+                      height: 20.h,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Enter Code",
-                              style: bigTitleText.copyWith(
-                                  fontWeight: FontWeight.w500, height: 0),
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Text(
-                              "Code has been sent to ${widget.email}.",
-                              style: bodyText.copyWith(
-                                color: AppColors.textSoftGreyColor,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 24.h,
-                        ),
-                        Column(
-                          children: [
-                            OTPTextField(
-                                controller: otpController,
-                                length: 6,
-                                width: MediaQuery.of(context).size.width,
-                                textFieldAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                fieldWidth: 40.w,
-                                keyboardType: TextInputType.number,
-                                margin: EdgeInsets.zero,
-                                fieldStyle: FieldStyle.box,
-                                otpFieldStyle: OtpFieldStyle(
-                                  backgroundColor:
-                                      AppColors.textFieldInputColor,
-                                  borderColor: AppColors.greyColor,
-                                  focusBorderColor: AppColors.primaryColor,
-                                  enabledBorderColor: AppColors.greyColor,
-                                ),
-                                outlineBorderRadius: AppSizes.radius,
-                                style: bodyText,
-                                contentPadding: EdgeInsets.zero,
-                                onChanged: (pin) {
-                                  log("Changed: $pin");
-                                  otp = pin;
-                                },
-                                onCompleted: (pin) {
-                                  log("Completed: $pin");
-                                  otp = pin;
-                                }),
-                          ],
-                        ),
-                      ],
+                    AuthTemplate(
+                      title: "Enter Code",
+                      subTitle: "Code has been sent to ${widget.email}.",
+                      image: otpIcon,
                     ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    OTPTextField(
+                        controller: otpController,
+                        length: 6,
+                        width: MediaQuery.of(context).size.width,
+                        textFieldAlignment:
+                            MainAxisAlignment.spaceBetween,
+                        fieldWidth: 40.w,
+                        keyboardType: TextInputType.number,
+                        margin: EdgeInsets.zero,
+                        fieldStyle: FieldStyle.box,
+                        otpFieldStyle: OtpFieldStyle(
+                          backgroundColor:
+                              AppColors.textFieldInputColor,
+                          borderColor: AppColors.greyColor,
+                          focusBorderColor: AppColors.primaryColor,
+                          enabledBorderColor: AppColors.greyColor,
+                        ),
+                        outlineBorderRadius: AppSizes.radius,
+                        style: bodyText,
+                        contentPadding: EdgeInsets.zero,
+                        onChanged: (pin) {
+                          log("Changed: $pin");
+                          otp = pin;
+                        },
+                        onCompleted: (pin) {
+                          log("Completed: $pin");
+                          otp = pin;
+                        }),
                     SizedBox(
                       height: 8.h,
                     ),
