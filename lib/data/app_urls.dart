@@ -18,7 +18,7 @@ class AppUrl {
   // static const String esewaTestSecretKey =
   //     "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==";
   static var baseUrl =
-      EnvironmentConfig.isProd == "true" ? "" : 'http://127.0.0.1:8000/api/v1';
+      EnvironmentConfig.isProd == "true" ? "" : 'http://127.0.0.1:8000';
   static const String androidKey = 'AIzaSyDfjyHuSMqkLHM-vw9Dvj71yJ9MqoF3d20';
   static String loginUrl = '$baseUrl/users/login/';
   static String registerApiUrl = '$baseUrl/users/register/';

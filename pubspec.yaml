@@ -33,7 +33,7 @@ dependencies:
   fluttertoast: ^8.1.2
   otp_text_field: ^1.1.3
   extended_phone_number_input: ^1.0.2
-  flutter_stripe: ^9.0.0
+  flutter_stripe: ^8.0.0+1
   cupertino_icons: ^1.0.5
 
 dev_dependencies:
