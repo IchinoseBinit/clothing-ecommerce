@@ -8,7 +8,6 @@ import '/data/constants/routes_name.dart';
 import '/models/login_model.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
-import '/screens/auth_screen/register_otp_screen.dart';
 import '/screens/auth_screen/reset_password_opt_screen.dart';
 import '/utils/navigation_util.dart';
 import '/utils/show_toast.dart';
@@ -103,25 +102,21 @@ class AuthProvider with ChangeNotifier {
     _myRepo.loginApi(body).then((value) async {
       setLoading(false);
 
-      await DatabaseHelper().addBoxItem(key: "email", value: email.trim());
-      final userPreference =
+      // await DatabaseHelper().addBoxItem(key: "email", value: email.trim());
+      final dbHelper =
           Provider.of<DatabaseHelperProvider>(context, listen: false);
-      await userPreference.saveToken(LoginModel(
-        accessToken: value['access_token'],
-        refreshToken: value['refresh_token'],
+      await dbHelper.saveToken(LoginModel(
+        accessToken: value['data']["access"],
+        refreshToken: value['data']["refresh"],
       ));
       await Provider.of<IntroProvider>(context, listen: false).call();
       showToast("Login Successfully");
       log(_isGuest.toString(), name: "Is Guest");
-      if (_isGuest) {
-        Navigator.of(context, rootNavigator: true).pop();
-        Navigator.of(context).pop();
-        _isGuest = false;
-        //  Navigator.of(context).popUntil((route) => route.isCurrent);
-      } else if (isFromRefreshToken) {
+      if (isFromRefreshToken) {
         Navigator.of(context).pop();
       } else {
-        Navigator.pushReplacementNamed(context, RoutesName.navigationRoute);
+        // Navigator.pushReplacementNamed(context, RoutesName.navigationRoute);
+        Navigator.pushReplacementNamed(context, RoutesName.homeRoute);
       }
 
       if (kDebugMode) {
@@ -137,23 +132,24 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
-  Future<void> signUp(BuildContext context,
+  Future<void> register(BuildContext context,
       {required Map<String, dynamic> data,
       required bool isFromCheckout,
       bool isFromOtpScreen = false}) async {
     setSignUpLoading(true);
 
-    _myRepo.signUpApi(data).then((value) {
+    _myRepo.registerApi(data).then((value) {
       setSignUpLoading(false);
-
-      showToast("Send Code Successfully");
-      if (!isFromOtpScreen) {
-        navigate(context,
-            screen: RegisterOptScreen(
-              email: data["email"],
-              data: data,
-            ));
-      }
+      showToast("Registered Successfully");
+      Navigator.pushReplacementNamed(context, RoutesName.homeRoute);
+      // showToast("Send Code Successfully");
+      // if (!isFromOtpScreen) {
+      //   navigate(context,
+      //       screen: RegisterOptScreen(
+      //         email: data["email"],
+      //         data: data,
+      //       ));
+      // }
       if (kDebugMode) {
         log(value.toString());
       }

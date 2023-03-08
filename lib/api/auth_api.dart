@@ -12,24 +12,18 @@ class AuthApi {
       log(AppUrl.loginUrl.toString(), name: "URL LOgin");
       dynamic response = await _rhino.request(
           url: AppUrl.loginUrl, parameter: data, requestType: RequestType.post);
-      // dynamic response = await _apiServices.getPostApiResponseWithHeader(
-      //     AppUrl.loginEndPoint, data);
-      // log(response.toString(), name: "Response from Login");
       return response;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<dynamic> signUpApi(Map<String, dynamic> data) async {
+  Future<dynamic> registerApi(Map<String, dynamic> data) async {
     try {
       dynamic response = await _rhino.request(
           url: AppUrl.registerApiUrl,
           parameter: data,
           requestType: RequestType.post);
-
-      // dynamic response = await _apiServices.getPostApiResponseWithHeader(
-      //     AppUrl.registerApiEndPoint, data);
       log(data.toString(), name: "Sign Up Data");
       return response;
     } catch (e) {

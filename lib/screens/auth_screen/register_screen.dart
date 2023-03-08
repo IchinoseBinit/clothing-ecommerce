@@ -76,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'subscribe_newsletter': _checkBox.toString().trim(),
       };
 
-      Provider.of<AuthProvider>(context, listen: false).signUp(
+      Provider.of<AuthProvider>(context, listen: false).register(
         context,
         isFromCheckout: widget.isFromCheckout,
         data: data,

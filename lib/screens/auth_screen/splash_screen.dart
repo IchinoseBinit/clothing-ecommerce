@@ -108,7 +108,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Image.asset(appLogo),
                   ),
                   Text(
-                    "RhinoPass",
+                    "E-Clothing",
                     style: bigTitleText.copyWith(
                       color: AppColors.whiteColor,
                     ),

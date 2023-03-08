@@ -1,3 +1,4 @@
+import 'package:clothing_ecommerce/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '/data/constants/routes_name.dart';
@@ -10,29 +11,24 @@ import '/screens/auth_screen/welcome_screen.dart';
 import '/screens/navigation_screen.dart';
 import '/widgets/no_internet_screen.dart';
 
-class Navigation {
+class GenerateNavigation {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutesName.introRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const WelcomeScreen());
-
+      case RoutesName.homeRoute:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const HomeScreen());
       case RoutesName.loginRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const LoginScreen());
-
       case RoutesName.registerRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const RegisterScreen());
-
       case RoutesName.forgotPasswordRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ForgotPasswordScreen());
-
-      // case RoutesName.homeRoute:
-      //   return MaterialPageRoute(
-      //       builder: (BuildContext context) => const MerchantListScreen());
-
       case RoutesName.navigationRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const NavigationScreen());

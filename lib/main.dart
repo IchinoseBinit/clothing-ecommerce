@@ -15,7 +15,7 @@ import '/providers/place_order_provider.dart';
 import '/providers/profile_provider.dart';
 import '/screens/auth_screen/splash_screen.dart';
 import '/styles/themes.dart';
-import '/utils/navigation.dart';
+import 'utils/generate_navigation.dart';
 import 'providers/order_detail_provider.dart';
 import 'providers/orders_list_provider.dart';
 
@@ -84,10 +84,10 @@ class MyApp extends StatelessWidget {
                   return MaterialApp(
                     navigatorKey: navKey,
                     debugShowCheckedModeBanner: false,
-                    title: 'RhinoPass',
+                    title: 'E-Clothing',
                     theme: theme,
                     home: const SplashScreen(),
-                    onGenerateRoute: Navigation.generateRoute,
+                    onGenerateRoute: GenerateNavigation.generateRoute,
                     supportedLocales: const [
                       Locale('en', 'US'),
                       Locale('ne', 'NP'),

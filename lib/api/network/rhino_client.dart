@@ -256,8 +256,7 @@ class RhinoClient {
             isFromRefreshToken: true,
           ));
       DatabaseHelperProvider().deleteToken();
-      log(ex.message,
-          name: "Error form dio catch in the refreshTokenApi Function");
+      log(ex.message ?? "Refresh Token Error");
     }
     return null;
   }
