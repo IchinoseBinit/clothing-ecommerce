@@ -75,7 +75,7 @@ class _ResetPasswordOptScreenState extends State<ResetPasswordOptScreen> {
             title: "Reset Password",
             centerTitle: false,
             // leadingFunc: () =>
-            //     navigate(context, screen: const NavigationScreen()),
+            //     navigate(context,  const NavigationScreen()),
           ),
           body: ScrollConfiguration(
             behavior: MyBehaviour(),

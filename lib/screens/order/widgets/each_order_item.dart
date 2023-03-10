@@ -20,7 +20,7 @@ class EachOrderItem extends StatelessWidget {
       onTap: () {
         navigate(
           context,
-          screen: OrderDetailScreen(orderCode: olModel.orderCode),
+          OrderDetailScreen(orderCode: olModel.orderCode),
         );
       },
       child: Container(

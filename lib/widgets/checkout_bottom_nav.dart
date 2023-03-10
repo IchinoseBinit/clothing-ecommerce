@@ -102,7 +102,7 @@ class CheckoutBottomNav extends StatelessWidget {
                             Provider.of<AuthProvider>(context, listen: false)
                                 .setIsGuest(true);
                             await navigate(context,
-                                screen: const LoginScreen());
+                                 const LoginScreen());
                             String? token = await DatabaseHelper()
                                 .getBoxItem(key: "access_token");
                             if (token != null) {
@@ -139,7 +139,7 @@ class CheckoutBottomNav extends StatelessWidget {
                                 null) {
                               navigate(
                                 context,
-                                screen: PaymentScreen(
+                                 PaymentScreen(
                                   notes: notes,
                                   merchantData: merchantData,
                                   merchantName: merchantData["name"],
@@ -163,7 +163,7 @@ class CheckoutBottomNav extends StatelessWidget {
     if (merchantData["timeslot"] != null && token != null) {
       navigate(
         context,
-        screen: PaymentScreen(
+         PaymentScreen(
           notes: notes,
           merchantData: merchantData,
           merchantName: merchantData["name"],

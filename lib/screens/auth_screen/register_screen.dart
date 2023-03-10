@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:extended_phone_number_input/phone_number_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '/data/constants/routes_name.dart';
@@ -34,6 +35,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _dobController = TextEditingController();
   // final TextEditingController _passwordController = TextEditingController();
   // final TextEditingController _confirmPasswordController =
   //     TextEditingController();
@@ -41,6 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   FocusNode nameFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
+  FocusNode dobFocusNode = FocusNode();
   FocusNode phoneFocusNode = FocusNode();
   // FocusNode passwordFocusNode = FocusNode();
   // FocusNode confirmFocusNode = FocusNode();
@@ -57,6 +60,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _nameController.dispose();
     _phoneController.dispose();
     emailFocusNode.dispose();
+    _dobController.dispose();
+    dobFocusNode.dispose();
     // _passwordController.dispose();
     // _confirmPasswordController.dispose();
     // passwordFocusNode.dispose();
@@ -71,6 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'email': _emailController.text.toString().trim(),
         // 'password1': _passwordController.text.toString().trim(),
         // 'password2': _confirmPasswordController.text.toString().trim(),
+        'date_of_birth': '',
         'mobile_number':
             "${_phoneController.selectedCountry.dialCode.trim()}-${_phoneController.phoneNumber.trim()}",
       };
@@ -94,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: IconButton(
               onPressed: () => navigate(
                 context,
-                screen: const NavigationScreen(),
+                const NavigationScreen(),
               ),
               icon: Icon(
                 size: 24.r,
@@ -145,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: Column(
                         children: [
                           GeneralTextField(
-                            textInputAction: TextInputAction.go,
+                            textInputAction: TextInputAction.next,
                             validate: (name) =>
                                 Validation().validate(name, title: "Full Name"),
                             keywordType: TextInputType.name,
@@ -157,8 +163,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: 16.h,
                           ),
                           GeneralTextField(
-                            textInputAction: TextInputAction.go,
-                            validate: Validation().validateEmail,
+                            textInputAction: TextInputAction.next,
+                            validate: (v) => Validation().validateEmail(v),
                             keywordType: TextInputType.emailAddress,
                             focusNode: emailFocusNode,
                             labelText: 'E-Mail',
@@ -169,7 +175,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
 
                           PhoneField(phoneController: _phoneController),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          GeneralTextField(
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                  context: context, //context of current state
+                                  initialDate: DateTime.now()
+                                      .add(const Duration(days: -(365 * 10))),
+                                  firstDate: DateTime(
+                                      1900), //DateTime.now() - not to allow to choose before today.
+                                  lastDate: DateTime.now());
 
+                              if (pickedDate != null) {
+                                String formattedDate =
+                                    DateFormat('yyyy-MM-dd').format(pickedDate);
+                                _dobController.text = formattedDate;
+                              } else {
+                                log("Date is not selected");
+                              }
+                            },
+                            textInputAction: TextInputAction.done,
+                            validate: (value) => Validation()
+                                .validate(value, title: "Date of birth"),
+                            keywordType: TextInputType.datetime,
+                            focusNode: dobFocusNode,
+                            labelText: 'Date of birth',
+                            controller: _dobController,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
                           // SizedBox(
                           //   child: IntlPhoneField(
                           //     flagsButtonMargin: EdgeInsets.only(

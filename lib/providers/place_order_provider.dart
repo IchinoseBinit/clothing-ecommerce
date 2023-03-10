@@ -100,7 +100,7 @@ class PlaceOrderProvider with ChangeNotifier {
     await _orderApi
         .placeOrderApi(body: body, url: AppUrl.placefinalOrderUrl)
         .then((value) async {
-      navigate(context, screen: const SuccessScreen());
+      navigate(context, const SuccessScreen());
       Map databaseData = await DatabaseHelper().getBoxItem(key: "cart");
       log(databaseData.toString(), name: "place success order");
 

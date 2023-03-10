@@ -28,7 +28,6 @@ class SuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Consumer<PlaceOrderProvider>(builder: (_, orderProvider, __) {
       final bool isDelivery =
           orderProvider.firstPlaceOrderData.data!.orderType == "delivery";
@@ -59,9 +58,7 @@ class SuccessScreen extends StatelessWidget {
                   title: "Done",
                   marginH: AppSizes.paddingLg,
                   onPressed: () {
-                    navigate(context,
-                        screen: navigate(context,
-                            screen: const NavigationScreen()));
+                    navigate(context, const NavigationScreen());
                   },
                 ),
                 const SizedBox(

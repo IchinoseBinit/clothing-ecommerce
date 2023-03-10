@@ -31,14 +31,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.didChangeDependencies();
     if (isInit) {
       SchedulerBinding.instance.addPostFrameCallback((_) async {
-        if (!Provider.of<IntroProvider>(context, listen: false).hasAppToken) {
-          await navigate(
-            context,
-            screen: const LoginScreen(
-              isFromRefreshToken: true,
-            ),
-          );
-        }
         Provider.of<ProfileProvider>(context, listen: false)
             .fetchProfileApi(noNotifer: false);
         isInit = false;

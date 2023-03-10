@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
           : () {
               navigate(
                 context,
-                screen: const NavigationScreen(),
+                 const NavigationScreen(),
               );
               return Future.value(true);
             },
@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     : () {
                         navigate(
                           context,
-                          screen: const NavigationScreen(),
+                           const NavigationScreen(),
                         );
                       },
                 icon: Icon(

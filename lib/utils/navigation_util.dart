@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-navigate(BuildContext context, {required Widget screen}) {
+navigate(BuildContext context, Widget screen) {
   return Navigator.push(
     context,
     MaterialPageRoute(
@@ -9,7 +9,7 @@ navigate(BuildContext context, {required Widget screen}) {
   );
 }
 
-navigateNamedReplacement(BuildContext context, {required String routeName}) {
+navigateNamedReplacement(BuildContext context, String routeName) {
   return Navigator.pushReplacementNamed(
     context,
     routeName,

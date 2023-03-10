@@ -5,16 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '/data/response/status.dart';
-import '/providers/intro_notifier.dart';
 import '/providers/orders_list_provider.dart';
-import '/screens/auth_screen/login_screen.dart';
-import '/screens/order/history_order_list_screen.dart';
 import '/screens/order/widgets/each_order_item.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 import '/styles/styles.dart';
 import '/utils/custom_scroll_behaviour.dart';
-import '/utils/navigation_util.dart';
 import '/utils/order_list_type.dart';
 import '/utils/will_pop_scope.dart';
 import '/widgets/custom_appbar.dart';
@@ -58,7 +54,7 @@ class UpcomingOrderListScreenState extends State<UpcomingOrderListScreen> {
               onTap: () async {
                 Provider.of<AuthProvider>(context, listen: false)
                     .logout(context);
-                // await navigate(context, screen: const HistoryListScreen());
+                // await navigate(context,  const HistoryListScreen());
                 // Provider.of<OrderListProvider>(context, listen: false)
                 //     .fetchOrderList(orderListType: OrderListType.upcoming);
               },

@@ -116,7 +116,7 @@ class AuthProvider with ChangeNotifier {
         Navigator.of(context).pop();
       } else {
         // Navigator.pushReplacementNamed(context, RoutesName.navigationRoute);
-        Navigator.pushReplacementNamed(context, RoutesName.homeRoute);
+        navigateNamedReplacement(context, RoutesName.navigationRoute);
       }
 
       if (kDebugMode) {
@@ -141,7 +141,7 @@ class AuthProvider with ChangeNotifier {
     _myRepo.registerApi(data).then((value) {
       setSignUpLoading(false);
       showToast("Registered Successfully");
-      Navigator.pushReplacementNamed(context, RoutesName.homeRoute);
+      navigateNamedReplacement(context, RoutesName.navigationRoute);
       // showToast("Send Code Successfully");
       // if (!isFromOtpScreen) {
       //   navigate(context,
@@ -187,8 +187,9 @@ class AuthProvider with ChangeNotifier {
 
       showToast("Sent OTP Successfully");
       if (!isFromOtpScreen) {
-        navigate(context,
-            screen: ResetPasswordOptScreen(
+        navigate(
+            context,
+            ResetPasswordOptScreen(
               email: data["email"],
             ));
       }

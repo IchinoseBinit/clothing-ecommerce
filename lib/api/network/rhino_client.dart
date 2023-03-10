@@ -248,7 +248,7 @@ class RhinoClient {
       return dataModel.access;
     } on DioError catch (ex) {
       navigate(navKey.currentState!.context,
-          screen: const LoginScreen(
+         const LoginScreen(
             isFromRefreshToken: true,
           ));
       DatabaseHelperProvider().deleteToken();
