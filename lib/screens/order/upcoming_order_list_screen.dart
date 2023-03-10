@@ -1,3 +1,4 @@
+import 'package:clothing_ecommerce/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,14 +35,6 @@ class UpcomingOrderListScreenState extends State<UpcomingOrderListScreen> {
     super.didChangeDependencies();
     if (isInit) {
       SchedulerBinding.instance.addPostFrameCallback((_) async {
-        if (!Provider.of<IntroProvider>(context, listen: false).hasAppToken) {
-          await navigate(
-            context,
-            screen: const LoginScreen(
-              isFromRefreshToken: true,
-            ),
-          );
-        }
         Provider.of<OrderListProvider>(context, listen: false)
             .fetchOrderList(orderListType: OrderListType.upcoming);
         isInit = false;
@@ -63,21 +56,23 @@ class UpcomingOrderListScreenState extends State<UpcomingOrderListScreen> {
           actions: [
             GestureDetector(
               onTap: () async {
-                await navigate(context, screen: const HistoryListScreen());
-                Provider.of<OrderListProvider>(context, listen: false)
-                    .fetchOrderList(orderListType: OrderListType.upcoming);
+                Provider.of<AuthProvider>(context, listen: false)
+                    .logout(context);
+                // await navigate(context, screen: const HistoryListScreen());
+                // Provider.of<OrderListProvider>(context, listen: false)
+                //     .fetchOrderList(orderListType: OrderListType.upcoming);
               },
               child: Row(
                 children: [
                   Icon(
-                    Icons.history,
+                    Icons.logout,
                     size: 24.r,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                         right: AppSizes.paddingLg, left: AppSizes.padding),
                     child: Text(
-                      "History",
+                      "Logout",
                       style: subTitleText.copyWith(color: AppColors.whiteColor),
                     ),
                   ),

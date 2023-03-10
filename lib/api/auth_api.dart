@@ -9,7 +9,6 @@ class AuthApi {
 
   Future<dynamic> loginApi(dynamic data) async {
     try {
-      log(AppUrl.loginUrl.toString(), name: "URL LOgin");
       dynamic response = await _rhino.request(
           url: AppUrl.loginUrl, parameter: data, requestType: RequestType.post);
       return response;
@@ -121,15 +120,15 @@ class AuthApi {
     }
   }
 
-  Future<dynamic> logOutApi() async {
-    try {
-      dynamic response = await _rhino.request(
-          url: AppUrl.logoutApiUrl, requestType: RequestType.post);
-      // dynamic response = await _apiServices
-      //     .getPostApiResponsewithNoData(AppUrl.logoutApiEndPoint);
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<dynamic> logOutApi() async {
+  //   try {
+  //     dynamic response = await _rhino.request(
+  //         url: AppUrl.logoutApiUrl, requestType: RequestType.post);
+  //     // dynamic response = await _apiServices
+  //     //     .getPostApiResponsewithNoData(AppUrl.logoutApiEndPoint);
+  //     return response;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 }

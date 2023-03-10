@@ -45,7 +45,6 @@ class RhinoClient {
               if (token != null) {
                 Map<String, String> headingWithToken = {
                   'Content-Type': 'application/json',
-                  "Api-Key": "7dc83128-6e0e-4f43-8122-b2f6230c49ef",
                   'Authorization': 'Bearer $token',
                   'Accept': '*/*',
                 };
@@ -69,13 +68,11 @@ class RhinoClient {
   }) async {
     String? token = await DatabaseHelper().getBoxItem(key: "access_token");
     Map<String, String> heading = {
-      "Api-Key": "7dc83128-6e0e-4f43-8122-b2f6230c49ef",
       'Content-Type': 'application/json',
       'Accept': '*/*',
     };
     Map<String, String> headingWithToken = {
       'Content-Type': 'application/json',
-      "Api-Key": "7dc83128-6e0e-4f43-8122-b2f6230c49ef",
       if (token != null) 'Authorization': 'Bearer $token',
       'Accept': '*/*',
     };
@@ -229,7 +226,6 @@ class RhinoClient {
     String accesstoken = await DatabaseHelper().getBoxItem(key: "access_token");
     Map<String, String> header = {
       'Content-Type': 'application/json',
-      "Api-Key": "7dc83128-6e0e-4f43-8122-b2f6230c49ef",
       'Authorization': 'Bearer $accesstoken',
       'Accept': '*/*',
     };

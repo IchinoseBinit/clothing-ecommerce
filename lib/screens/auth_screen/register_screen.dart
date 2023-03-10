@@ -34,16 +34,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  // final TextEditingController _passwordController = TextEditingController();
+  // final TextEditingController _confirmPasswordController =
+  //     TextEditingController();
   late final PhoneNumberInputController _phoneController;
 
   FocusNode nameFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode phoneFocusNode = FocusNode();
-  FocusNode passwordFocusNode = FocusNode();
-  FocusNode confirmFocusNode = FocusNode();
+  // FocusNode passwordFocusNode = FocusNode();
+  // FocusNode confirmFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -54,12 +54,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
     _nameController.dispose();
-    _confirmPasswordController.dispose();
     _phoneController.dispose();
     emailFocusNode.dispose();
-    passwordFocusNode.dispose();
+    // _passwordController.dispose();
+    // _confirmPasswordController.dispose();
+    // passwordFocusNode.dispose();
     super.dispose();
   }
 
@@ -67,13 +67,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   _onSubmit() {
     if (_formKey.currentState!.validate()) {
       Map<String, dynamic> data = {
-        'name': _nameController.text.toString().trim(),
+        'full_name': _nameController.text.toString().trim(),
         'email': _emailController.text.toString().trim(),
-        'password1': _passwordController.text.toString().trim(),
-        'password2': _confirmPasswordController.text.toString().trim(),
-        'mobile':
+        // 'password1': _passwordController.text.toString().trim(),
+        // 'password2': _confirmPasswordController.text.toString().trim(),
+        'mobile_number':
             "${_phoneController.selectedCountry.dialCode.trim()}-${_phoneController.phoneNumber.trim()}",
-        'subscribe_newsletter': _checkBox.toString().trim(),
       };
 
       Provider.of<AuthProvider>(context, listen: false).register(
@@ -279,47 +278,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           SizedBox(
                             height: 16.h,
                           ),
-                          GeneralTextField(
-                            obscureText: _dontShowPassword,
-                            suffixIcon: _dontShowPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            onClickPsToggle: () {
-                              setState(() {
-                                _dontShowPassword = !_dontShowPassword;
-                              });
-                            },
-                            textInputAction: TextInputAction.go,
-                            validate: Validation().validatePassword,
-                            keywordType: TextInputType.text,
-                            focusNode: passwordFocusNode,
-                            labelText: 'Password',
-                            controller: _passwordController,
-                          ),
-                          SizedBox(
-                            height: 16.h,
-                          ),
-                          GeneralTextField(
-                            obscureText: _dontShowConfirmPassword,
-                            suffixIcon: _dontShowConfirmPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            onClickPsToggle: () {
-                              setState(() {
-                                _dontShowConfirmPassword =
-                                    !_dontShowConfirmPassword;
-                              });
-                            },
-                            textInputAction: TextInputAction.go,
-                            validate: (value) => Validation().validatePassword(
-                                _passwordController.text,
-                                confirmValue: value,
-                                isConfirmPassword: true),
-                            keywordType: TextInputType.text,
-                            focusNode: confirmFocusNode,
-                            labelText: 'Confirm Password',
-                            controller: _confirmPasswordController,
-                          ),
+                          // GeneralTextField(
+                          //   obscureText: _dontShowPassword,
+                          //   suffixIcon: _dontShowPassword
+                          //       ? Icons.visibility
+                          //       : Icons.visibility_off,
+                          //   onClickPsToggle: () {
+                          //     setState(() {
+                          //       _dontShowPassword = !_dontShowPassword;
+                          //     });
+                          //   },
+                          //   textInputAction: TextInputAction.go,
+                          //   validate: Validation().validatePassword,
+                          //   keywordType: TextInputType.text,
+                          //   focusNode: passwordFocusNode,
+                          //   labelText: 'Password',
+                          //   controller: _passwordController,
+                          // ),
+                          // SizedBox(
+                          //   height: 16.h,
+                          // ),
+                          // GeneralTextField(
+                          //   obscureText: _dontShowConfirmPassword,
+                          //   suffixIcon: _dontShowConfirmPassword
+                          //       ? Icons.visibility
+                          //       : Icons.visibility_off,
+                          //   onClickPsToggle: () {
+                          //     setState(() {
+                          //       _dontShowConfirmPassword =
+                          //           !_dontShowConfirmPassword;
+                          //     });
+                          //   },
+                          //   textInputAction: TextInputAction.go,
+                          //   validate: (value) => Validation().validatePassword(
+                          //       _passwordController.text,
+                          //       confirmValue: value,
+                          //       isConfirmPassword: true),
+                          //   keywordType: TextInputType.text,
+                          //   focusNode: confirmFocusNode,
+                          //   labelText: 'Confirm Password',
+                          //   controller: _confirmPasswordController,
+                          // ),
                           //Password Text Field
                           // normalPasswordFieldWIdget(),
 
@@ -329,12 +328,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     )
                   ],
                 ),
+                // SizedBox(
+                //   height: 8.h,
+                // ),
+                // checkboxTile(),
                 SizedBox(
                   height: 8.h,
-                ),
-                checkboxTile(),
-                SizedBox(
-                  height: 16.h,
                 ),
                 Consumer<AuthProvider>(builder: (__, authProvider, _) {
                   return GeneralElevatedButton(

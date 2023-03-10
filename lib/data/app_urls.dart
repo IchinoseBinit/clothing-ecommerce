@@ -18,28 +18,24 @@ class AppUrl {
   // static const String esewaTestSecretKey =
   //     "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==";
   static var baseUrl =
-      EnvironmentConfig.isProd == "true" ? "" : 'http://127.0.0.1:8000';
+      // EnvironmentConfig.isProd == "true" ? "" : 'http://127.0.0.1:8000';
+      EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.1.67:8000';
   static const String androidKey = 'AIzaSyDfjyHuSMqkLHM-vw9Dvj71yJ9MqoF3d20';
   static String loginUrl = '$baseUrl/users/login/';
   static String registerApiUrl = '$baseUrl/users/register/';
-
-  static String logoutApiUrl = '$baseUrl/auth/logout/';
-
+  // static String logoutApiUrl = '$baseUrl/auth/logout/';
   static String resetPassApiUrl =
       '$baseUrl/auth/customers/password-reset/get-opt/';
   static String changePasswordUrl = '$baseUrl/auth/customers/password-change/';
   static String profileApiUrl = '$baseUrl/customers/info/';
   static String passChangeApiUrl = '$baseUrl/auth/password/change/';
   static String editProfileApiUrl = '$baseUrl/customers/update/';
-
   static String merchantListUrl = '$baseUrl/merchants/list/';
   static String merchantInfoUrl = '$baseUrl/merchants/{id}/info/';
   static String merchantItemListUrl = '$baseUrl/items/list/';
   static String categoryItemListUrl = '$baseUrl/item-groups/list/';
   static String timeSlotUrl = '$baseUrl/merchants/time-slot/';
-
   static var cityUrl = '$baseUrl/merchants/countries/';
-
   static var couponUrl = '$baseUrl/merchants/coupons/name/';
   static var cartPriceUrl = '$baseUrl/orders/cart-price/';
   static var directionUrl =
@@ -63,7 +59,6 @@ class AppUrl {
   static var stripePaymentUrl = "https://api.stripe.com/v1/payment_intents";
   static var kStripePaymentUrl =
       "https://us-central1-stripe-checkout-flutter.cloudfunctions.net/stripePaymentIntentRequest";
-
   static var stagCallbackUrl = "https://myfood.indulgemall.com/";
   static var prodCallbackUrl = "https://app.rhinopass.com/";
 }
