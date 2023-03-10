@@ -19,7 +19,7 @@ class GenerateNavigation {
             builder: (BuildContext context) => const WelcomeScreen());
       case RoutesName.homeRoute:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const HomeScreen());
+            builder: (BuildContext context) =>  HomeScreen());
       case RoutesName.loginRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const LoginScreen());

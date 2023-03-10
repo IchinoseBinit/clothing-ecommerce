@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_null_comparison
+import 'package:clothing_ecommerce/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import '/screens/auth_screen/profile_screen.dart';
 import '/styles/app_colors.dart';
@@ -14,9 +15,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
 
   late List<Widget> navScreens = <Widget>[
-    // const MerchantListScreen(),
-    // const FavouriteMerchantListScreen(),
-    // const CartScreen(),
+     HomeScreen(),
     const UpcomingOrderListScreen(),
     const ProfileScreen()
   ];
@@ -39,28 +38,17 @@ class _NavigationScreenState extends State<NavigationScreen> {
           unselectedItemColor: AppColors.textDarkColor,
           selectedItemColor: AppColors.primaryColor,
           items: const <BottomNavigationBarItem>[
-            // BottomNavigationBarItem(
-            //   activeIcon: Icon(
-            //     Icons.home,
-            //     color: AppColors.primaryColor,
-            //   ),
-            //   icon: Icon(
-            //     Icons.home_outlined,
-            //     color: AppColors.textDarkColor,
-            //   ),
-            //   label: "Home",
-            // ),
-            // BottomNavigationBarItem(
-            //   activeIcon: Icon(
-            //     Icons.favorite_outlined,
-            //     color: AppColors.primaryColor,
-            //   ),
-            //   icon: Icon(
-            //     Icons.favorite_outline,
-            //     color: AppColors.textDarkColor,
-            //   ),
-            //   label: "Favourite",
-            // ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(
+                Icons.home_filled,
+                color: AppColors.primaryColor,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: AppColors.textDarkColor,
+              ),
+              label: "Home",
+            ),
             BottomNavigationBarItem(
               activeIcon: Icon(
                 Icons.format_list_bulleted,

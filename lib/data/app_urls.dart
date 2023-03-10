@@ -19,7 +19,7 @@ class AppUrl {
   //     "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==";
   static var baseUrl =
       EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.1.67:8000';
-      // EnvironmentConfig.isProd == "true" ? "" : 'http://127.0.0.1:8000';
+  // EnvironmentConfig.isProd == "true" ? "" : 'http://127.0.0.1:8000';
   static const String androidKey = 'AIzaSyDfjyHuSMqkLHM-vw9Dvj71yJ9MqoF3d20';
   static String loginUrl = '$baseUrl/users/login/';
   static String registerApiUrl = '$baseUrl/users/register/';
@@ -59,6 +59,9 @@ class AppUrl {
   static var stripePaymentUrl = "https://api.stripe.com/v1/payment_intents";
   static var kStripePaymentUrl =
       "https://us-central1-stripe-checkout-flutter.cloudfunctions.net/stripePaymentIntentRequest";
-  static var stagCallbackUrl = "https://myfood.indulgemall.com/";
-  static var prodCallbackUrl = "https://app.rhinopass.com/";
+  static var stagCallbackUrl = "";
+  static var prodCallbackUrl = "";
+
+  static var staticImage =
+      "https://assets.vogue.com/photos/62c6f63439f5b790d09e798a/master/pass/0414-VO-VIEW04.01.jpg";
 }
