@@ -141,7 +141,7 @@ class AuthProvider with ChangeNotifier {
     _myRepo.registerApi(data).then((value) {
       setSignUpLoading(false);
       showToast("Registered Successfully");
-      navigateNamedReplacement(context, RoutesName.navigationRoute);
+      navigateNamedReplacement(context, RoutesName.loginRoute);
       // showToast("Send Code Successfully");
       // if (!isFromOtpScreen) {
       //   navigate(context,
