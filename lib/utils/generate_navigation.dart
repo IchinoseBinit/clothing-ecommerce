@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '/data/constants/routes_name.dart';
 import '/screens/auth_screen/change_password_screen.dart';
-import '/screens/auth_screen/edit_profile_screen.dart';
 import '/screens/auth_screen/forgot_password_screen.dart';
 import '/screens/auth_screen/login_screen.dart';
 import '/screens/auth_screen/register_screen.dart';
@@ -32,9 +31,9 @@ class GenerateNavigation {
       case RoutesName.navigationRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const NavigationScreen());
-      case RoutesName.editProfileRoute:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => const EditProfileScreen());
+      // case RoutesName.editProfileRoute:
+      //   return MaterialPageRoute(
+      //       builder: (BuildContext context) => const EditProfileScreen());
       case RoutesName.changePasswordRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ChangePasswordScreen());

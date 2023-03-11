@@ -6,18 +6,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import '/providers/auth_provider.dart';
-import '/providers/cart_price_provider.dart';
 import '/providers/conectivity_provider.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
-import '/providers/payment_gateway_provider.dart';
-import '/providers/place_order_provider.dart';
-import '/providers/profile_provider.dart';
 import '/screens/auth_screen/splash_screen.dart';
 import '/styles/themes.dart';
 import 'utils/generate_navigation.dart';
-import 'providers/order_detail_provider.dart';
-import 'providers/orders_list_provider.dart';
 
 main() async {
   await Hive.initFlutter();
@@ -47,26 +41,11 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<AuthProvider>(
             create: (_) => AuthProvider(),
           ),
-          ChangeNotifierProvider<ProfileProvider>(
-            create: (_) => ProfileProvider(),
-          ),
+          // ChangeNotifierProvider<ProfileProvider>(
+          //   create: (_) => ProfileProvider(),
+          // ),
           ChangeNotifierProvider<DatabaseHelperProvider>(
             create: (_) => DatabaseHelperProvider(),
-          ),
-          ChangeNotifierProvider<CartPriceProvider>(
-            create: (_) => CartPriceProvider(),
-          ),
-          ChangeNotifierProvider<PaymentGatewayProvider>(
-            create: (_) => PaymentGatewayProvider(),
-          ),
-          ChangeNotifierProvider<PlaceOrderProvider>(
-            create: (_) => PlaceOrderProvider(),
-          ),
-          ChangeNotifierProvider<OrderListProvider>(
-            create: (_) => OrderListProvider(),
-          ),
-          ChangeNotifierProvider<OrderDetailProvider>(
-            create: (_) => OrderDetailProvider(),
           ),
           ChangeNotifierProvider<ConnectivityProvider>(
             create: (_) => ConnectivityProvider(),

@@ -4,7 +4,6 @@ import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
 import 'package:clothing_ecommerce/utils/custom_scroll_behaviour.dart';
-import 'package:clothing_ecommerce/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
