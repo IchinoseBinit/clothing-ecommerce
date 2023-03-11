@@ -145,82 +145,88 @@ class HomeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(32.r),
                         color: AppColors.backgroundColor,
                       ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSizes.paddingLg,
+                      padding: const EdgeInsets.only(
+                        left: AppSizes.paddingLg,
+                        right: AppSizes.paddingLg,
+                        top: AppSizes.paddingLg*2
                       ),
-                      child: GridView.builder(
-                        physics: const ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: images.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 0.62,
-                          crossAxisCount: 2,
-                          crossAxisSpacing: AppSizes.paddingLg,
-                        ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Container(
-                                  height: 220,
-                                  clipBehavior: Clip.hardEdge,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(12.r),
-                                  ),
-                                  child: Image.network(
-                                    images[index],
-                                    fit: BoxFit.cover,
-                                  )),
-                              const SizedBox(
-                                height: AppSizes.padding,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Winter Jacket",
-                                        style: bodyText.copyWith(
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      const SizedBox(
-                                        height: AppSizes.padding / 1.7,
-                                      ),
-                                      Text(
-                                        "\$129.00",
-                                        style: subTitleText.copyWith(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      //TODO: add to cart logic
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(
-                                          AppSizes.padding),
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(50.r),
-                                        color: AppColors.iconBtnBgColor,
-                                      ),
-                                      child: const Icon(
-                                        Icons.shopping_bag_outlined,
-                                      ),
+                      child: MediaQuery.removePadding(
+                        context: context,
+                        removeTop: true,
+                        child: GridView.builder(
+                          physics: const ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: images.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 0.62,
+                            crossAxisCount: 2,
+                            crossAxisSpacing: AppSizes.paddingLg,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Container(
+                                    height: 220,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(12.r),
                                     ),
-                                  )
-                                ],
-                              )
-                            ],
-                          );
-                        },
+                                    child: Image.network(
+                                      images[index],
+                                      fit: BoxFit.cover,
+                                    )),
+                                const SizedBox(
+                                  height: AppSizes.padding,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Winter Jacket",
+                                          style: bodyText.copyWith(
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        const SizedBox(
+                                          height: AppSizes.padding / 1.7,
+                                        ),
+                                        Text(
+                                          "\$129.00",
+                                          style: subTitleText.copyWith(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        //TODO: add to cart logic
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(
+                                            AppSizes.padding),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50.r),
+                                          color: AppColors.iconBtnBgColor,
+                                        ),
+                                        child: const Icon(
+                                          Icons.shopping_bag_outlined,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ),
                   )
