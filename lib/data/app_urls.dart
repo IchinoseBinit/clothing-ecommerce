@@ -30,20 +30,11 @@ class AppUrl {
   static String profileApiUrl = '$baseUrl/customers/info/';
   static String passChangeApiUrl = '$baseUrl/auth/password/change/';
   static String editProfileApiUrl = '$baseUrl/customers/update/';
-  static String merchantListUrl = '$baseUrl/merchants/list/';
-  static String merchantInfoUrl = '$baseUrl/merchants/{id}/info/';
-  static String merchantItemListUrl = '$baseUrl/items/list/';
   static String categoryItemListUrl = '$baseUrl/item-groups/list/';
   static String timeSlotUrl = '$baseUrl/merchants/time-slot/';
-  static var cityUrl = '$baseUrl/merchants/countries/';
-  static var couponUrl = '$baseUrl/merchants/coupons/name/';
-  static var cartPriceUrl = '$baseUrl/orders/cart-price/';
   static var directionUrl =
       "https://maps.googleapis.com/maps/api/directions/json?";
   static var paymentGetwayUrl = "$baseUrl/merchants/payment-gateways/name/";
-  static var placefirstOrderUrl = "$baseUrl/orders/place-order/";
-  static var placefinalOrderUrl = "$baseUrl/orders/success/";
-  static var orderListUrl = "$baseUrl/customers/orders/";
   static var getTokenUrl = "$baseUrl/auth/customers/jwt/refresh/";
   static var passwordResetVerifyOtpUrl =
       "$baseUrl/auth/customers/password-reset-with-otp/";
@@ -64,4 +55,9 @@ class AppUrl {
 
   static var staticImage =
       "https://assets.vogue.com/photos/62c6f63439f5b790d09e798a/master/pass/0414-VO-VIEW04.01.jpg";
+
+  static var productListUrl = "$baseUrl/product/product-list/";
+  static var productDetailUrl = "$baseUrl/product/product-detail/name/";
+
+
 }

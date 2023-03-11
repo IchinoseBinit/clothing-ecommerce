@@ -16,7 +16,6 @@ String productDesc =
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
-  // List category=lis
   List<ProductModel> productList = List.generate(
       10,
       (index) => ProductModel(
