@@ -6,4 +6,5 @@ class AppSizes {
   static const double paddingLg = 16.0;
   static const double radius = 8.0;
   static  double iconHeight = 20.h;
+  static  double iconButtonSize = 35.h;
 }

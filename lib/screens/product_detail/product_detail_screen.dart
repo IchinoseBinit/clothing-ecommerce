@@ -7,6 +7,7 @@ import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
 import 'package:clothing_ecommerce/utils/custom_scroll_behaviour.dart';
 import 'package:clothing_ecommerce/widgets/general_elevated_button.dart';
+import 'package:clothing_ecommerce/widgets/general_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -34,20 +35,37 @@ class ProductDetailScreen extends StatelessWidget {
       body: ScrollConfiguration(
         behavior: MyBehaviour(),
         child: SingleChildScrollView(
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              SizedBox(
-                  width: double.infinity,
-                  child: Image.network(
-                    product.image,
-                    fit: BoxFit.cover,
-                  )),
-              Positioned(
-                left: 0,
-                right: 0,
-                top: MediaQuery.of(context).size.height * .45,
-                child: Container(
+          child: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              image: NetworkImage(
+                product.image,
+              ),
+              alignment: Alignment.topCenter,
+            )),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: AppSizes.paddingLg * 3,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: AppSizes.paddingLg),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GeneralIconButton(
+                          iconData: Icons.arrow_back_ios_new_outlined,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                      const SizedBox.shrink()
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .45,
+                ),
+                Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(32.r),
@@ -114,11 +132,9 @@ class ProductDetailScreen extends StatelessWidget {
                           ),
                           Row(
                             children: productColors
-                                .map((e) => IgnorePointer(
-                                      child: ColorPaletteItem(
-                                        index: productColors.indexOf(e),
-                                        color: e,
-                                      ),
+                                .map((e) => ColorPaletteItem(
+                                      index: productColors.indexOf(e),
+                                      color: e,
                                     ))
                                 .toList(),
                           ),
@@ -141,11 +157,9 @@ class ProductDetailScreen extends StatelessWidget {
                           Row(
                             children: productSizes
                                 .map(
-                                  (e) => IgnorePointer(
-                                    child: SizeItem(
-                                      index: productSizes.indexOf(e),
-                                      label: e,
-                                    ),
+                                  (e) => SizeItem(
+                                    index: productSizes.indexOf(e),
+                                    label: e,
                                   ),
                                 )
                                 .toList(),
@@ -174,13 +188,13 @@ class ProductDetailScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(
-                        height: AppSizes.paddingLg,
+                        height: AppSizes.paddingLg * 2,
                       ),
                     ],
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -206,8 +220,8 @@ class ColorPaletteItem extends StatelessWidget {
           log("clicked");
         },
         child: Container(
-          height: 30.h,
-          width: 30.h,
+          height: AppSizes.iconButtonSize,
+          width: AppSizes.iconButtonSize,
           alignment: Alignment.center,
           margin: const EdgeInsets.only(right: AppSizes.padding),
           decoration: BoxDecoration(
@@ -249,8 +263,8 @@ class SizeItem extends StatelessWidget {
           log("clicked");
         },
         child: Container(
-          height: 30.h,
-          width: 30.h,
+          height: AppSizes.iconButtonSize,
+          width: AppSizes.iconButtonSize,
           alignment: Alignment.center,
           margin: const EdgeInsets.only(right: AppSizes.padding),
           decoration: BoxDecoration(
@@ -293,8 +307,8 @@ class OuantityItem extends StatelessWidget {
               log("decrement");
             },
             child: Container(
-              height: 30.h,
-              width: 30.h,
+              height: AppSizes.iconButtonSize,
+              width: AppSizes.iconButtonSize,
               margin: const EdgeInsets.only(right: AppSizes.padding),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(40.r),
@@ -304,12 +318,12 @@ class OuantityItem extends StatelessWidget {
                   Icon(Icons.remove, color: AppColors.blackColor, size: 18.h),
             ),
           ),
+          Container(
+              width: 20.w,
+              alignment: Alignment.center,
+              child: Text(detailProvider.selectedQuantity.toString())),
           SizedBox(
-            width: 6.w,
-          ),
-          Text(detailProvider.selectedQuantity.toString()),
-          SizedBox(
-            width: 10.w,
+            width: 4.w,
           ),
           GestureDetector(
             onTap: () {
@@ -318,8 +332,8 @@ class OuantityItem extends StatelessWidget {
               log("increment");
             },
             child: Container(
-              height: 30.h,
-              width: 30.h,
+              height: AppSizes.iconButtonSize,
+              width: AppSizes.iconButtonSize,
               alignment: Alignment.center,
               margin: const EdgeInsets.only(right: AppSizes.padding),
               decoration: BoxDecoration(

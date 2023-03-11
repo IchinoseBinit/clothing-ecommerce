@@ -7,6 +7,7 @@ import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
 import 'package:clothing_ecommerce/utils/custom_scroll_behaviour.dart';
 import 'package:clothing_ecommerce/utils/navigation_util.dart';
+import 'package:clothing_ecommerce/widgets/general_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -77,11 +78,12 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Center(
                               child: Text(
                                 "Welcome".toUpperCase(),
-                                style: smallText.copyWith(
+                                style: bodyText.copyWith(
                                   color: AppColors.primaryColor,
                                   fontWeight: FontWeight.w400,
                                   letterSpacing: 0.3,
@@ -91,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                             SizedBox(width: 4.w),
                             Text(
                               "Niraj",
-                              style: bodyText.copyWith(
+                              style: subTitleText.copyWith(
                                 color: AppColors.textDarkColor,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -99,8 +101,11 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         // EachAppbarButton(iconData: Icons.menu_outlined),
-                        const EachAppbarButton(
-                            iconData: Icons.shopping_bag_outlined),
+                        GeneralIconButton(
+                            iconData: Icons.shopping_bag_outlined,
+                            onPressed: () {
+                              //TODO: add to cart logic
+                            }),
                       ],
                     ),
                   ),
@@ -246,34 +251,6 @@ class ProductItem extends StatelessWidget {
             ],
           )
         ],
-      ),
-    );
-  }
-}
-
-class EachAppbarButton extends StatelessWidget {
-  final IconData iconData;
-  const EachAppbarButton({
-    super.key,
-    required this.iconData,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        //TODO: add to cart logic
-      },
-      child: Container(
-        padding: const EdgeInsets.all(AppSizes.padding),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: AppColors.greyColor,
-        ),
-        child: Icon(
-          iconData,
-          color: AppColors.whiteColor,
-        ),
       ),
     );
   }
