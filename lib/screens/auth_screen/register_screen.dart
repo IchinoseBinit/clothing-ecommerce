@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 
 import '/data/constants/routes_name.dart';
 import '/providers/auth_provider.dart';
-import '/screens/merchant_list/widgets/general_elevated_button.dart';
-import '/screens/merchant_list/widgets/phone_field.dart';
+import '/widgets/general_elevated_button.dart';
+import '/widgets/phone_field.dart';
 import '/screens/navigation_screen.dart';
 import '/styles/app_colors.dart';
 import '/styles/styles.dart';

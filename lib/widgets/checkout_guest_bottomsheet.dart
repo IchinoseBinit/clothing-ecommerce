@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 import '/models/profile_model.dart';
 import '/providers/cart_price_provider.dart';
-import '/screens/merchant_list/widgets/general_elevated_button.dart';
-import '/screens/merchant_list/widgets/phone_field.dart';
+import '/widgets/general_elevated_button.dart';
+import '/widgets/phone_field.dart';
 import '/styles/app_sizes.dart';
 import '/utils/validation_mixin.dart';
 import 'general_textfield.dart';
@@ -146,7 +146,6 @@ class _CheckoutGuestBottomSheetState extends State<CheckoutGuestBottomSheet> {
                         );
                         Navigator.pop(context);
                         //Set guest customer profile
-
                       }
                     },
                   );

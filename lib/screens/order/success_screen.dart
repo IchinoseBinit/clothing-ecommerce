@@ -9,7 +9,7 @@ import '/data/constants/image_constants.dart';
 import '/models/cart_price_model.dart';
 import '/providers/cart_price_provider.dart';
 import '/providers/place_order_provider.dart';
-import '/screens/merchant_list/widgets/general_elevated_button.dart';
+import '/widgets/general_elevated_button.dart';
 import '/screens/navigation_screen.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';

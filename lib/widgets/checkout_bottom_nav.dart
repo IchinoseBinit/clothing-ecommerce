@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:clothing_ecommerce/widgets/general_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -9,8 +10,7 @@ import '/providers/auth_provider.dart';
 import '/providers/cart_price_provider.dart';
 import '/providers/hive_database_helper.dart';
 import '/screens/auth_screen/login_screen.dart';
-import '/screens/merchant_list/widgets/general_elevated_button.dart';
-import '/screens/merchant_list/widgets/general_text_button.dart';
+import '/widgets/general_elevated_button.dart';
 import '/screens/payment/payment_screen.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
@@ -101,8 +101,7 @@ class CheckoutBottomNav extends StatelessWidget {
                           onPressed: () async {
                             Provider.of<AuthProvider>(context, listen: false)
                                 .setIsGuest(true);
-                            await navigate(context,
-                                 const LoginScreen());
+                            await navigate(context, const LoginScreen());
                             String? token = await DatabaseHelper()
                                 .getBoxItem(key: "access_token");
                             if (token != null) {
@@ -139,7 +138,7 @@ class CheckoutBottomNav extends StatelessWidget {
                                 null) {
                               navigate(
                                 context,
-                                 PaymentScreen(
+                                PaymentScreen(
                                   notes: notes,
                                   merchantData: merchantData,
                                   merchantName: merchantData["name"],
@@ -163,7 +162,7 @@ class CheckoutBottomNav extends StatelessWidget {
     if (merchantData["timeslot"] != null && token != null) {
       navigate(
         context,
-         PaymentScreen(
+        PaymentScreen(
           notes: notes,
           merchantData: merchantData,
           merchantName: merchantData["name"],

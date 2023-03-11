@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '/screens/merchant_list/widgets/general_elevated_button.dart';
+import '/widgets/general_elevated_button.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 import '/styles/styles.dart';

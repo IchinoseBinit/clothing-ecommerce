@@ -53,7 +53,21 @@ class HomeScreen extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  SizedBox(height: 260, child: Image.asset(appbarBgImage)),
+                  Column(
+                    children: [
+                      SizedBox(
+                          height: 300,
+                          width: double.infinity,
+                          child: Image.asset(
+                            appbarBgImage,
+                            fit: BoxFit.cover,
+                          )),
+                      Container(
+                        height: 1000,
+                        color: AppColors.backgroundColor,
+                      )
+                    ],
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -73,22 +87,21 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: AppSizes.paddingLg*2,
+                        height: AppSizes.paddingLg * 2,
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: AppSizes.paddingLg),
+                        padding: EdgeInsets.only(left: AppSizes.paddingLg),
                         width: .30.sh,
                         child: Text(
                           "Find the best cloths for you",
                           style: bigTitleText.copyWith(
-                            height: 0.95,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26.sp
-                          ),
+                              height: 0.95,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 26.sp),
                         ),
                       ),
                       const SizedBox(
-                        height: AppSizes.paddingLg*1.2,
+                        height: AppSizes.paddingLg * 1.2,
                       ),
                       Padding(
                         padding:
@@ -101,87 +114,98 @@ class HomeScreen extends StatelessWidget {
                                   .toList()),
                         ),
                       ),
+                       const SizedBox(
+                        height: AppSizes.paddingLg * 1.2,
+                      ),
+                      ScrollConfiguration(
+                        behavior: MyBehaviour(),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32.r),
+                            color: AppColors.backgroundColor,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppSizes.paddingLg,
+                          ),
+                          child: GridView.builder(
+                            physics: const ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: images.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 0.62,
+                              crossAxisCount: 2,
+                              crossAxisSpacing: AppSizes.paddingLg,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Container(
+                                      height: 220,
+                                      clipBehavior: Clip.hardEdge,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.r),
+                                      ),
+                                      child: Image.network(
+                                        images[index],
+                                        fit: BoxFit.cover,
+                                      )),
+                                  const SizedBox(
+                                    height: AppSizes.padding,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Winter Jacket",
+                                            style: bodyText.copyWith(
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          const SizedBox(
+                                            height: AppSizes.padding / 1.7,
+                                          ),
+                                          Text(
+                                            "\$129.00",
+                                            style: subTitleText.copyWith(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          //TODO: add to cart logic
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(
+                                              AppSizes.padding),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50.r),
+                                            color: AppColors.iconBtnBgColor,
+                                          ),
+                                          child: const Icon(
+                                            Icons.shopping_bag_outlined,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      )
                     ],
                   )
                 ],
-              ),
-              ScrollConfiguration(
-                behavior: MyBehaviour(),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSizes.paddingLg,
-                  ),
-                  child: GridView.builder(
-                    physics: const ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: images.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 0.62,
-                      crossAxisCount: 2,
-                      crossAxisSpacing: AppSizes.paddingLg,
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                              height: 220,
-                              clipBehavior: Clip.hardEdge,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.r),
-                              ),
-                              child: Image.network(
-                                images[index],
-                                fit: BoxFit.cover,
-                              )),
-                          const SizedBox(
-                            height: AppSizes.padding,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Winter Jacket",
-                                    style: bodyText.copyWith(
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  const SizedBox(
-                                    height: AppSizes.padding / 1.7,
-                                  ),
-                                  Text(
-                                    "\$129.00",
-                                    style: subTitleText.copyWith(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  //TODO: add to cart logic
-                                },
-                                child: Container(
-                                  padding:
-                                      const EdgeInsets.all(AppSizes.padding),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50.r),
-                                    color: AppColors.iconBtnBgColor,
-                                  ),
-                                  child: const Icon(
-                                    Icons.shopping_bag_outlined,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                ),
               ),
             ],
           ),

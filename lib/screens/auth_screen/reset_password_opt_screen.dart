@@ -8,7 +8,7 @@ import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 
 import '/providers/auth_provider.dart';
-import '/screens/merchant_list/widgets/general_elevated_button.dart';
+import '/widgets/general_elevated_button.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 import '/styles/styles.dart';

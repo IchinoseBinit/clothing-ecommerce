@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
-
+import 'package:clothing_ecommerce/widgets/general_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
 import '/data/constants/image_constants.dart';
 import '/providers/conectivity_provider.dart';
-import '/screens/merchant_list/widgets/general_text_button.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 import '/styles/styles.dart';

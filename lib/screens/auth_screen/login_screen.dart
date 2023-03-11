@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import '/data/constants/routes_name.dart';
 import '/providers/auth_provider.dart';
-import '/screens/merchant_list/widgets/general_elevated_button.dart';
+import '/widgets/general_elevated_button.dart';
 import '/screens/navigation_screen.dart';
 import '/styles/app_colors.dart';
 import '/styles/styles.dart';
@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
           : () {
               navigate(
                 context,
-                 const NavigationScreen(),
+                const NavigationScreen(),
               );
               return Future.value(true);
             },
@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     : () {
                         navigate(
                           context,
-                           const NavigationScreen(),
+                          const NavigationScreen(),
                         );
                       },
                 icon: Icon(
@@ -170,8 +170,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               });
                             },
                             textInputAction: TextInputAction.done,
-                            validate: (value) => Validation()
-                                .validate(value, title: "Password"),
+                            validate: (value) =>
+                                Validation().validate(value, title: "Password"),
                             keywordType: TextInputType.emailAddress,
                             focusNode: passwordFocusNode,
                             labelText: 'Password',

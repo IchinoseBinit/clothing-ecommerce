@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:provider/provider.dart';
+import '/widgets/general_elevated_button.dart';
 import '/providers/auth_provider.dart';
-import '/screens/merchant_list/widgets/general_elevated_button.dart';
 import '/utils/custom_scroll_behaviour.dart';
 import '/utils/validation_mixin.dart';
 import '/widgets/custom_appbar.dart';
@@ -73,7 +73,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     SizedBox(
+                    SizedBox(
                       height: 20.h,
                     ),
                     const AuthTemplate(
@@ -97,8 +97,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                     : Icons.visibility_off,
                                 onClickPsToggle: () {
                                   setState(() {
-                                    _dontShowCurrentPs =
-                                        !_dontShowCurrentPs;
+                                    _dontShowCurrentPs = !_dontShowCurrentPs;
                                   });
                                 },
                                 textInputAction: TextInputAction.go,
@@ -144,8 +143,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 },
                                 textInputAction: TextInputAction.done,
                                 validate: (value) => Validation()
-                                    .validatePassword(
-                                        _passwordController.text,
+                                    .validatePassword(_passwordController.text,
                                         confirmValue: value,
                                         isConfirmPassword: true),
                                 keywordType: TextInputType.text,

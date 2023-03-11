@@ -8,7 +8,7 @@ import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 
 import '/providers/auth_provider.dart';
-import '/screens/merchant_list/widgets/general_elevated_button.dart';
+import '/widgets/general_elevated_button.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 import '/styles/styles.dart';
@@ -96,15 +96,13 @@ class _RegisterOptScreenState extends State<RegisterOptScreen> {
                         controller: otpController,
                         length: 6,
                         width: MediaQuery.of(context).size.width,
-                        textFieldAlignment:
-                            MainAxisAlignment.spaceBetween,
+                        textFieldAlignment: MainAxisAlignment.spaceBetween,
                         fieldWidth: 40.w,
                         keyboardType: TextInputType.number,
                         margin: EdgeInsets.zero,
                         fieldStyle: FieldStyle.box,
                         otpFieldStyle: OtpFieldStyle(
-                          backgroundColor:
-                              AppColors.textFieldInputColor,
+                          backgroundColor: AppColors.textFieldInputColor,
                           borderColor: AppColors.greyColor,
                           focusBorderColor: AppColors.primaryColor,
                           enabledBorderColor: AppColors.greyColor,

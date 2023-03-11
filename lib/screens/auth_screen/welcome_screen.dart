@@ -1,11 +1,10 @@
+import 'package:clothing_ecommerce/widgets/general_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '/data/constants/routes_name.dart';
 import '/data/data.dart';
 import '/providers/hive_database_helper.dart';
-import '/screens/merchant_list/widgets/general_elevated_button.dart';
-import '/screens/merchant_list/widgets/general_text_button.dart';
+import '/widgets/general_elevated_button.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 import '/styles/styles.dart';
