@@ -12,7 +12,7 @@ class ProductListProvider extends ChangeNotifier {
   }
 
   Future<void> fetchProductList() async {
-    setProductList(ApiResponse.loading());
+    // setProductList(ApiResponse.loading());
     await _productListApi.fectchProductListApi().then((value) {
       setProductList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {

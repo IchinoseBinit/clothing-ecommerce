@@ -26,7 +26,7 @@ class AppUrl {
   // static String logoutApiUrl = '$baseUrl/auth/logout/';
   static String resetPassApiUrl =
       '$baseUrl/auth/customers/password-reset/get-opt/';
-  static String changePasswordUrl = '$baseUrl/auth/customers/password-change/';
+  static String changePasswordUrl = '$baseUrl/users/change-password/';
   static String profileApiUrl = '$baseUrl/customers/info/';
   static String passChangeApiUrl = '$baseUrl/auth/password/change/';
   static String editProfileApiUrl = '$baseUrl/customers/update/';

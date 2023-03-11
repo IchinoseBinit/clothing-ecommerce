@@ -37,7 +37,7 @@ class AuthApi {
       dynamic response = await _rhino.request(
           url: AppUrl.changePasswordUrl,
           parameter: data,
-          requestType: RequestType.postWithToken);
+          requestType: RequestType.patchWithToken);
       log(data.toString(), name: "Change Password Data");
       return response;
     } catch (e) {

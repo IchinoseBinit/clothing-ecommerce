@@ -6,5 +6,6 @@ enum RequestType {
   postWithHeaders,
   postWithOnlyHeaders,
   delete,
-  putWithHeaders
+  putWithHeaders,
+  patchWithToken,
 }

@@ -11,6 +11,7 @@ import '/providers/auth_provider.dart';
 import '/providers/conectivity_provider.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
+import 'providers/profile_provider.dart';
 import 'screens/auth/splash_screen.dart';
 import '/styles/themes.dart';
 import 'utils/generate_navigation.dart';
@@ -43,9 +44,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<AuthProvider>(
             create: (_) => AuthProvider(),
           ),
-          // ChangeNotifierProvider<ProfileProvider>(
-          //   create: (_) => ProfileProvider(),
-          // ),
+          ChangeNotifierProvider<ProfileProvider>(
+            create: (_) => ProfileProvider(),
+          ),
           ChangeNotifierProvider<DatabaseHelperProvider>(
             create: (_) => DatabaseHelperProvider(),
           ),

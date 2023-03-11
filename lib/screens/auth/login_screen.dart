@@ -80,168 +80,148 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: Provider.of<AuthProvider>(context).isGuest
-          ? () {
-              Navigator.pop(context);
-              return Future.value(true);
-            }
-          : () {
-              navigate(
-                context,
-                const NavigationScreen(),
-              );
-              return Future.value(true);
-            },
-      child: Scaffold(
-        appBar: CustomAppBar(
-          title: "Login",
-          actions: [
-            GestureDetector(
-              child: IconButton(
-                onPressed: Provider.of<AuthProvider>(context).isGuest
-                    ? () {
-                        Navigator.pop(context);
-                      }
-                    : () {
-                        navigate(
-                          context,
-                          const NavigationScreen(),
-                        );
-                      },
-                icon: Icon(
-                  size: 24.r,
-                  Icons.close,
-                ),
-              ),
-            )
-          ],
-          disableLeading: true,
-        ),
-        body: Consumer<AuthProvider>(builder: (__, authProvider, _) {
-          if (authProvider.loginIsLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+    return Scaffold(
+      appBar: CustomAppBar(
+        title: "Login",
+        // actions: [
+          // GestureDetector(
+          //   child: IconButton(
+          //     onPressed:  () {
+          //             Navigator.pop(context);
+          //           }
+          //         ,
+          //     icon: Icon(
+          //       size: 24.r,
+          //       Icons.close,
+          //     ),
+          //   ),
+          // )
+        // ],
+        disableLeading: true,
+      ),
+      body: Consumer<AuthProvider>(builder: (__, authProvider, _) {
+        if (authProvider.loginIsLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
 
-          return ScrollConfiguration(
-            behavior: MyBehaviour(),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    const AuthTemplate(
-                      title: "Welcome Back!",
-                      subTitle: "Please log in to continue.",
-                      image: loginIcon,
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          //Email Text Field
-                          GeneralTextField(
-                            textInputAction: TextInputAction.done,
-                            validate: Validation().validateEmail,
-                            keywordType: TextInputType.emailAddress,
-                            focusNode: emailFocusNode,
-                            labelText: 'E-mail',
-                            controller: _emailController,
-                          ),
-                          SizedBox(
-                            height: 16.h,
-                          ),
-                          GeneralTextField(
-                            obscureText: _dontShowPassword,
-                            suffixIcon: _dontShowPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            onClickPsToggle: () {
-                              setState(() {
-                                _dontShowPassword = !_dontShowPassword;
-                              });
-                            },
-                            textInputAction: TextInputAction.done,
-                            validate: (value) =>
-                                Validation().validate(value, title: "Password"),
-                            keywordType: TextInputType.emailAddress,
-                            focusNode: passwordFocusNode,
-                            labelText: 'Password',
-                            controller: _passwordController,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return ScrollConfiguration(
+          behavior: MyBehaviour(),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  const AuthTemplate(
+                    title: "Welcome Back!",
+                    subTitle: "Please log in to continue.",
+                    image: loginIcon,
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
                       children: [
-                        checkboxTile(),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, RoutesName.forgotPasswordRoute);
+                        //Email Text Field
+                        GeneralTextField(
+                          textInputAction: TextInputAction.done,
+                          validate: Validation().validateEmail,
+                          keywordType: TextInputType.emailAddress,
+                          focusNode: emailFocusNode,
+                          labelText: 'E-mail',
+                          controller: _emailController,
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        GeneralTextField(
+                          obscureText: _dontShowPassword,
+                          suffixIcon: _dontShowPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          onClickPsToggle: () {
+                            setState(() {
+                              _dontShowPassword = !_dontShowPassword;
+                            });
                           },
-                          child: const Text(
-                            "Forgot Password?",
-                            style: TextStyle(color: AppColors.primaryColor),
-                          ),
-                        )
+                          textInputAction: TextInputAction.done,
+                          validate: (value) =>
+                              Validation().validate(value, title: "Password"),
+                          keywordType: TextInputType.emailAddress,
+                          focusNode: passwordFocusNode,
+                          labelText: 'Password',
+                          controller: _passwordController,
+                        ),
                       ],
                     ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    //Button Login
-                    GeneralElevatedButton(
-                      title: "Login",
-                      marginH: 0,
-                      loading: authProvider.loading,
-                      onPressed: () {
-                        _onSubmit();
-                      },
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, RoutesName.registerRoute);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Don't have an account? "),
-                          Text(
-                            "Sign Up",
-                            style: bodyText.copyWith(
-                              color: AppColors.primaryColor,
-                              fontWeight: FontWeight.bold,
-                            ),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      checkboxTile(),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, RoutesName.forgotPasswordRoute);
+                        },
+                        child: const Text(
+                          "Forgot Password?",
+                          style: TextStyle(color: AppColors.primaryColor),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  //Button Login
+                  GeneralElevatedButton(
+                    title: "Login",
+                    marginH: 0,
+                    loading: authProvider.loading,
+                    onPressed: () {
+                      _onSubmit();
+                    },
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, RoutesName.registerRoute);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Don't have an account? "),
+                        Text(
+                          "Sign Up",
+                          style: bodyText.copyWith(
+                            color: AppColors.primaryColor,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: 32.h,
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                ],
               ),
             ),
-          );
-        }),
-      ),
+          ),
+        );
+      }),
     );
   }
 

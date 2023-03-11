@@ -38,8 +38,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     if (_formKey.currentState!.validate()) {
       Map data = {
         "old_password": _currentPsController.text,
-        "new_password1": _passwordController.text,
-        "new_password2": _confirmPasswordController.text
+        "new_password": _passwordController.text,
+        "confirm_password": _confirmPasswordController.text
       };
       Provider.of<AuthProvider>(context, listen: false)
           .changePassword(data, context);

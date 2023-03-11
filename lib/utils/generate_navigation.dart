@@ -1,3 +1,4 @@
+import 'package:clothing_ecommerce/screens/auth/edit_profile_screen.dart';
 import 'package:clothing_ecommerce/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -31,9 +32,9 @@ class GenerateNavigation {
       case RoutesName.navigationRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const NavigationScreen());
-      // case RoutesName.editProfileRoute:
-      //   return MaterialPageRoute(
-      //       builder: (BuildContext context) => const EditProfileScreen());
+      case RoutesName.editProfileRoute:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const EditProfileScreen());
       case RoutesName.changePasswordRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ChangePasswordScreen());

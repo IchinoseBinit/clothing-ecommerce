@@ -173,8 +173,7 @@ class AuthProvider with ChangeNotifier {
       Navigator.pop(context);
     }).onError((error, stackTrace) {
       setChangePasswordLoading(false);
-
-      showToast("There was error on changing password");
+      showToast("Server Error! Please Try again after sometime.");
     });
   }
 

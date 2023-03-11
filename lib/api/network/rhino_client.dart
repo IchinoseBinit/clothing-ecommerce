@@ -160,6 +160,18 @@ class RhinoClient {
               )
               .timeout(timeoutDuration);
           break;
+        case RequestType.patchWithToken:
+          resp = await _client
+              .patch(
+                url,
+                data: parameter,
+                options: Options(
+                  headers: headingWithToken,
+                  responseType: responseType,
+                ),
+              )
+              .timeout(timeoutDuration);
+          break;
         case RequestType.putWithHeaders:
           resp = await _client
               .put(
@@ -196,21 +208,19 @@ class RhinoClient {
       //   // DatabaseHelperProvider().deleteToken();
       // }
 
-      if (ex.response!.statusCode == 400) {
-        // if (ex.response!.data["coupon_code"] != null) {
-        //   throw ex.response!.data["coupon_code"][0];
-        // } else if (ex.response!.data["coupon"] != null) {
-        //   throw ex.response!.data["coupon"];
-        // } else if (ex.response!.data["email"] != null) {
-        //   throw ex.response!.data["email"][0];
-        // } else
-        debugger();
-        log((ex.response!.data[0]), name: "rhino client");
-        if (ex.response!.data[0] != null) {
-          debugger();
-          throw ex.response!.data[0];
-        }
-      }
+      // if (ex.response!.statusCode == 400) {
+      // if (ex.response!.data["coupon_code"] != null) {
+      //   throw ex.response!.data["coupon_code"][0];
+      // } else if (ex.response!.data["coupon"] != null) {
+      //   throw ex.response!.data["coupon"];
+      // } else if (ex.response!.data["email"] != null) {
+      //   throw ex.response!.data["email"][0];
+      // } else
+      // log((ex.response!.data[0]), name: "rhino client");
+      // if (ex.response!.data[0] != null) {
+      // throw ex.response!.data[0];
+      // }
+      // }
 
       throw ex.response?.data?["message"] ??
           "Dear customer, we are unable to complete the process. Please try again later.";
@@ -247,8 +257,9 @@ class RhinoClient {
       );
       return dataModel.access;
     } on DioError catch (ex) {
-      navigate(navKey.currentState!.context,
-         const LoginScreen(
+      navigate(
+          navKey.currentState!.context,
+          const LoginScreen(
             isFromRefreshToken: true,
           ));
       DatabaseHelperProvider().deleteToken();

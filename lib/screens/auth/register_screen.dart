@@ -95,20 +95,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Register",
-        actions: [
-          GestureDetector(
-            child: IconButton(
-              onPressed: () => navigate(
-                context,
-                const NavigationScreen(),
-              ),
-              icon: Icon(
-                size: 24.r,
-                Icons.close,
-              ),
-            ),
-          )
-        ],
+        // actions: [
+        //   GestureDetector(
+        //     child: IconButton(
+        //       onPressed: () => navigate(
+        //         context,
+        //         const NavigationScreen(),
+        //       ),
+        //       icon: Icon(
+        //         size: 24.r,
+        //         Icons.close,
+        //       ),
+        //     ),
+        //   )
+        // ],
         disableLeading: true,
       ),
       body: ScrollConfiguration(

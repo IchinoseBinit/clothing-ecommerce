@@ -1,7 +1,10 @@
 // ignore_for_file: unnecessary_null_comparison
+import 'package:clothing_ecommerce/screens/auth/profile_screen.dart';
 import 'package:clothing_ecommerce/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
+
 import '/styles/app_colors.dart';
+
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({Key? key}) : super(key: key);
 
@@ -13,9 +16,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
 
   late List<Widget> navScreens = <Widget>[
-     HomeScreen(),
-     HomeScreen(),
-     HomeScreen(),
+    HomeScreen(),
+    HomeScreen(),
+    const ProfileScreen(),
     // const UpcomingOrderListScreen(),
     // const ProfileScreen()
   ];
