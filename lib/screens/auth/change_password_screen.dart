@@ -95,7 +95,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 suffixIcon: _dontShowCurrentPs
                                     ? Icons.visibility
                                     : Icons.visibility_off,
-                                onClickPsToggle: () {
+                                onClickSuffixToggle: () {
                                   setState(() {
                                     _dontShowCurrentPs = !_dontShowCurrentPs;
                                   });
@@ -115,7 +115,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 suffixIcon: _dontShowPassword
                                     ? Icons.visibility
                                     : Icons.visibility_off,
-                                onClickPsToggle: () {
+                                onClickSuffixToggle: () {
                                   setState(() {
                                     _dontShowPassword = !_dontShowPassword;
                                   });
@@ -135,7 +135,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 suffixIcon: _dontShowConfirmPassword
                                     ? Icons.visibility
                                     : Icons.visibility_off,
-                                onClickPsToggle: () {
+                                onClickSuffixToggle: () {
                                   setState(() {
                                     _dontShowConfirmPassword =
                                         !_dontShowConfirmPassword;

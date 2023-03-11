@@ -170,7 +170,7 @@ class _ResetPasswordOptScreenState extends State<ResetPasswordOptScreen> {
                                     suffixIcon: _dontShowPassword
                                         ? Icons.visibility
                                         : Icons.visibility_off,
-                                    onClickPsToggle: () {
+                                    onClickSuffixToggle: () {
                                       setState(() {
                                         _dontShowPassword = !_dontShowPassword;
                                       });
@@ -190,7 +190,7 @@ class _ResetPasswordOptScreenState extends State<ResetPasswordOptScreen> {
                                     suffixIcon: _dontShowConfirmPassword
                                         ? Icons.visibility
                                         : Icons.visibility_off,
-                                    onClickPsToggle: () {
+                                    onClickSuffixToggle: () {
                                       setState(() {
                                         _dontShowConfirmPassword =
                                             !_dontShowConfirmPassword;

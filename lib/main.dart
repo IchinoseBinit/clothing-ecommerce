@@ -11,6 +11,7 @@ import '/providers/auth_provider.dart';
 import '/providers/conectivity_provider.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
+import 'providers/product_search_provider.dart';
 import 'providers/profile_provider.dart';
 import 'screens/auth/splash_screen.dart';
 import '/styles/themes.dart';
@@ -58,6 +59,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<ProductListProvider>(
             create: (_) => ProductListProvider(),
+          ),
+          ChangeNotifierProvider<ProductSearchProvider>(
+            create: (_) => ProductSearchProvider(),
           ),
         ],
         child: ScreenUtilInit(

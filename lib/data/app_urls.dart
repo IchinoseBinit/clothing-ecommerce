@@ -58,6 +58,7 @@ class AppUrl {
 
   static var productListUrl = "$baseUrl/product/product-list/";
   static var productDetailUrl = "$baseUrl/product/product-detail/name/";
+  static var productSearchUrl = "$baseUrl/product/product-search/name/";
 
 
 }

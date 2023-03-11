@@ -1,5 +1,6 @@
 import 'package:clothing_ecommerce/data/app_urls.dart';
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
+import 'package:clothing_ecommerce/data/constants/routes_name.dart';
 import 'package:clothing_ecommerce/data/response/status.dart';
 import 'package:clothing_ecommerce/models/product_model.dart';
 import 'package:clothing_ecommerce/providers/product_list_provider.dart';
@@ -11,6 +12,7 @@ import 'package:clothing_ecommerce/utils/custom_scroll_behaviour.dart';
 import 'package:clothing_ecommerce/utils/navigation_util.dart';
 import 'package:clothing_ecommerce/widgets/error_info_widget.dart';
 import 'package:clothing_ecommerce/widgets/general_icon_button.dart';
+import 'package:clothing_ecommerce/widgets/general_textfield.dart';
 import 'package:clothing_ecommerce/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,18 +29,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<ProductModel> productList = List.generate(
-      10,
-      (index) => ProductModel(
-          id: 1,
-          name: "Demin Jeans",
-          description: productDesc,
-          price: 2000,
-          image: AppUrl.staticImage,
-          category: 1,
-          quantity: 1,
-          ));
-
   List<String> categoryList = [
     "For Women",
     "For Men",
@@ -57,24 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      // appBar: AppBar(
-      //   title: Text('App Bar!'),
-      //   flexibleSpace: Image(
-      //     image: AssetImage(appbarBgImage),
-      //     fit: BoxFit.cover,
-      //   ),
-      //   backgroundColor: Colors.transparent,
-      //   toolbarHeight: 200,
-      //   automaticallyImplyLeading: false,
-      //   // disableLeading: true,
-      // ),
       body: ScrollConfiguration(
         behavior: MyBehaviour(),
         child: SingleChildScrollView(
           child: Stack(
             children: [
               SizedBox(
-                  height: 300,
+                  height: 360,
                   width: double.infinity,
                   child: Image.asset(
                     appbarBgImage,
@@ -142,6 +121,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: AppSizes.paddingLg * 1.2,
                   ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.paddingLg),
+                    child: GeneralTextField(
+                      hintText: "Search...",
+                      // isDisabled: true,
+                      onTap: () {
+                        navigateNamed(context, RoutesName.productSearchRoute);
+                      },
+                      obscureText: false,
+                      prefixWidget:
+                          const Icon(Icons.search, color: AppColors.greyColor),
+                      borderColor: Colors.grey.shade200,
+                      removePrefixIconDivider: true,
+                      keywordType: TextInputType.text,
+                      validate: (String value) {},
+                      onFieldSubmit: () {},
+                      textInputAction: TextInputAction.search,
+                      onClickSuffixToggle: () {},
+                      onChanged: (value) {},
+                      onSave: (value) {},
+                    ),
+                  ),
+                  const SizedBox(
+                    height: AppSizes.paddingLg * 1.2,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: AppSizes.paddingLg),
                     child: SingleChildScrollView(
@@ -176,15 +181,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             builder: (_, listProvider, __) {
                           switch (listProvider.productList.status) {
                             case Status.ERROR:
-                              return ErrorInfoWidget(
+                              return const ErrorInfoWidget(
                                 heightFactor: 2,
                               );
                             case Status.LOADING:
-                              return LoadingWidget();
+                              return const LoadingWidget();
 
                             case Status.COMPLETED:
                               if (listProvider.productList.data!.isEmpty) {
-                                return ErrorInfoWidget(
+                                return const ErrorInfoWidget(
                                   errorInfo:
                                       "Merchant has no item. Try again after sometimes.",
                                   heightFactor: 2,
@@ -208,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               );
                             default:
-                              return SizedBox.shrink();
+                              return const SizedBox.shrink();
                           }
                         }),
                       ),

@@ -10,4 +10,5 @@ class RoutesName {
   static const String changePasswordRoute = 'change_password';
   static const String editProfileRoute = 'edit_profile';
   static const String connectivityCheckRoute = 'connectivity_check';
+  static const String productSearchRoute = 'product_search';
 }

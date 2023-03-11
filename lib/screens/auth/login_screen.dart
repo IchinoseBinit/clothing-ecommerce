@@ -84,18 +84,18 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: CustomAppBar(
         title: "Login",
         // actions: [
-          // GestureDetector(
-          //   child: IconButton(
-          //     onPressed:  () {
-          //             Navigator.pop(context);
-          //           }
-          //         ,
-          //     icon: Icon(
-          //       size: 24.r,
-          //       Icons.close,
-          //     ),
-          //   ),
-          // )
+        // GestureDetector(
+        //   child: IconButton(
+        //     onPressed:  () {
+        //             Navigator.pop(context);
+        //           }
+        //         ,
+        //     icon: Icon(
+        //       size: 24.r,
+        //       Icons.close,
+        //     ),
+        //   ),
+        // )
         // ],
         disableLeading: true,
       ),
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           suffixIcon: _dontShowPassword
                               ? Icons.visibility
                               : Icons.visibility_off,
-                          onClickPsToggle: () {
+                          onClickSuffixToggle: () {
                             setState(() {
                               _dontShowPassword = !_dontShowPassword;
                             });

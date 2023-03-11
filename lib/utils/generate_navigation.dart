@@ -1,5 +1,6 @@
 import 'package:clothing_ecommerce/screens/auth/edit_profile_screen.dart';
 import 'package:clothing_ecommerce/screens/home/home_screen.dart';
+import 'package:clothing_ecommerce/screens/home/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import '/data/constants/routes_name.dart';
@@ -41,6 +42,9 @@ class GenerateNavigation {
       case RoutesName.connectivityCheckRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ConnectivityCheckWidget());
+      case RoutesName.productSearchRoute:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const ProductSearchScreen());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

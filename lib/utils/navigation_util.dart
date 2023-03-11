@@ -16,12 +16,10 @@ navigateNamedReplacement(BuildContext context, String routeName) {
   );
 }
 
-navigateNamed(BuildContext context, {required Widget screen}) {
-  return Navigator.push(
+navigateNamed(BuildContext context, String screen) {
+  return Navigator.pushNamed(
     context,
-    MaterialPageRoute(
-      builder: (context) => screen,
-    ),
+   screen
   );
 }
 

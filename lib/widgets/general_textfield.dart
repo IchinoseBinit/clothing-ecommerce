@@ -20,7 +20,7 @@ class GeneralTextField extends StatefulWidget {
   final Widget? sufixWidget;
   final bool obscureText;
   final bool removePrefixIconDivider;
-  final VoidCallback? onClickPsToggle;
+  final VoidCallback? onClickSuffixToggle;
   final VoidCallback? onTap;
   final TextInputType keywordType;
   final Function validate;
@@ -57,7 +57,7 @@ class GeneralTextField extends StatefulWidget {
     this.sufixWidget,
     this.suffixText,
     this.obscureText = false,
-    this.onClickPsToggle,
+    this.onClickSuffixToggle,
     required this.keywordType,
     required this.validate,
     this.onFieldSubmit,
@@ -194,7 +194,7 @@ class _GeneralTextFieldState extends State<GeneralTextField> {
                     )
                   : widget.suffixIcon != null
                       ? IconButton(
-                          onPressed: widget.onClickPsToggle,
+                          onPressed: widget.onClickSuffixToggle,
                           icon: Icon(
                             widget.suffixIcon,
                             color:
