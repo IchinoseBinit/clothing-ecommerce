@@ -1,3 +1,5 @@
+import 'package:clothing_ecommerce/data/app_urls.dart';
+
 class ProductModel {
   ProductModel({
     required this.id,
@@ -25,7 +27,7 @@ class ProductModel {
     name = json['name'];
     description = json['description'];
     price = json['price'];
-    image = json['image'];
+    image = AppUrl.baseUrl+ json['image'];
     category = json['category'];
     quantity = json['quantity'];
     createdAt = json['created_at'];

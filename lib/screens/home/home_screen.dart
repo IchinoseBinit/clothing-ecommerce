@@ -1,21 +1,32 @@
 import 'package:clothing_ecommerce/data/app_urls.dart';
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
+import 'package:clothing_ecommerce/data/response/status.dart';
 import 'package:clothing_ecommerce/models/product_model.dart';
+import 'package:clothing_ecommerce/providers/product_list_provider.dart';
 import 'package:clothing_ecommerce/screens/product_detail/product_detail_screen.dart';
 import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
 import 'package:clothing_ecommerce/utils/custom_scroll_behaviour.dart';
 import 'package:clothing_ecommerce/utils/navigation_util.dart';
+import 'package:clothing_ecommerce/widgets/error_info_widget.dart';
 import 'package:clothing_ecommerce/widgets/general_icon_button.dart';
+import 'package:clothing_ecommerce/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 String productDesc =
     "Flowy,Comfy Fabric in Medium Weight much Heavier than Normal Chiffon,Antistatic. Fashion Vintage HIGH WAIST Culottes Loose Wide Leg Flattering Pants,Zip Closure with Hook and Eye,Back Elastic Real Waistband with Belt Loops,Front Pleats ,Back Darts,Side Slant Pockets";
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   List<ProductModel> productList = List.generate(
       10,
       (index) => ProductModel(
@@ -36,6 +47,12 @@ class HomeScreen extends StatelessWidget {
     "Shirts Collection",
     "Pants Collection",
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductListProvider>(context, listen: false).fetchProductList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,20 +172,36 @@ class HomeScreen extends StatelessWidget {
                       child: MediaQuery.removePadding(
                         context: context,
                         removeTop: true,
-                        child: GridView.builder(
-                          physics: const ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: productList.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 0.65,
-                            crossAxisCount: 2,
-                            crossAxisSpacing: AppSizes.paddingLg,
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return ProductItem(product: productList[index]);
-                          },
-                        ),
+                        child: Consumer<ProductListProvider>(
+                            builder: (_, listProvider, __) {
+                          switch (listProvider.productList.status) {
+                            case Status.ERROR:
+                              return ErrorInfoWidget();
+                            case Status.LOADING:
+                              return LoadingWidget();
+
+                            case Status.COMPLETED:
+                              return GridView.builder(
+                                physics: const ClampingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount:
+                                    listProvider.productList.data!.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  childAspectRatio: 0.65,
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: AppSizes.paddingLg,
+                                ),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ProductItem(
+                                      product: listProvider
+                                          .productList.data![index]);
+                                },
+                              );
+                            default:
+                              return SizedBox.shrink();
+                          }
+                        }),
                       ),
                     ),
                   )
@@ -195,7 +228,7 @@ class ProductItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         //TODO: add going to detail logic as named route
-        navigate(context, ProductDetailScreen(product: product));
+        navigate(context, ProductDetailScreen(productId: product.id));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

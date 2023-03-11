@@ -38,7 +38,7 @@ class ProductDetailProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchProductList(int productId) async {
+  Future<void> fetchProduct(int productId) async {
     setProduct(ApiResponse.loading());
     await _productListApi.fetchProductApi(productId).then((value) {
       setProduct(ApiResponse.completed(value));

@@ -15,7 +15,7 @@ class ProductDetailApi {
         url: AppUrl.productDetailUrl.replaceAll("name", productId.toString()),
         requestType: RequestType.getWithToken,
       );
-      return ProductModel.fromJson(response);
+      return ProductModel.fromJson(response["data"]);
     } catch (e) {
       log(e.toString());
       rethrow;
