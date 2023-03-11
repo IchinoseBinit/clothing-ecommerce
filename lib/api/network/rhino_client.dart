@@ -10,7 +10,7 @@ import '/models/login_model.dart';
 import '/models/refresh_token_model.dart';
 import '/providers/database_provider.dart';
 import '/providers/hive_database_helper.dart';
-import '/screens/auth_screen/login_screen.dart';
+import '../../screens/auth/login_screen.dart';
 import '/utils/navigation_util.dart';
 import '/utils/request_type.dart';
 import '/utils/request_type_exception.dart';

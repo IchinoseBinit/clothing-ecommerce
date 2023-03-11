@@ -2,11 +2,11 @@ import 'package:clothing_ecommerce/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '/data/constants/routes_name.dart';
-import '/screens/auth_screen/change_password_screen.dart';
-import '/screens/auth_screen/forgot_password_screen.dart';
-import '/screens/auth_screen/login_screen.dart';
-import '/screens/auth_screen/register_screen.dart';
-import '/screens/auth_screen/welcome_screen.dart';
+import '../screens/auth/change_password_screen.dart';
+import '../screens/auth/forgot_password_screen.dart';
+import '../screens/auth/login_screen.dart';
+import '../screens/auth/register_screen.dart';
+import '../screens/auth/welcome_screen.dart';
 import '/screens/navigation_screen.dart';
 import '/widgets/no_internet_screen.dart';
 

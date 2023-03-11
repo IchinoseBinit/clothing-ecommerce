@@ -8,7 +8,7 @@ import '/data/constants/routes_name.dart';
 import '/models/login_model.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
-import '/screens/auth_screen/reset_password_opt_screen.dart';
+import '../screens/auth/reset_password_opt_screen.dart';
 import '/utils/navigation_util.dart';
 import '/utils/show_toast.dart';
 import '../api/auth_api.dart';

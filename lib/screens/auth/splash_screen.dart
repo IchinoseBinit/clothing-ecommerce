@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import '/data/constants/image_constants.dart';
 import '/providers/conectivity_provider.dart';
 import '/providers/intro_notifier.dart';
-import '/screens/auth_screen/login_screen.dart';
-import '/screens/auth_screen/welcome_screen.dart';
+import '/screens/auth/login_screen.dart';
+import '/screens/auth/welcome_screen.dart';
 import '/screens/navigation_screen.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';

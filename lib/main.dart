@@ -1,3 +1,4 @@
+import 'package:clothing_ecommerce/providers/product_detail_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +10,7 @@ import '/providers/auth_provider.dart';
 import '/providers/conectivity_provider.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
-import '/screens/auth_screen/splash_screen.dart';
+import 'screens/auth/splash_screen.dart';
 import '/styles/themes.dart';
 import 'utils/generate_navigation.dart';
 
@@ -49,6 +50,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<ConnectivityProvider>(
             create: (_) => ConnectivityProvider(),
+          ),
+          ChangeNotifierProvider<ProductDetailProvider>(
+            create: (_) => ProductDetailProvider(),
           ),
         ],
         child: ScreenUtilInit(
