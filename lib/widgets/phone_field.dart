@@ -23,8 +23,8 @@ class PhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: PhoneNumberInput(
-        initialCountry: "US",
-        initialValue: _initialValue,
+        initialCountry: "NP",
+        // initialValue: _initialValue,
         locale: 'en',
         allowSearch: true,
         searchHint: "Search Country",

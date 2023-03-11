@@ -37,8 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           image: AppUrl.staticImage,
           category: 1,
           quantity: 1,
-          createdAt: DateTime.now().toString(),
-          updatedAt: DateTime.now().toString()));
+          ));
 
   List<String> categoryList = [
     "For Women",
@@ -57,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       // appBar: AppBar(
       //   title: Text('App Bar!'),
       //   flexibleSpace: Image(
@@ -176,11 +176,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             builder: (_, listProvider, __) {
                           switch (listProvider.productList.status) {
                             case Status.ERROR:
-                              return ErrorInfoWidget();
+                              return ErrorInfoWidget(
+                                heightFactor: 2,
+                              );
                             case Status.LOADING:
                               return LoadingWidget();
 
                             case Status.COMPLETED:
+                              if (listProvider.productList.data!.isEmpty) {
+                                return ErrorInfoWidget(
+                                  errorInfo:
+                                      "Merchant has no item. Try again after sometimes.",
+                                  heightFactor: 2,
+                                );
+                              }
                               return GridView.builder(
                                 physics: const ClampingScrollPhysics(),
                                 shrinkWrap: true,

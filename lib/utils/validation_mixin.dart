@@ -21,6 +21,9 @@ class Validation {
         return "Your passwords does not match";
       }
     }
+    if (value.length < 5 ) {
+      return "Please enter four letter password";
+    }
     return null;
   }
 
@@ -43,13 +46,14 @@ class Validation {
     return null;
   }
 
-  String? validateNumber(String value, String title, double maxValue,{bool isPhoneNumber=false}) {
+  String? validateNumber(String value, String title, double maxValue,
+      {bool isPhoneNumber = false}) {
     if (value.trim().isEmpty) {
       return "Please enter $title";
     } else if (double.tryParse(value) == null) {
       return "Please enter a numeric value";
     }
-    if ((double.parse(value) < 0 || double.parse(value) > maxValue )&&
+    if ((double.parse(value) < 0 || double.parse(value) > maxValue) &&
         !isPhoneNumber) {
       return "Please enter $title more than 0 and less than ${maxValue.toInt()}";
     }

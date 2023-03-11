@@ -34,6 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _checkBox = true;
 
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
   // final TextEditingController _passwordController = TextEditingController();
@@ -42,6 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late final PhoneNumberInputController _phoneController;
 
   FocusNode nameFocusNode = FocusNode();
+  FocusNode usernameFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode dobFocusNode = FocusNode();
   FocusNode phoneFocusNode = FocusNode();
@@ -73,10 +75,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (_formKey.currentState!.validate()) {
       Map<String, dynamic> data = {
         'full_name': _nameController.text.toString().trim(),
+        'username': _usernameController.text.toString().trim(),
         'email': _emailController.text.toString().trim(),
         // 'password1': _passwordController.text.toString().trim(),
         // 'password2': _confirmPasswordController.text.toString().trim(),
-        'date_of_birth': '',
+        'date_of_birth': _dobController.text,
         'mobile_number':
             "${_phoneController.selectedCountry.dialCode.trim()}-${_phoneController.phoneNumber.trim()}",
       };
@@ -158,6 +161,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             focusNode: nameFocusNode,
                             labelText: 'Full Name',
                             controller: _nameController,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          GeneralTextField(
+                            textInputAction: TextInputAction.next,
+                            validate: (v) =>
+                                Validation().validate(v, title: "Username"),
+                            keywordType: TextInputType.name,
+                            focusNode: usernameFocusNode,
+                            labelText: 'Username',
+                            controller: _usernameController,
                           ),
                           SizedBox(
                             height: 16.h,

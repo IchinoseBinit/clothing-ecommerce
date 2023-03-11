@@ -9,8 +9,6 @@ class ProductModel {
     required this.image,
     required this.category,
     required this.quantity,
-    required this.createdAt,
-    required this.updatedAt,
   });
   late final int id;
   late final String name;
@@ -19,19 +17,15 @@ class ProductModel {
   late final String image;
   late final int category;
   late final int quantity;
-  late final String createdAt;
-  late final String updatedAt;
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
     price = json['price'];
-    image = AppUrl.baseUrl+ json['image'];
+    image = AppUrl.baseUrl + json['image'];
     category = json['category'];
     quantity = json['quantity'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,8 +37,6 @@ class ProductModel {
     data['image'] = image;
     data['category'] = category;
     data['quantity'] = quantity;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
     return data;
   }
 }
