@@ -7,6 +7,7 @@ import 'package:clothing_ecommerce/screens/home/home_screen.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/utils/custom_scroll_behaviour.dart';
 import 'package:clothing_ecommerce/widgets/error_info_widget.dart';
+import 'package:clothing_ecommerce/widgets/general_icon_button.dart';
 import 'package:clothing_ecommerce/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -36,45 +37,61 @@ class _ProductSearchScreenState extends State<ProductSearchScreen> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             elevation: 0,
-            toolbarHeight: 95,
+            toolbarHeight: 80,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
             title: Padding(
               padding: const EdgeInsets.only(
                   bottom: AppSizes.padding, top: AppSizes.padding),
-              child: GeneralTextField(
-                hintText: "Search...",
-                // isDisabled: true,
-                controller: searchController,
-                obscureText: false,
-                prefixWidget:
-                    const Icon(Icons.search, color: AppColors.greyColor),
-                borderColor: Colors.grey.shade200,
-                removePrefixIconDivider: true,
-                keywordType: TextInputType.text,
-                validate: (String value) {},
-                onFieldSubmit: () {},
-                textInputAction: TextInputAction.search,
-                onClickSuffixToggle: () {
-                  searchController.clear();
-                },
-                suffixIcon:
-                    Provider.of<ProductSearchProvider>(context).showClearButton
-                        ? Icons.cancel
-                        : null,
-                suffixIconColor: AppColors.greyColor,
-                onChanged: (String value) {
-                  Provider.of<ProductSearchProvider>(context, listen: false)
-                      .setShowClearButton(value.isNotEmpty);
-                  if (timer != null) {
-                    timer!.cancel();
-                  }
-                  timer = Timer(const Duration(seconds: 1), () {
-                    Provider.of<ProductSearchProvider>(context, listen: false)
-                        .fetchSearchProductList(value.toString());
-                  });
-                },
-                onSave: (value) {},
+              child: Row(
+
+                children: [
+                  GeneralIconButton(
+                      iconData: Icons.arrow_back_ios_outlined,
+                      size: 45,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+
+                      SizedBox(width: 8.w,),
+                  Expanded(
+                    child: GeneralTextField(
+                      hintText: "Search...",
+                      // isDisabled: true,
+                      controller: searchController,
+                      obscureText: false,
+                      prefixWidget:
+                          const Icon(Icons.search, color: AppColors.greyColor),
+                      borderColor: Colors.grey.shade200,
+                      removePrefixIconDivider: true,
+                      keywordType: TextInputType.text,
+                      validate: (String value) {},
+                      onFieldSubmit: () {},
+                      textInputAction: TextInputAction.search,
+                      onClickSuffixToggle: () {
+                        searchController.clear();
+                      },
+                      suffixIcon: Provider.of<ProductSearchProvider>(context)
+                              .showClearButton
+                          ? Icons.cancel
+                          : null,
+                      suffixIconColor: AppColors.greyColor,
+                      onChanged: (String value) {
+                        Provider.of<ProductSearchProvider>(context, listen: false)
+                            .setShowClearButton(value.isNotEmpty);
+                        if (timer != null) {
+                          timer!.cancel();
+                        }
+                        timer = Timer(const Duration(seconds: 1), () {
+                          Provider.of<ProductSearchProvider>(context,
+                                  listen: false)
+                              .fetchSearchProductList(value.toString());
+                        });
+                      },
+                      onSave: (value) {},
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

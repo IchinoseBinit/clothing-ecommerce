@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 class GeneralIconButton extends StatelessWidget {
   final IconData iconData;
   final VoidCallback onPressed;
+  final double? size;
   const GeneralIconButton({
     super.key,
     required this.iconData,
     required this.onPressed,
+    this.size,
   });
 
   @override
@@ -16,8 +18,10 @@ class GeneralIconButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
+        height: size,
+        width: size,
         alignment: Alignment.center,
-        padding: const EdgeInsets.all(AppSizes.padding),
+        padding:size==null? const EdgeInsets.all(AppSizes.padding):null,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: AppColors.greyColor,
