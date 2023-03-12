@@ -126,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         horizontal: AppSizes.paddingLg),
                     child: GeneralTextField(
                       hintText: "Search...",
+                      readonly: true,
                       // isDisabled: true,
                       onTap: () {
                         navigateNamed(context, RoutesName.productSearchRoute);
