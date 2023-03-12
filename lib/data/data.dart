@@ -1,3 +1,5 @@
+import 'package:clothing_ecommerce/data/constants/image_constants.dart';
+
 class IntroItem {
   final String title;
   final String icon;
@@ -9,23 +11,19 @@ class IntroItem {
 
 List<IntroItem> introItems = [
   IntroItem(
-      title: "Welcome \n to RhinoPass",
+      title: "Select Items",
       description:
-          "Quick Commerce is the next-generation of e-commerce, and as the name suggests, it's all about speed and efficiency.",
-      icon: "assets/intro1.png"),
+          "Explore the top deals and offers that are currently available in your local area..",
+      icon: intro1
+      ),
   IntroItem(
-      title: "Discover store \n near you",
+      title: "Purchase",
       description:
-          "We have simplified the process of finding merchants in your area by providing you with easy-to-use tools to locate nearby merchants.",
-      icon: "assets/intro2.png"),
+          "Purchase your product using online payment services or you can cash on delivery.",
+      icon: intro2),
   IntroItem(
-      title: "Order your \n favourites",
-      description:
-          "Explore the top deals and offers that are currently available in your local area.",
-      icon: "assets/intro3.png"),
-  IntroItem(
-      title: "Pick Up or \n Delivery",
+      title: "Delivery",
       description:
           "Our online ordering system is designed to be simple, fast, and efficient for your convenience.",
-      icon: "assets/intro4.png"),
+      icon: intro3),
 ];

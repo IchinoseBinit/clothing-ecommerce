@@ -23,7 +23,7 @@ navigateNamed(BuildContext context, String screen) {
   );
 }
 
-navigateReplacement(BuildContext context, {required Widget screen}) {
+navigateReplacement(BuildContext context, Widget screen) {
   return Navigator.pushReplacement(
     context,
     MaterialPageRoute(

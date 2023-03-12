@@ -1,6 +1,8 @@
+import 'package:clothing_ecommerce/utils/custom_scroll_behaviour.dart';
 import 'package:clothing_ecommerce/widgets/general_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '/data/constants/routes_name.dart';
 import '/data/data.dart';
 import '/providers/hive_database_helper.dart';
@@ -36,65 +38,64 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       backgroundColor: AppColors.lightGreyColor,
       body: ScrollConfiguration(
-        behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
-        child: SingleChildScrollView(
-          child: SafeArea(
-            child: Container(
-              height: 600.h,
-              padding: const EdgeInsets.all(AppSizes.padding),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 450.h,
-                    // color: Colors.red,
-                    child: ScrollConfiguration(
-                      behavior: const MaterialScrollBehavior()
-                          .copyWith(overscroll: false),
-                      child: PageView.builder(
-                          controller: controller,
-                          itemCount: introItems.length,
-                          onPageChanged: (value) {
-                            currentPageValue = value;
-                            setState(() {});
-                          },
-                          itemBuilder: (BuildContext context, int index) {
-                            IntroItem item = introItems[index];
-                            return Column(
-                              children: [
-                                Image.asset(item.icon),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Text(
-                                  item.title,
-                                  textAlign: TextAlign.center,
-                                  style: bigTitleText.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                Text(
-                                  item.description,
-                                  style: bodyText.copyWith(
-                                    color: AppColors.textSoftGreyColor,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            );
-                          }),
-                    ),
-                  ),
-                  _indicator(),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  _buildButton()
-                ],
+        behavior:MyBehaviour(),
+        child: Container(
+          padding: const EdgeInsets.all(AppSizes.padding * 2),
+          child: Column(
+            children: [
+              SizedBox(
+                height:  30.h,),
+              SizedBox(
+                height:  MediaQuery.of(context).size.height * .55,
+                // color: Colors.red,
+                child: PageView.builder(
+                  
+                    controller: controller,
+                    itemCount: introItems.length,
+                    onPageChanged: (value) {
+                      currentPageValue = value;
+                      setState(() {});
+                    },
+                    itemBuilder: (BuildContext context, int index) {
+                      IntroItem item = introItems[index];
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          SvgPicture.asset(item.icon,
+                              height:
+                                  MediaQuery.of(context).size.height * .40),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          Text(
+                            item.title,
+                            textAlign: TextAlign.center,
+                            style: bigTitleText.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          Text(
+                            item.description,
+                            style: bodyText.copyWith(
+                              color: AppColors.textSoftGreyColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      );
+                    }),
               ),
-            ),
+              _indicator(),
+              SizedBox(
+                height: 32.h,
+              ),
+              _buildButton()
+            ],
           ),
         ),
       ),
@@ -141,47 +142,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget _buildButton() {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
           children: [
-            Expanded(
-              child: GeneralTextButton(
-                marginH: 0,
-                title: "Log In",
-                borderRadius: 24.r,
-                onPressed: () {
-                  Navigator.pushNamed(context, RoutesName.loginRoute);
-                },
-              ),
+            GeneralTextButton(
+              marginH: 0,
+              title: "Log In",
+              borderRadius: 24.r,
+              onPressed: () {
+                Navigator.pushNamed(context, RoutesName.loginRoute);
+              },
             ),
             const SizedBox(
-              width: AppSizes.padding,
+              height: AppSizes.padding * 2,
             ),
-            Expanded(
-              child: GeneralElevatedButton(
-                borderRadius: 24.r,
-                marginH: 0,
-                onPressed: () {
-                  Navigator.pushNamed(context, RoutesName.registerRoute);
-                },
-                title: "Register",
-              ),
+            GeneralElevatedButton(
+              borderRadius: 24.r,
+              marginH: 0,
+              onPressed: () {
+                Navigator.pushNamed(context, RoutesName.registerRoute);
+              },
+              title: "Register",
             ),
           ],
-        ),
-        SizedBox(
-          height: 24.h,
-        ),
-        GestureDetector(
-          child: Text(
-            "Skip to Home",
-            style: bodyText.copyWith(
-              decoration: TextDecoration.underline,
-            ),
-          ),
-          onTap: () {
-            Navigator.pushReplacementNamed(context, RoutesName.navigationRoute);
-          },
         ),
       ],
     );

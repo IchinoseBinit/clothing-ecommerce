@@ -12,15 +12,13 @@ class ErrorInfoWidget extends StatelessWidget {
   final double? heightFactor;
   final bool dontShowImage;
   final bool isCart;
-  final bool isFoodItems;
-  final bool isLocation;
+  final bool isProductCart;
   const ErrorInfoWidget({
     Key? key,
     this.errorInfo,
     this.dontShowImage = false,
     this.isCart = false,
-    this.isFoodItems = false,
-    this.isLocation = false,
+    this.isProductCart = false,
     this.heightFactor,
   }) : super(key: key);
 
@@ -47,7 +45,7 @@ class ErrorInfoWidget extends StatelessWidget {
                 SvgPicture.asset(
                   pageNotFound,
                   height: 110.h,
-                  color: (isFoodItems || isLocation)
+                  color: isProductCart
                       ? null
                       : AppColors.primaryColor,
                 ),

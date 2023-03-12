@@ -46,11 +46,11 @@ class _SplashScreenState extends State<SplashScreen> {
         Provider.of<IntroProvider>(context, listen: false);
     await introProvider.call();
     if (introProvider.hasAppToken) {
-      navigate(context, const NavigationScreen());
+      navigateReplacement(context, const NavigationScreen());
     } else if (introProvider.getisSeenWelcomeScreen) {
-      navigate(context, const LoginScreen());
+      navigateReplacement(context, const LoginScreen());
     } else {
-      navigate(context, const WelcomeScreen());
+      navigateReplacement(context, const WelcomeScreen());
     }
     // if (await Permission.location.request().isGranted || Platform.isIOS) {
     // await Provider.of<LocationProvider>(context, listen: false)

@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const Color primaryColor = Color(0xffCB857C);
   static const Color darkPrimaryColor = Color(0xff9C2D41);
-  static const Color inputColor = Color(0xffF8F8F8);
-  static const Color buttonColor = Color(0xff48a295);
   static const Color lightPrimaryColor = Color(0xffF6CBB7);
+  static const Color buttonColor = Color(0xffCB857C);
+    static const Color backgroundColor = Color(0xffFAF7F4);
+  static const Color iconBtnBgColor = Color(0xffededed);
+
+  static const Color inputColor = Color(0xffF8F8F8);
   static const Color lightestPrimaryColor = Color(0xffE7F6F3);
   static const Color secondColor = Color(0xff325bbf);
   static const Color iconColor = Color(0xff000000);
@@ -32,6 +35,5 @@ class AppColors {
   static const Color disabledButtonColor = Color(0xffE5E8EB);
   static const Color lightGreyBgColor = Color(0xffeeeeee);
   static const Color textFieldInputColor = Color(0xffF3F3F3);
-  static const Color backgroundColor = Color(0xffFAF7F4);
-  static const Color iconBtnBgColor = Color(0xffededed);
+
 }
