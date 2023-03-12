@@ -319,7 +319,10 @@ class EachCategoryItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppSizes.radius * 4),
         color: AppColors.lightPrimaryColor,
       ),
-      child: Text(label),
+      child: Text(
+        label,
+        style: smallText.copyWith(color: AppColors.darkPrimaryColor),
+      ),
     );
   }
 }
