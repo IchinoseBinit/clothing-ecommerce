@@ -41,7 +41,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               Consumer<ProductDetailProvider>(builder: (_, detailProvider, __) {
             switch (detailProvider.productData.status) {
               case Status.LOADING:
-                return const LoadingWidget();
+                return LoadingWidget(
+                  height: .5.sh,
+                );
               case Status.ERROR:
                 return const ErrorInfoWidget();
               case Status.COMPLETED:
