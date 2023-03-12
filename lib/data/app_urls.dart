@@ -4,6 +4,7 @@ import 'package:clothing_ecommerce/environment_config.dart';
 
 class AppUrl {
   static final String apiKey = Platform.isAndroid ? androidKey : androidKey;
+  static const String androidKey = 'AIzaSyDfjyHuSMqkLHM-vw9Dvj71yJ9MqoF3d20';
   // static final String iosKey = 'YOUR_API_KEY_HERE';
 
 //Khati keys
@@ -17,49 +18,33 @@ class AppUrl {
       "JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R";
   // static const String esewaTestSecretKey =
   //     "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==";
-  static var baseUrl =
+  static String baseUrl =
       EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.1.67:8000';
+  static String stagCallbackUrl = "";
+  static String prodCallbackUrl = "";
+
   // EnvironmentConfig.isProd == "true" ? "" : 'http://127.0.0.1:8000';
-  static const String androidKey = 'AIzaSyDfjyHuSMqkLHM-vw9Dvj71yJ9MqoF3d20';
   static String loginUrl = '$baseUrl/users/login/';
   static String registerApiUrl = '$baseUrl/users/register/';
-  // static String logoutApiUrl = '$baseUrl/auth/logout/';
-  static String resetPassApiUrl =
-      '$baseUrl/auth/customers/password-reset/get-opt/';
   static String changePasswordUrl = '$baseUrl/users/change-password/';
-  static String profileApiUrl = '$baseUrl/customers/info/';
-  static String passChangeApiUrl = '$baseUrl/auth/password/change/';
-  static String editProfileApiUrl = '$baseUrl/customers/update/';
-  static String categoryItemListUrl = '$baseUrl/item-groups/list/';
-  static String timeSlotUrl = '$baseUrl/merchants/time-slot/';
-  static var directionUrl =
-      "https://maps.googleapis.com/maps/api/directions/json?";
-  static var paymentGetwayUrl = "$baseUrl/merchants/payment-gateways/name/";
-  static var getTokenUrl = "$baseUrl/auth/customers/jwt/refresh/";
-  static var passwordResetVerifyOtpUrl =
-      "$baseUrl/auth/customers/password-reset-with-otp/";
-  static var registerVerifyOtpUrl = "$baseUrl/auth/customers/verify-email/";
-  static var registerSetPasswordUrl = "$baseUrl";
-  static var resentOtpRegisterApi =
-      "$baseUrl/auth/customers/email-verification/get-opt/";
-  static var setFavouriteRestaurantUrl =
-      "$baseUrl/customers/favourite/merchants/name/";
-  static var favouriteRestaurantListUrl =
-      "$baseUrl/customers/favourite/merchants/";
-  static var announcementMerchantDetailUrl =
-      "$baseUrl/merchants/announcements/name/";
-  static var stripePaymentUrl = "https://api.stripe.com/v1/payment_intents";
-  static var kStripePaymentUrl =
+  static String getTokenUrl = "$baseUrl/auth/customers/jwt/refresh/";
+  static String registerVerifyOtpUrl = "$baseUrl/auth/customers/verify-email/";
+  //TODO: set register set password url
+  static String registerSetPasswordUrl = "$baseUrl/";
+  //TODO: left api
+  static String resetPasswordApiUrl = '$baseUrl/';
+  static String resentOtpRegisterApiUrl = "$baseUrl/";
+  static String resetPasswordVerifyOtpUrl = "$baseUrl/";
+  static String profileApiUrl = '$baseUrl/';
+  static String editProfileApiUrl = '$baseUrl/';
+
+  //Stripe Url
+  static String stripePaymentUrl = "https://api.stripe.com/v1/payment_intents";
+  static String kStripePaymentUrl =
       "https://us-central1-stripe-checkout-flutter.cloudfunctions.net/stripePaymentIntentRequest";
-  static var stagCallbackUrl = "";
-  static var prodCallbackUrl = "";
 
-  static var staticImage =
-      "https://assets.vogue.com/photos/62c6f63439f5b790d09e798a/master/pass/0414-VO-VIEW04.01.jpg";
-
-  static var productListUrl = "$baseUrl/product/product-list/";
-  static var productDetailUrl = "$baseUrl/product/product-detail/name/";
-  static var productSearchUrl = "$baseUrl/product/product-search/name/";
-
-
+//Product apis
+  static String productListUrl = "$baseUrl/product/product-list/";
+  static String productDetailUrl = "$baseUrl/product/product-detail/name/";
+  static String productSearchUrl = "$baseUrl/product/product-search/name/";
 }

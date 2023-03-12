@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'network/api_manager.dart';
 import '/data/app_urls.dart';
 import '/utils/request_type.dart';
+import 'network/api_manager.dart';
 
 class AuthApi {
   final ApiManager _rhino = ApiManager();
@@ -48,7 +48,7 @@ class AuthApi {
   Future<dynamic> resetPasswordApi(dynamic data) async {
     try {
       dynamic response = await _rhino.request(
-          url: AppUrl.resetPassApiUrl,
+          url: AppUrl.resetPasswordApiUrl,
           parameter: data,
           requestType: RequestType.post);
       // dynamic response = await _apiServices.getPostApiResponseWithHeader(
@@ -63,7 +63,7 @@ class AuthApi {
   Future<dynamic> passwordResetOtpApi(dynamic data) async {
     try {
       dynamic response = await _rhino.request(
-        url: AppUrl.passwordResetVerifyOtpUrl,
+        url: AppUrl.resetPasswordVerifyOtpUrl,
         parameter: data,
         requestType: RequestType.post,
       );
@@ -97,8 +97,6 @@ class AuthApi {
         parameter: data,
         requestType: RequestType.post,
       );
-      // dynamic response = await _apiServices.getPostApiResponseWithHeader(
-      //     AppUrl.registerApiEndPoint, data);
       log(data.toString(), name: "Register Up Data");
       return response;
     } catch (e) {
@@ -126,7 +124,7 @@ class AuthApi {
 
       dynamic response = await _rhino.request(
           requestType: RequestType.post,
-          url: AppUrl.resentOtpRegisterApi,
+          url: AppUrl.resentOtpRegisterApiUrl,
           parameter: data);
       return response;
     } catch (e) {
