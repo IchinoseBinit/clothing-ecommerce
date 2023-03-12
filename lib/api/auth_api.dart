@@ -5,11 +5,11 @@ import '/utils/request_type.dart';
 import 'network/api_manager.dart';
 
 class AuthApi {
-  final ApiManager _rhino = ApiManager();
+  final ApiManager _apiManager = ApiManager();
 
   Future<dynamic> loginApi(dynamic data) async {
     try {
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
           url: AppUrl.loginUrl, parameter: data, requestType: RequestType.post);
       return response;
     } catch (e) {
@@ -19,7 +19,7 @@ class AuthApi {
 
   Future<dynamic> registerApi(Map<String, dynamic> data) async {
     try {
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
           url: AppUrl.registerApiUrl,
           parameter: data,
           requestType: RequestType.post);
@@ -34,7 +34,7 @@ class AuthApi {
 
   Future<dynamic> changePasswordApi(dynamic data) async {
     try {
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
           url: AppUrl.changePasswordUrl,
           parameter: data,
           requestType: RequestType.patchWithToken);
@@ -47,7 +47,7 @@ class AuthApi {
 
   Future<dynamic> forgetPasswordApi(dynamic data) async {
     try {
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
           url: AppUrl.forgetPasswordApiUrl,
           parameter: data,
           requestType: RequestType.post);
@@ -62,7 +62,7 @@ class AuthApi {
 
   Future<dynamic> forgetPasswordOtpApi(dynamic data) async {
     try {
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
         url: AppUrl.forgetPasswordVerifyOtpUrl,
         parameter: data,
         requestType: RequestType.post,
@@ -78,7 +78,7 @@ class AuthApi {
 
   Future<dynamic> editProfileApi(dynamic data) async {
     try {
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
         url: AppUrl.editProfileApiUrl,
         parameter: data,
         requestType: RequestType.putWithHeaders,
@@ -92,7 +92,7 @@ class AuthApi {
 
   Future<dynamic> registerOtpApi(dynamic data) async {
     try {
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
         url: AppUrl.registerVerifyOtpUrl,
         parameter: data,
         requestType: RequestType.post,
@@ -106,7 +106,7 @@ class AuthApi {
 
   Future<dynamic> registerSetPasswordApi(dynamic data) async {
     try {
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
         url: AppUrl.registerSetPasswordUrl,
         parameter: data,
         requestType: RequestType.post,
@@ -122,7 +122,7 @@ class AuthApi {
     try {
       log(data.toString());
 
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
           requestType: RequestType.post,
           url: AppUrl.resentOtpRegisterApiUrl,
           parameter: data);
@@ -134,7 +134,7 @@ class AuthApi {
 
   // Future<dynamic> logOutApi() async {
   //   try {
-  //     dynamic response = await _rhino.request(
+  //     dynamic response = await _apiManager.request(
   //         url: AppUrl.logoutApiUrl, requestType: RequestType.post);
   //     // dynamic response = await _apiServices
   //     //     .getPostApiResponsewithNoData(AppUrl.logoutApiEndPoint);

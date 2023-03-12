@@ -192,10 +192,10 @@
 //     Stripe.publishableKey = decryptedPublicKey;
 //     final scaffoldMessenger = ScaffoldMessenger.of(context);
 //     try {
-//       RhinoClient _rhinoClient = RhinoClient();
+//       RhinoClient _apiManagerClient = RhinoClient();
 
 //       // 1. create payment intent on the server
-//       final response = await _rhinoClient.request(
+//       final response = await _apiManagerClient.request(
 //           url: AppUrl.stripePaymentUrl,
 //           requestType: RequestType.postWithOnlyHeaders,
 //           headers: {

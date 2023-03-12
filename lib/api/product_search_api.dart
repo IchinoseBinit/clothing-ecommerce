@@ -7,11 +7,11 @@ import '/data/app_urls.dart';
 import '/utils/request_type.dart';
 
 class ProductSearchApi {
-  final _rhino = ApiManager();
+  final _apiManager = ApiManager();
 
   Future<List<ProductModel>> fetchSearchProductApi(String query) async {
     try {
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
         url: AppUrl.productSearchUrl.replaceAll("name", query),
         requestType: RequestType.getWithToken,
       );

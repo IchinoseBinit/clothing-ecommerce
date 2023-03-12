@@ -212,173 +212,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             labelText: 'Date of birth',
                             controller: _dobController,
                           ),
-                          SizedBox(
-                            height: 16.h,
-                          ),
-                          // SizedBox(
-                          //   child: IntlPhoneField(
-                          //     flagsButtonMargin: EdgeInsets.only(
-                          //       left: 10.w,
-                          //     ),
-                          //     keyboardType: TextInputType.phone,
-                          //     // flagsButtonPadding: EdgeInsets.only(
-                          //     //   bottom: 4.h,
-                          //     //   top: 4.h,
-                          //     // ),
-                          //     showCountryFlag: true,
-                          //     dropdownTextStyle: smallText.copyWith(
-                          //       color: AppColors.textSoftGreyColor,
-                          //     ),
-                          //     dropdownIconPosition: IconPosition.trailing,
-                          //     autovalidateMode: AutovalidateMode.disabled,
-                          //     dropdownIcon: const Icon(
-                          //       Icons.arrow_drop_down,
-                          //       color: AppColors.primaryColor,
-                          //     ),
-                          //     textAlignVertical: TextAlignVertical.center,
-                          //     decoration: InputDecoration(
-                          //       contentPadding: EdgeInsets.zero,
-                          //       hintStyle: smallText.copyWith(
-                          //         color: AppColors.textSoftGreyColor,
-                          //         fontWeight: FontWeight.w400,
-                          //       ),
-                          //       labelStyle: smallText.copyWith(
-                          //         color: AppColors.textSoftGreyColor,
-                          //         fontWeight: FontWeight.w400,
-                          //       ),
-                          //       errorStyle: TextStyle(
-                          //         color: Theme.of(context)
-                          //             .errorColor, // or any other color
-                          //       ),
-                          //       errorMaxLines: 3,
-                          //       filled: true,
-                          //       fillColor: AppColors.inputColor,
-                          //       focusedBorder: OutlineInputBorder(
-                          //         borderRadius:
-                          //             BorderRadius.circular(AppSizes.radius),
-                          //         borderSide: const BorderSide(
-                          //           color: AppColors.primaryColor,
-                          //           width: 1,
-                          //         ),
-                          //       ),
-                          //       enabledBorder: OutlineInputBorder(
-                          //         borderRadius:
-                          //             BorderRadius.circular(AppSizes.radius),
-                          //         borderSide: const BorderSide(
-                          //           width: 1,
-                          //           color: Color(0xffE3E3E3),
-                          //         ),
-                          //       ),
-                          //       disabledBorder: OutlineInputBorder(
-                          //         borderRadius:
-                          //             BorderRadius.circular(AppSizes.radius),
-                          //         borderSide: const BorderSide(
-                          //           color: AppColors.primaryColor,
-                          //           width: 1,
-                          //         ),
-                          //       ),
-                          //       focusedErrorBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(8.r),
-                          //         borderSide: BorderSide(
-                          //           color: Theme.of(context).errorColor,
-                          //           width: 1,
-                          //         ),
-                          //       ),
-                          //       errorBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(8.r),
-                          //         borderSide: BorderSide(
-                          //           color: Theme.of(context).errorColor,
-                          //           width: 1,
-                          //         ),
-                          //       ),
-                          //       hintText: "Phone Number",
-
-                          //       // prefixIcon: const Icon(
-                          //       //   Icons.phone_android_rounded,
-                          //       //   color: AppColors.textDarkColor,
-                          //       // ),
-                          //     ),
-                          //     controller: _phoneController,
-                          //     focusNode: phoneFocusNode,
-                          //     disableLengthCheck: true,
-
-                          //     initialCountryCode:
-                          //         Provider.of<LocationProvider>(context)
-                          //                 .placemarks
-                          //                 .isEmpty
-                          //             ? null
-                          //             : Provider.of<LocationProvider>(context)
-                          //                 .placemarks
-                          //                 .first
-                          //                 .isoCountryCode,
-                          //     onChanged: (phone) {
-                          //       log(phone.completeNumber);
-                          //       _completeNumber.text =
-                          //           "${phone.countryCode}-${phone.number}";
-                          //     },
-                          //     validator: (value) => Validation().validateNumber(
-                          //         value!.number, "Mobile Number", 10),
-                          //   ),
-                          // ),
-                          SizedBox(
-                            height: 16.h,
-                          ),
-                          // GeneralTextField(
-                          //   obscureText: _dontShowPassword,
-                          //   suffixIcon: _dontShowPassword
-                          //       ? Icons.visibility
-                          //       : Icons.visibility_off,
-                          //   onClickPsToggle: () {
-                          //     setState(() {
-                          //       _dontShowPassword = !_dontShowPassword;
-                          //     });
-                          //   },
-                          //   textInputAction: TextInputAction.go,
-                          //   validate: Validation().validatePassword,
-                          //   keywordType: TextInputType.text,
-                          //   focusNode: passwordFocusNode,
-                          //   labelText: 'Password',
-                          //   controller: _passwordController,
-                          // ),
-                          // SizedBox(
-                          //   height: 16.h,
-                          // ),
-                          // GeneralTextField(
-                          //   obscureText: _dontShowConfirmPassword,
-                          //   suffixIcon: _dontShowConfirmPassword
-                          //       ? Icons.visibility
-                          //       : Icons.visibility_off,
-                          //   onClickPsToggle: () {
-                          //     setState(() {
-                          //       _dontShowConfirmPassword =
-                          //           !_dontShowConfirmPassword;
-                          //     });
-                          //   },
-                          //   textInputAction: TextInputAction.go,
-                          //   validate: (value) => Validation().validatePassword(
-                          //       _passwordController.text,
-                          //       confirmValue: value,
-                          //       isConfirmPassword: true),
-                          //   keywordType: TextInputType.text,
-                          //   focusNode: confirmFocusNode,
-                          //   labelText: 'Confirm Password',
-                          //   controller: _confirmPasswordController,
-                          // ),
-                          //Password Text Field
-                          // normalPasswordFieldWIdget(),
-
-                          //Confirm Pass Text Field
+                         
                         ],
                       ),
                     )
                   ],
                 ),
-                // SizedBox(
-                //   height: 8.h,
-                // ),
-                // checkboxTile(),
-                SizedBox(
-                  height: 8.h,
+                 SizedBox(
+                  height: 20.h,
                 ),
                 Consumer<AuthProvider>(builder: (__, authProvider, _) {
                   return GeneralElevatedButton(
@@ -421,42 +262,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget checkboxTile() {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _checkBox = !_checkBox;
-        });
-      },
-      child: Row(
-        children: [
-          SizedBox(
-            height: 24,
-            width: 24,
-            child: Checkbox(
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                activeColor: AppColors.primaryColor,
-                value: _checkBox,
-                onChanged: (_) {
-                  setState(() {
-                    _checkBox = !_checkBox;
-                  });
-                }),
-          ),
-          SizedBox(width: 8.w),
-          Expanded(
-            child: Text(
-              "I want to receive exclusive offers and promotions from RhinoPass",
-              style: smallText.copyWith(
-                color: AppColors.textSoftGreyColor,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -7,11 +7,11 @@ import '/data/app_urls.dart';
 import '/utils/request_type.dart';
 
 class ProductListApi {
-  final _rhino = ApiManager();
+  final _apiManager = ApiManager();
 
   Future<List<ProductModel>> fectchProductListApi() async {
     try {
-      dynamic response = await _rhino.request(
+      dynamic response = await _apiManager.request(
         url: AppUrl.productListUrl,
         requestType: RequestType.getWithToken,
       );

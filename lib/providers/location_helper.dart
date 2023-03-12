@@ -12,10 +12,10 @@ class LocationHelper {
 
   static Future<String> getPlaceAddress(
       {required double longitude, required double latitude}) async {
-    ApiManager _rhinoClient = ApiManager();
+    ApiManager _apiManagerClient = ApiManager();
     final url =
         'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=${AppUrl.apiKey}';
-    final response = await _rhinoClient.request(
+    final response = await _apiManagerClient.request(
       url: url,
       requestType: RequestType.get,
     );
