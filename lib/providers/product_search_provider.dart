@@ -21,7 +21,7 @@ class ProductSearchProvider extends ChangeNotifier {
   Future<void> fetchSearchProductList(String query) async {
     setProductList(ApiResponse.loading());
     if (query.isEmpty) {
-      setProductList(ApiResponse.error("Item not found"));
+      setProductList(ApiResponse.error("Please type something..."));
     } else {
       await _productListApi.fetchSearchProductApi(query).then((value) {
         setProductList(ApiResponse.completed(value));
