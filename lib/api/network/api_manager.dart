@@ -35,7 +35,7 @@ class ApiManager {
         .add(InterceptorsWrapper(onRequest: (options, handler) async {
       return handler.next(options);
     }, onError: (DioError error, handler) async {
-      if (error.response!.statusCode == 401) {
+      if (error.response?.statusCode != null && error.response!.statusCode ==  401) {
         if (error.response?.data != null) {
           if (error.response!.data["messages"] != null) {
             if (error.response!.data["messages"][0]["token_type"] != null &&
@@ -109,6 +109,18 @@ class ApiManager {
         case RequestType.post:
           resp = await _client
               .post(
+                url,
+                data: parameter,
+                options: Options(
+                  headers: heading,
+                  responseType: responseType,
+                ),
+              )
+              .timeout(timeoutDuration);
+          break;
+        case RequestType.patch:
+          resp = await _client
+              .patch(
                 url,
                 data: parameter,
                 options: Options(

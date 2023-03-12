@@ -19,7 +19,7 @@ class AppUrl {
   // static const String esewaTestSecretKey =
   //     "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==";
   static String baseUrl =
-      EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.1.67:8000';
+      EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.1.92:8000';
   static String stagCallbackUrl = "";
   static String prodCallbackUrl = "";
 
@@ -28,9 +28,9 @@ class AppUrl {
   static String registerApiUrl = '$baseUrl/users/register/';
   static String changePasswordUrl = '$baseUrl/users/change-password/';
   static String getTokenUrl = "$baseUrl/auth/customers/jwt/refresh/";
-  static String registerVerifyOtpUrl = "$baseUrl/auth/customers/verify-email/";
+  static String registerVerifyOtpUrl = "$baseUrl/users/verify-otp/";
   //TODO: set register set password url
-  static String registerSetPasswordUrl = "$baseUrl/";
+  static String registerSetPasswordUrl = "$baseUrl/users/change-password-after-otp";
   //TODO: left api
   static String forgetPasswordApiUrl = '$baseUrl/';
   static String resentOtpRegisterApiUrl = "$baseUrl/";

@@ -104,12 +104,14 @@ class AuthApi {
     }
   }
 
-  Future<dynamic> registerSetPasswordApi(dynamic data) async {
+  Future<dynamic> registerSetPasswordApi(dynamic data,
+      {required String userId}) async {
+    final url = "${AppUrl.registerSetPasswordUrl}/$userId";
     try {
       dynamic response = await _apiManager.request(
-        url: AppUrl.registerSetPasswordUrl,
+        url: url,
         parameter: data,
-        requestType: RequestType.post,
+        requestType: RequestType.patchWithToken,
       );
       log(data.toString(), name: "Register Set Password Data");
       return response;

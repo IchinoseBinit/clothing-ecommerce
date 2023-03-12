@@ -260,6 +260,7 @@ class AuthProvider with ChangeNotifier {
           context,
           RegisterSetPasswordScreen(
             email: data["email"].toString(),
+            userId: value["user_id"].toString(),
           ));
     }).onError((error, stackTrace) {
       setRegisterOtpLoading(false);
@@ -267,9 +268,9 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
-  Future<void> registerSetPassword(dynamic data, BuildContext context) async {
+  Future<void> registerSetPassword(dynamic data, BuildContext context, String userId) async {
     setRegisterPasswordLoading(true);
-    _myRepo.registerSetPasswordApi(data).then((value) {
+    _myRepo.registerSetPasswordApi(data, userId: userId).then((value) {
       setRegisterPasswordLoading(false);
       showToast("User registered successfully");
       Navigator.pushReplacementNamed(context, RoutesName.loginRoute);

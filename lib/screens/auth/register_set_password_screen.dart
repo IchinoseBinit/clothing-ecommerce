@@ -13,7 +13,8 @@ import 'package:clothing_ecommerce/screens/auth/widgets/auth_template.dart';
 
 class RegisterSetPasswordScreen extends StatefulWidget {
   final String email;
-  const RegisterSetPasswordScreen({Key? key, required this.email})
+  final String userId;
+  const RegisterSetPasswordScreen({Key? key, required this.email, required this.userId})
       : super(key: key);
 
   @override
@@ -34,11 +35,11 @@ class RegisterSetPasswordScreenState extends State<RegisterSetPasswordScreen> {
     if (_formKey.currentState!.validate()) {
       Map data = {
         // "email": widget.email,
-        "password1": _passwordController.text,
-        "password2": _confirmPasswordController.text
+        "new_password": _passwordController.text,
+        "confirm_password": _confirmPasswordController.text
       };
       Provider.of<AuthProvider>(context, listen: false)
-          .registerSetPassword(data, context);
+          .registerSetPassword(data, context, widget.userId);
     }
   }
 
