@@ -172,6 +172,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> changePassword(dynamic data, BuildContext context) async {
     setChangePasswordLoading(true);
+    
 
     _myRepo.changePasswordApi(data).then((value) {
       setChangePasswordLoading(false);
