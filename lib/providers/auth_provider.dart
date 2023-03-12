@@ -30,6 +30,8 @@ class AuthProvider with ChangeNotifier {
   bool get resetPasswordLoading => _resetPasswordLoading;
   bool _registerOtpLoading = false;
   bool get registerOtpLoading => _registerOtpLoading;
+  bool _registerPasswordLoading = false;
+  bool get registerPasswordLoading => _registerPasswordLoading;
   bool _editLoading = false;
   bool get editLoading => _editLoading;
   bool _changePasswordLoading = false;
@@ -61,6 +63,11 @@ class AuthProvider with ChangeNotifier {
 
   setRegisterOtpLoading(bool value) {
     _registerOtpLoading = value;
+    notifyListeners();
+  }
+
+  setRegisterPasswordLoading(bool value) {
+    _registerPasswordLoading = value;
     notifyListeners();
   }
 
@@ -261,17 +268,13 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> registerSetPassword(dynamic data, BuildContext context) async {
-    setRegisterOtpLoading(true);
+    setRegisterPasswordLoading(true);
     _myRepo.registerSetPasswordApi(data).then((value) {
-      setRegisterOtpLoading(false);
+      setRegisterPasswordLoading(false);
       showToast("User registered successfully");
-      if (isGuest) {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      }
       Navigator.pushReplacementNamed(context, RoutesName.loginRoute);
     }).onError((error, stackTrace) {
-      setRegisterOtpLoading(false);
+      setRegisterPasswordLoading(false);
       showToast(error.toString());
     });
   }
@@ -281,6 +284,6 @@ class AuthProvider with ChangeNotifier {
     showToast("Logout Successfully");
     userPreference.deleteToken();
     await Provider.of<IntroProvider>(context, listen: false).call();
-    Navigator.pushNamed(context, RoutesName.loginRoute);
+    Navigator.pushReplacementNamed(context, RoutesName.loginRoute);
   }
 }

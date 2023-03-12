@@ -147,7 +147,7 @@ class RegisterSetPasswordScreenState extends State<RegisterSetPasswordScreen> {
                       return GeneralElevatedButton(
                         title: "Confirm",
                         marginH: 0,
-                        loading: authProvider.resetPsOtpLoading,
+                        loading: authProvider.registerOtpLoading,
                         onPressed: () {
                           _onSubmit();
                         },
