@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:clothing_ecommerce/models/product_model.dart';
 
-import '/api/network/rhino_client.dart';
+import 'network/api_manager.dart';
 import '/data/app_urls.dart';
 import '/utils/request_type.dart';
 
 class ProductListApi {
-  final _rhino = RhinoClient();
+  final _rhino = ApiManager();
 
   Future<List<ProductModel>> fectchProductListApi() async {
     try {

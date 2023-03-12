@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '/api/network/rhino_client.dart';
+import '../api/network/api_manager.dart';
 import '/data/app_urls.dart';
 import '/utils/request_type.dart';
 
@@ -12,7 +12,7 @@ class LocationHelper {
 
   static Future<String> getPlaceAddress(
       {required double longitude, required double latitude}) async {
-    RhinoClient _rhinoClient = RhinoClient();
+    ApiManager _rhinoClient = ApiManager();
     final url =
         'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=${AppUrl.apiKey}';
     final response = await _rhinoClient.request(

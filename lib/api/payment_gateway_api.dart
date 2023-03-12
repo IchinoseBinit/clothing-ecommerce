@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import '/api/network/rhino_client.dart';
+import 'network/api_manager.dart';
 import '/data/app_urls.dart';
 import '/models/payment_gateway_model.dart';
 import '/utils/request_type.dart';
 
 class PaymentGatewayApi {
-  final _rhino = RhinoClient();
+  final _rhino = ApiManager();
 
   Future<dynamic> fetchPaymentGateway(Map body,
       {required int merchantId}) async {

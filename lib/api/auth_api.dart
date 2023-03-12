@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import '/api/network/rhino_client.dart';
+import 'network/api_manager.dart';
 import '/data/app_urls.dart';
 import '/utils/request_type.dart';
 
 class AuthApi {
-  final RhinoClient _rhino = RhinoClient();
+  final ApiManager _rhino = ApiManager();
 
   Future<dynamic> loginApi(dynamic data) async {
     try {
@@ -105,6 +105,7 @@ class AuthApi {
       rethrow;
     }
   }
+
   Future<dynamic> registerSetPasswordApi(dynamic data) async {
     try {
       dynamic response = await _rhino.request(

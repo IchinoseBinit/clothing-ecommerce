@@ -15,12 +15,12 @@ import '/utils/navigation_util.dart';
 import '/utils/request_type.dart';
 import '/utils/request_type_exception.dart';
 
-class RhinoClient {
+class ApiManager {
   late final Dio _client;
   dynamic responseJson;
 
   final timeoutDuration = const Duration(seconds: 60);
-  RhinoClient() {
+  ApiManager() {
     _client = Dio();
     _client.interceptors.add(
       LogInterceptor(
