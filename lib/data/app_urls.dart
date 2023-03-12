@@ -32,9 +32,9 @@ class AppUrl {
   //TODO: set register set password url
   static String registerSetPasswordUrl = "$baseUrl/";
   //TODO: left api
-  static String resetPasswordApiUrl = '$baseUrl/';
+  static String forgetPasswordApiUrl = '$baseUrl/';
   static String resentOtpRegisterApiUrl = "$baseUrl/";
-  static String resetPasswordVerifyOtpUrl = "$baseUrl/";
+  static String forgetPasswordVerifyOtpUrl = "$baseUrl/";
   static String profileApiUrl = '$baseUrl/';
   static String editProfileApiUrl = '$baseUrl/';
 

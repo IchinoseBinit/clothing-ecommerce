@@ -45,10 +45,10 @@ class AuthApi {
     }
   }
 
-  Future<dynamic> resetPasswordApi(dynamic data) async {
+  Future<dynamic> forgetPasswordApi(dynamic data) async {
     try {
       dynamic response = await _rhino.request(
-          url: AppUrl.resetPasswordApiUrl,
+          url: AppUrl.forgetPasswordApiUrl,
           parameter: data,
           requestType: RequestType.post);
       // dynamic response = await _apiServices.getPostApiResponseWithHeader(
@@ -60,10 +60,10 @@ class AuthApi {
     }
   }
 
-  Future<dynamic> passwordResetOtpApi(dynamic data) async {
+  Future<dynamic> forgetPasswordOtpApi(dynamic data) async {
     try {
       dynamic response = await _rhino.request(
-        url: AppUrl.resetPasswordVerifyOtpUrl,
+        url: AppUrl.forgetPasswordVerifyOtpUrl,
         parameter: data,
         requestType: RequestType.post,
       );

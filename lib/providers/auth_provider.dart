@@ -10,10 +10,10 @@ import '/data/constants/routes_name.dart';
 import '/models/login_model.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
-import '../screens/auth/reset_password_opt_screen.dart';
 import '/utils/navigation_util.dart';
 import '/utils/show_toast.dart';
 import '../api/auth_api.dart';
+import '../screens/auth/reset_password_opt_screen.dart';
 import 'hive_database_helper.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -176,11 +176,11 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
-  Future<void> resetPassword(dynamic data, BuildContext context,
+  Future<void> forgetPassword(dynamic data, BuildContext context,
       {bool isFromOtpScreen = false}) async {
     setResetLoading(true);
 
-    _myRepo.resetPasswordApi(data).then((value) {
+    _myRepo.forgetPasswordApi(data).then((value) {
       setResetLoading(false);
 
       showToast("Sent OTP Successfully");
@@ -205,10 +205,10 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
-  Future<void> resetPasswordVerifyOtp(
+  Future<void> forgetPasswordVerifyOtp(
       dynamic data, BuildContext context) async {
     setResetPsOtpLoading(true);
-    _myRepo.passwordResetOtpApi(data).then((value) {
+    _myRepo.forgetPasswordOtpApi(data).then((value) {
       setResetPsOtpLoading(false);
       showToast("Changed Password Successfully");
       if (_isGuest) {

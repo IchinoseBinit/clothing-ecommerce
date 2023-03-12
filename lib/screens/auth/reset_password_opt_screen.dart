@@ -8,7 +8,6 @@ import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 
 import '/providers/auth_provider.dart';
-import '/widgets/general_elevated_button.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 import '/styles/styles.dart';
@@ -16,6 +15,7 @@ import '/utils/custom_scroll_behaviour.dart';
 import '/utils/show_toast.dart';
 import '/utils/validation_mixin.dart';
 import '/widgets/custom_appbar.dart';
+import '/widgets/general_elevated_button.dart';
 import '/widgets/general_textfield.dart';
 import '/widgets/reusable_widgets.dart';
 import 'login_screen.dart';
@@ -49,7 +49,7 @@ class _ResetPasswordOptScreenState extends State<ResetPasswordOptScreen> {
         "password2": _confirmPasswordController.text
       };
       Provider.of<AuthProvider>(context, listen: false)
-          .resetPasswordVerifyOtp(data, context);
+          .forgetPasswordVerifyOtp(data, context);
     } else {
       showToast("Please enter the valid code");
     }
@@ -139,7 +139,7 @@ class _ResetPasswordOptScreenState extends State<ResetPasswordOptScreen> {
                                 };
                                 Provider.of<AuthProvider>(context,
                                         listen: false)
-                                    .resetPassword(data, context,
+                                    .forgetPassword(data, context,
                                         isFromOtpScreen: true);
                                 log(data.toString(),
                                     name: "reset forget password");

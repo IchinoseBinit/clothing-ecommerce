@@ -40,7 +40,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         'email': _emailController.text.trim().toString(),
       };
       Provider.of<AuthProvider>(context, listen: false)
-          .resetPassword(data, context);
+          .forgetPassword(data, context);
       log(data.toString(), name: "reset forget password");
     }
   }
