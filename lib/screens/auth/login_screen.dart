@@ -1,19 +1,17 @@
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
+import 'package:clothing_ecommerce/screens/auth/widgets/auth_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '/data/constants/routes_name.dart';
 import '/providers/auth_provider.dart';
-import '/widgets/general_elevated_button.dart';
-import '/screens/navigation_screen.dart';
 import '/styles/app_colors.dart';
 import '/styles/styles.dart';
 import '/utils/custom_scroll_behaviour.dart';
-import '/utils/navigation_util.dart';
 import '/utils/validation_mixin.dart';
 import '/widgets/custom_appbar.dart';
+import '/widgets/general_elevated_button.dart';
 import '/widgets/general_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -253,44 +251,3 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-class AuthTemplate extends StatelessWidget {
-  final String title;
-  final String subTitle;
-  final String image;
-  const AuthTemplate({
-    Key? key,
-    required this.title,
-    required this.subTitle,
-    required this.image,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Center(
-          child: SvgPicture.asset(
-            image,
-          ),
-        ),
-        SizedBox(
-          height: 20.h,
-        ),
-        Text(
-          title,
-          style: bigTitleText.copyWith(fontWeight: FontWeight.w500, height: 0),
-        ),
-        SizedBox(
-          height: 2.h,
-        ),
-        Text(
-          subTitle,
-          style: bodyText.copyWith(
-            color: AppColors.textSoftGreyColor,
-          ),
-        )
-      ],
-    );
-  }
-}

@@ -1,20 +1,17 @@
 import 'dart:developer';
 
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
+import 'package:clothing_ecommerce/screens/auth/widgets/auth_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import '/providers/auth_provider.dart';
-import '/widgets/general_elevated_button.dart';
-import '/styles/app_colors.dart';
-import '/styles/styles.dart';
 import '/utils/custom_scroll_behaviour.dart';
 import '/utils/validation_mixin.dart';
 import '/widgets/custom_appbar.dart';
+import '/widgets/general_elevated_button.dart';
 import '/widgets/general_textfield.dart';
 import '/widgets/reusable_widgets.dart';
-import 'login_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);

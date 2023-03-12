@@ -1,4 +1,5 @@
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
+import 'package:clothing_ecommerce/screens/auth/widgets/auth_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -10,7 +11,6 @@ import '/utils/validation_mixin.dart';
 import '/widgets/custom_appbar.dart';
 import '/widgets/general_textfield.dart';
 import '/widgets/reusable_widgets.dart';
-import 'login_screen.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({

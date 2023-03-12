@@ -9,7 +9,7 @@ import '/widgets/custom_appbar.dart';
 import '/widgets/general_elevated_button.dart';
 import '/widgets/general_textfield.dart';
 import '/widgets/reusable_widgets.dart';
-import 'login_screen.dart';
+import 'package:clothing_ecommerce/screens/auth/widgets/auth_template.dart';
 
 class RegisterSetPasswordScreen extends StatefulWidget {
   final String email;

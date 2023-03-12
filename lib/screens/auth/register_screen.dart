@@ -129,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               fontWeight: FontWeight.w500, height: 0),
                         ),
                         SizedBox(
-                          height: 2.h,
+                          height: 4.h,
                         ),
                         Text(
                           "Sign up now to access all the benefits of our services, including easy ordering, saving favorite merchants, and exclusive deals.",
