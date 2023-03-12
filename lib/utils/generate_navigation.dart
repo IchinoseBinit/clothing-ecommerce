@@ -1,4 +1,5 @@
 import 'package:clothing_ecommerce/screens/auth/edit_profile_screen.dart';
+import 'package:clothing_ecommerce/screens/auth/register_set_password_screen.dart';
 import 'package:clothing_ecommerce/screens/home/home_screen.dart';
 import 'package:clothing_ecommerce/screens/home/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,9 @@ class GenerateNavigation {
       case RoutesName.productSearchRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ProductSearchScreen());
+      // case RoutesName.registerSetPasswordRoute:
+      //   return MaterialPageRoute(
+      //       builder: (BuildContext context) => const RegisterSetPasswordScreen());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

@@ -105,6 +105,19 @@ class AuthApi {
       rethrow;
     }
   }
+  Future<dynamic> registerSetPasswordApi(dynamic data) async {
+    try {
+      dynamic response = await _rhino.request(
+        url: AppUrl.registerSetPasswordUrl,
+        parameter: data,
+        requestType: RequestType.post,
+      );
+      log(data.toString(), name: "Register Set Password Data");
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   Future<dynamic> resentOtpRegisterApi(Map data) async {
     try {

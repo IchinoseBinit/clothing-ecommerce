@@ -39,6 +39,7 @@ class AppUrl {
   static var passwordResetVerifyOtpUrl =
       "$baseUrl/auth/customers/password-reset-with-otp/";
   static var registerVerifyOtpUrl = "$baseUrl/auth/customers/verify-email/";
+  static var registerSetPasswordUrl = "$baseUrl";
   static var resentOtpRegisterApi =
       "$baseUrl/auth/customers/email-verification/get-opt/";
   static var setFavouriteRestaurantUrl =

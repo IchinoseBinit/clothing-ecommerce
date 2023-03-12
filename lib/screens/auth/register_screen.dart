@@ -1,20 +1,16 @@
 import 'dart:developer';
-
 import 'package:extended_phone_number_input/phone_number_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '/data/constants/routes_name.dart';
 import '/providers/auth_provider.dart';
 import '/widgets/general_elevated_button.dart';
 import '/widgets/phone_field.dart';
-import '/screens/navigation_screen.dart';
 import '/styles/app_colors.dart';
 import '/styles/styles.dart';
 import '/utils/custom_scroll_behaviour.dart';
-import '/utils/navigation_util.dart';
 import '/utils/validation_mixin.dart';
 import '/widgets/custom_appbar.dart';
 import '/widgets/general_textfield.dart';
@@ -77,8 +73,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'full_name': _nameController.text.toString().trim(),
         'username': _usernameController.text.toString().trim(),
         'email': _emailController.text.toString().trim(),
-        // 'password1': _passwordController.text.toString().trim(),
-        // 'password2': _confirmPasswordController.text.toString().trim(),
         'date_of_birth': _dobController.text,
         'mobile_number':
             "${_phoneController.selectedCountry.dialCode.trim()}-${_phoneController.phoneNumber.trim()}",
@@ -86,10 +80,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       Provider.of<AuthProvider>(context, listen: false).register(
         context,
-        isFromCheckout: widget.isFromCheckout,
         data: data,
       );
-      log('Sign Up Api hit');
+      log('Register Api hit');
     }
   }
 

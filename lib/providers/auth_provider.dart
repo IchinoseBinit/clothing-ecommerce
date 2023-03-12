@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:clothing_ecommerce/screens/auth/register_otp_screen.dart';
+import 'package:clothing_ecommerce/screens/auth/register_set_password_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
@@ -134,22 +136,19 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> register(BuildContext context,
       {required Map<String, dynamic> data,
-      required bool isFromCheckout,
       bool isFromOtpScreen = false}) async {
     setSignUpLoading(true);
 
     _myRepo.registerApi(data).then((value) {
       setSignUpLoading(false);
       showToast("Registered Successfully");
-      navigateNamedReplacement(context, RoutesName.loginRoute);
-      // showToast("Send Code Successfully");
-      // if (!isFromOtpScreen) {
-      //   navigate(context,
-      //       screen: RegisterOptScreen(
-      //         email: data["email"],
-      //         data: data,
-      //       ));
-      // }
+      navigate(
+          context,
+          RegisterOptScreen(
+            email: data["email"],
+            data: data,
+          ));
+      showToast("Send Code Successfully");
       if (kDebugMode) {
         log(value.toString());
       }
@@ -248,6 +247,22 @@ class AuthProvider with ChangeNotifier {
   Future<void> registerVerifyOtp(dynamic data, BuildContext context) async {
     setRegisterOtpLoading(true);
     _myRepo.registerOtpApi(data).then((value) {
+      setRegisterOtpLoading(false);
+      showToast("Otp Verified");
+      navigate(
+          context,
+          RegisterSetPasswordScreen(
+            email: data["email"].toString(),
+          ));
+    }).onError((error, stackTrace) {
+      setRegisterOtpLoading(false);
+      showToast(error.toString());
+    });
+  }
+
+  Future<void> registerSetPassword(dynamic data, BuildContext context) async {
+    setRegisterOtpLoading(true);
+    _myRepo.registerSetPasswordApi(data).then((value) {
       setRegisterOtpLoading(false);
       showToast("User registered successfully");
       if (isGuest) {
