@@ -107,6 +107,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               style: bodyText.copyWith(
                                   color: AppColors.textSoftGreyColor),
                             ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Text(
                               "+9779800000000",
                               style: bodyText.copyWith(
