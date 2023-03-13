@@ -1,9 +1,11 @@
-import 'package:clothing_ecommerce/data/app_urls.dart';
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
 import 'package:clothing_ecommerce/data/constants/routes_name.dart';
 import 'package:clothing_ecommerce/data/response/status.dart';
+import 'package:clothing_ecommerce/models/category_model.dart';
 import 'package:clothing_ecommerce/models/product_model.dart';
+import 'package:clothing_ecommerce/providers/category_provider.dart';
 import 'package:clothing_ecommerce/providers/product_list_provider.dart';
+import 'package:clothing_ecommerce/screens/category/category_specific_products_screen.dart';
 import 'package:clothing_ecommerce/screens/product_detail/product_detail_screen.dart';
 import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
@@ -18,9 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-String productDesc =
-    "Flowy,Comfy Fabric in Medium Weight much Heavier than Normal Chiffon,Antistatic. Fashion Vintage HIGH WAIST Culottes Loose Wide Leg Flattering Pants,Zip Closure with Hook and Eye,Back Elastic Real Waistband with Belt Loops,Front Pleats ,Back Darts,Side Slant Pockets";
-
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -29,18 +28,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> categoryList = [
-    "For Women",
-    "For Men",
-    "Kids",
-    "Shirts Collection",
-    "Pants Collection",
-  ];
-
   @override
   void initState() {
     super.initState();
     Provider.of<ProductListProvider>(context, listen: false).fetchProductList();
+    Provider.of<CategoryProvider>(context, listen: false).fetchCategoryList();
   }
 
   @override
@@ -148,16 +140,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: AppSizes.paddingLg * 1.2,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: AppSizes.paddingLg),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          children: categoryList
-                              .map((e) => EachCategoryItem(label: e))
-                              .toList()),
-                    ),
-                  ),
+                  Consumer<CategoryProvider>(builder: (_, provider, __) {
+                    switch (provider.categoryList.status) {
+                      case Status.LOADING:
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      case Status.COMPLETED:
+                        if (provider.categoryList.data!.isEmpty) {
+                          return const SizedBox.shrink();
+                        }
+                        return Padding(
+                          padding:
+                              const EdgeInsets.only(left: AppSizes.paddingLg),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                                children: provider.categoryList.data!
+                                    .map((e) => EachCategoryItem(model: e))
+                                    .toList()),
+                          ),
+                        );
+                      default:
+                        break;
+                    }
+                    return const SizedBox.shrink();
+                  }),
                   const SizedBox(
                     height: AppSizes.paddingLg * 1.2,
                   ),
@@ -304,25 +312,30 @@ class ProductItem extends StatelessWidget {
 }
 
 class EachCategoryItem extends StatelessWidget {
-  final String label;
+  final CategoryModel model;
   const EachCategoryItem({
     super.key,
-    required this.label,
+    required this.model,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: AppSizes.paddingLg / 1.6),
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppSizes.paddingLg, vertical: AppSizes.padding * 1.5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppSizes.radius * 4),
-        color: AppColors.lightPrimaryColor,
-      ),
-      child: Text(
-        label,
-        style: smallText.copyWith(color: AppColors.darkPrimaryColor),
+    return GestureDetector(
+      onTap: () {
+        navigate(context, CategorySpecificProductsScreen(category: model));
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: AppSizes.paddingLg / 1.6),
+        padding: const EdgeInsets.symmetric(
+            horizontal: AppSizes.paddingLg, vertical: AppSizes.padding * 1.5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppSizes.radius * 4),
+          color: AppColors.lightPrimaryColor,
+        ),
+        child: Text(
+          model.name,
+          style: smallText.copyWith(color: AppColors.darkPrimaryColor),
+        ),
       ),
     );
   }

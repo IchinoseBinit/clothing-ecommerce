@@ -19,11 +19,11 @@ class AppUrl {
   // static const String esewaTestSecretKey =
   //     "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==";
   static String baseUrl =
-      EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.1.67:8000';
+      EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.12.33:8000';
+  // static String baseUrl =
+  //     EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.1.67:8000';
   static String stagCallbackUrl = "";
   static String prodCallbackUrl = "";
-
-  // EnvironmentConfig.isProd == "true" ? "" : 'http://127.0.0.1:8000';
   static String loginUrl = '$baseUrl/users/login/';
   static String registerApiUrl = '$baseUrl/users/register/';
   static String changePasswordUrl = '$baseUrl/users/change-password/';
@@ -44,6 +44,9 @@ class AppUrl {
 
 //Product apis
   static String productListUrl = "$baseUrl/product/product-list/";
+  static String categoryListUrl = "$baseUrl/product/categories-list/";
+  static String categorySpecificProductsUrl =
+      "$baseUrl/product/category-product/name/";
   static String productDetailUrl = "$baseUrl/product/product-detail/name/";
   static String productSearchUrl = "$baseUrl/product/product-search/name/";
 }

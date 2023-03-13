@@ -1,3 +1,4 @@
+import 'package:clothing_ecommerce/providers/category_provider.dart';
 import 'package:clothing_ecommerce/providers/product_detail_provider.dart';
 import 'package:clothing_ecommerce/providers/product_list_provider.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<ProductSearchProvider>(
             create: (_) => ProductSearchProvider(),
+          ),
+          ChangeNotifierProvider<CategoryProvider>(
+            create: (_) => CategoryProvider(),
           ),
         ],
         child: ScreenUtilInit(
