@@ -1,7 +1,9 @@
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
+import 'package:clothing_ecommerce/screens/auth/widgets/auth_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+
 import '/providers/auth_provider.dart';
 import '/utils/custom_scroll_behaviour.dart';
 import '/utils/validation_mixin.dart';
@@ -9,20 +11,23 @@ import '/widgets/custom_appbar.dart';
 import '/widgets/general_elevated_button.dart';
 import '/widgets/general_textfield.dart';
 import '/widgets/reusable_widgets.dart';
-import 'package:clothing_ecommerce/screens/auth/widgets/auth_template.dart';
 
-class RegisterSetPasswordScreen extends StatefulWidget {
+class SetPasswordScreen extends StatefulWidget {
   final String email;
   final String userId;
-  const RegisterSetPasswordScreen({Key? key, required this.email, required this.userId})
+  final bool isFromForgetPassword;
+  const SetPasswordScreen(
+      {Key? key,
+      required this.email,
+      required this.userId,
+      required this.isFromForgetPassword})
       : super(key: key);
 
   @override
-  State<RegisterSetPasswordScreen> createState() =>
-      RegisterSetPasswordScreenState();
+  State<SetPasswordScreen> createState() => SetPasswordScreenState();
 }
 
-class RegisterSetPasswordScreenState extends State<RegisterSetPasswordScreen> {
+class SetPasswordScreenState extends State<SetPasswordScreen> {
   bool _dontShowPassword = true;
   bool _dontShowConfirmPassword = true;
   final TextEditingController _passwordController = TextEditingController();
@@ -38,8 +43,11 @@ class RegisterSetPasswordScreenState extends State<RegisterSetPasswordScreen> {
         "new_password": _passwordController.text,
         "confirm_password": _confirmPasswordController.text
       };
-      Provider.of<AuthProvider>(context, listen: false)
-          .registerSetPassword(data, context, widget.userId);
+      Provider.of<AuthProvider>(context, listen: false).setPasswordAfterOtp(
+          context,
+          data: data,
+          userId: widget.userId,
+          isFromForgetPassword: widget.isFromForgetPassword);
     }
   }
 
@@ -168,7 +176,7 @@ class RegisterSetPasswordScreenState extends State<RegisterSetPasswordScreen> {
             ),
           ),
         ),
-        if (Provider.of<AuthProvider>(context).resetPasswordLoading)
+        if (Provider.of<AuthProvider>(context).forgetPasswordLoading)
           Stack(
             children: const [
               ModalBarrier(

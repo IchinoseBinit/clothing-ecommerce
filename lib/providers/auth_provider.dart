@@ -1,7 +1,8 @@
 import 'dart:developer';
 
-import 'package:clothing_ecommerce/screens/auth/register_otp_screen.dart';
-import 'package:clothing_ecommerce/screens/auth/register_set_password_screen.dart';
+import 'package:clothing_ecommerce/data/app_urls.dart';
+import 'package:clothing_ecommerce/screens/auth/otp_screen.dart';
+import 'package:clothing_ecommerce/screens/auth/set_password_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,6 @@ import '/providers/intro_notifier.dart';
 import '/utils/navigation_util.dart';
 import '/utils/show_toast.dart';
 import '../api/auth_api.dart';
-import '../screens/auth/reset_password_opt_screen.dart';
 import 'hive_database_helper.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -22,16 +22,14 @@ class AuthProvider with ChangeNotifier {
   bool get loginIsLoading => _loginIsLoading;
   bool _loading = false;
   bool get loading => _loading;
-  bool _resetPsOtpLoading = false;
-  bool get resetPsOtpLoading => _resetPsOtpLoading;
   bool _signUpLoading = false;
   bool get signUpLoading => _signUpLoading;
-  bool _resetPasswordLoading = false;
-  bool get resetPasswordLoading => _resetPasswordLoading;
+  bool _forgetPasswordLoading = false;
+  bool get forgetPasswordLoading => _forgetPasswordLoading;
   bool _registerOtpLoading = false;
   bool get registerOtpLoading => _registerOtpLoading;
-  bool _registerPasswordLoading = false;
-  bool get registerPasswordLoading => _registerPasswordLoading;
+  bool _setPassLoading = false;
+  bool get setPassLoading => _setPassLoading;
   bool _editLoading = false;
   bool get editLoading => _editLoading;
   bool _changePasswordLoading = false;
@@ -51,23 +49,18 @@ class AuthProvider with ChangeNotifier {
     _isGuest = value;
   }
 
-  setResetPsOtpLoading(bool value) {
-    _resetPsOtpLoading = value;
-    notifyListeners();
-  }
-
   setEditLoading(bool value) {
     _editLoading = value;
     notifyListeners();
   }
 
-  setRegisterOtpLoading(bool value) {
+  setOtpLoading(bool value) {
     _registerOtpLoading = value;
     notifyListeners();
   }
 
-  setRegisterPasswordLoading(bool value) {
-    _registerPasswordLoading = value;
+  setPasswordLoading(bool value) {
+    _setPassLoading = value;
     notifyListeners();
   }
 
@@ -81,8 +74,8 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  setResetLoading(bool value) {
-    _resetPasswordLoading = value;
+  setForgetPasswordLoading(bool value) {
+    _forgetPasswordLoading = value;
     notifyListeners();
   }
 
@@ -124,7 +117,7 @@ class AuthProvider with ChangeNotifier {
       if (isFromRefreshToken) {
         Navigator.of(context).pop();
       } else {
-        // Navigator.pushReplacementNamed(context, RoutesName.navigationRoute);
+        // navigateNamedReplacement(context, RoutesName.navigationRoute);
         navigateNamedReplacement(context, RoutesName.navigationRoute);
       }
 
@@ -148,17 +141,8 @@ class AuthProvider with ChangeNotifier {
 
     _myRepo.registerApi(data).then((value) {
       setSignUpLoading(false);
-      showToast("Registered Successfully");
-      navigate(
-          context,
-          RegisterOptScreen(
-            email: data["email"],
-            data: data,
-          ));
+      navigate(context, OptScreen(email: data["email"]));
       showToast("Send Code Successfully");
-      if (kDebugMode) {
-        log(value.toString());
-      }
     }).onError((error, stackTrace) {
       setSignUpLoading(false);
 
@@ -172,8 +156,6 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> changePassword(dynamic data, BuildContext context) async {
     setChangePasswordLoading(true);
-    
-
     _myRepo.changePasswordApi(data).then((value) {
       setChangePasswordLoading(false);
       showToast("Changed password successfully");
@@ -184,49 +166,19 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
-  Future<void> forgetPassword(dynamic data, BuildContext context,
-      {bool isFromOtpScreen = false}) async {
-    setResetLoading(true);
+  Future<void> forgetPassword(
+    BuildContext context,
+    dynamic data,
+  ) async {
+    setForgetPasswordLoading(true);
 
     _myRepo.forgetPasswordApi(data).then((value) {
-      setResetLoading(false);
-
+      setForgetPasswordLoading(false);
       showToast("Sent OTP Successfully");
-      if (!isFromOtpScreen) {
-        navigate(
-            context,
-            ResetPasswordOptScreen(
-              email: data["email"],
-            ));
-      }
-      if (kDebugMode) {
-        log(value.toString());
-      }
+      navigate(
+          context, OptScreen(email: data["email"], isFromForgetPassword: true));
     }).onError((error, stackTrace) {
-      setResetLoading(false);
-
-      showToast(error.toString());
-
-      if (kDebugMode) {
-        log(error.toString());
-      }
-    });
-  }
-
-  Future<void> forgetPasswordVerifyOtp(
-      dynamic data, BuildContext context) async {
-    setResetPsOtpLoading(true);
-    _myRepo.forgetPasswordOtpApi(data).then((value) {
-      setResetPsOtpLoading(false);
-      showToast("Changed Password Successfully");
-      if (_isGuest) {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      } else {
-        Navigator.pushReplacementNamed(context, RoutesName.loginRoute);
-      }
-    }).onError((error, stackTrace) {
-      setResetPsOtpLoading(false);
+      setForgetPasswordLoading(false);
       showToast(error.toString());
     });
   }
@@ -244,7 +196,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> resentOtpApiCall(Map data, BuildContext context) async {
-    _myRepo.resentOtpRegisterApi(data).then((value) {
+    _myRepo.resentOtpApi(data).then((value) {
       log(value.toString());
       showToast("successfully resent the code");
     }).onError((error, stackTrace) {
@@ -252,31 +204,45 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
-  Future<void> registerVerifyOtp(dynamic data, BuildContext context) async {
-    setRegisterOtpLoading(true);
-    _myRepo.registerOtpApi(data).then((value) {
-      setRegisterOtpLoading(false);
+  Future<void> verifyOtp(BuildContext context, dynamic data,
+      {bool isFromForgetPassword = false}) async {
+    setOtpLoading(true);
+    _myRepo
+        .verifyOtpApi(data,
+            url: isFromForgetPassword
+                ? AppUrl.forgetPasswordVerifyOtpUrl
+                : AppUrl.registerVerifyOtpUrl)
+        .then((value) {
+      setOtpLoading(false);
       showToast("Otp Verified");
       navigate(
           context,
-          RegisterSetPasswordScreen(
+          SetPasswordScreen(
             email: data["email"].toString(),
             userId: value["user_id"].toString(),
+            isFromForgetPassword: isFromForgetPassword,
           ));
     }).onError((error, stackTrace) {
-      setRegisterOtpLoading(false);
+      setOtpLoading(false);
       showToast(error.toString());
     });
   }
 
-  Future<void> registerSetPassword(dynamic data, BuildContext context, String userId) async {
-    setRegisterPasswordLoading(true);
-    _myRepo.registerSetPasswordApi(data, userId: userId).then((value) {
-      setRegisterPasswordLoading(false);
-      showToast("User registered successfully");
-      Navigator.pushReplacementNamed(context, RoutesName.loginRoute);
+  Future<void> setPasswordAfterOtp(BuildContext context,
+      {required Map data,
+      required String userId,
+      required bool isFromForgetPassword}) async {
+    setPasswordLoading(true);
+    _myRepo.setPasswordApi(data, userId: userId).then((value) {
+      setPasswordLoading(false);
+      if (isFromForgetPassword) {
+        showToast("Reset Password successfully");
+      } else {
+        showToast("User registered successfully");
+      }
+      navigateNamedReplacement(context, RoutesName.loginRoute);
     }).onError((error, stackTrace) {
-      setRegisterPasswordLoading(false);
+      setPasswordLoading(false);
       showToast(error.toString());
     });
   }
@@ -286,6 +252,6 @@ class AuthProvider with ChangeNotifier {
     showToast("Logout Successfully");
     userPreference.deleteToken();
     await Provider.of<IntroProvider>(context, listen: false).call();
-    Navigator.pushReplacementNamed(context, RoutesName.loginRoute);
+    navigateNamedReplacement(context, RoutesName.loginRoute);
   }
 }

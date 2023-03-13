@@ -37,7 +37,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         'email': _emailController.text.trim().toString(),
       };
       Provider.of<AuthProvider>(context, listen: false)
-          .forgetPassword(data, context);
+          .forgetPassword(context, data);
       log(data.toString(), name: "reset forget password");
     }
   }
@@ -87,7 +87,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     return GeneralElevatedButton(
                       title: "Send Code",
                       marginH: 0,
-                      loading: authProvider.resetPasswordLoading,
+                      loading: authProvider.forgetPasswordLoading,
                       onPressed: () {
                         _onSubmit();
                       },

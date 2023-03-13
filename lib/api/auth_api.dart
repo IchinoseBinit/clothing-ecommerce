@@ -53,23 +53,7 @@ class AuthApi {
           requestType: RequestType.post);
       // dynamic response = await _apiServices.getPostApiResponseWithHeader(
       //     AppUrl.registerApiEndPoint, data);
-      log(data.toString(), name: "Reset Up Data");
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<dynamic> forgetPasswordOtpApi(dynamic data) async {
-    try {
-      dynamic response = await _apiManager.request(
-        url: AppUrl.forgetPasswordVerifyOtpUrl,
-        parameter: data,
-        requestType: RequestType.post,
-      );
-      // dynamic response = await _apiServices.getPostApiResponseWithHeader(
-      //     AppUrl.registerApiEndPoint, data);
-      log(data.toString(), name: "Reset Up Data");
+      log(data.toString(), name: "Forget Up Data");
       return response;
     } catch (e) {
       rethrow;
@@ -90,10 +74,10 @@ class AuthApi {
     }
   }
 
-  Future<dynamic> registerOtpApi(dynamic data) async {
+  Future<dynamic> verifyOtpApi(dynamic data,{required String url}) async {
     try {
       dynamic response = await _apiManager.request(
-        url: AppUrl.registerVerifyOtpUrl,
+        url:url,
         parameter: data,
         requestType: RequestType.post,
       );
@@ -104,9 +88,8 @@ class AuthApi {
     }
   }
 
-  Future<dynamic> registerSetPasswordApi(dynamic data,
-      {required String userId}) async {
-    final url = "${AppUrl.registerSetPasswordUrl}/$userId";
+  Future<dynamic> setPasswordApi(dynamic data, {required String userId}) async {
+    final url = "${AppUrl.setPasswordUrl}/$userId";
     try {
       dynamic response = await _apiManager.request(
         url: url,
@@ -120,7 +103,7 @@ class AuthApi {
     }
   }
 
-  Future<dynamic> resentOtpRegisterApi(Map data) async {
+  Future<dynamic> resentOtpApi(Map data) async {
     try {
       log(data.toString());
 

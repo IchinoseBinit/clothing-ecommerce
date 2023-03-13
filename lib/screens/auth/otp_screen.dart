@@ -1,31 +1,35 @@
 import 'dart:developer';
+
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
+import 'package:clothing_ecommerce/screens/auth/widgets/auth_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
+
 import '/providers/auth_provider.dart';
-import '/widgets/general_elevated_button.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 import '/styles/styles.dart';
 import '/utils/custom_scroll_behaviour.dart';
 import '/utils/show_toast.dart';
 import '/widgets/custom_appbar.dart';
+import '/widgets/general_elevated_button.dart';
 import '/widgets/reusable_widgets.dart';
-import 'package:clothing_ecommerce/screens/auth/widgets/auth_template.dart';
-class RegisterOptScreen extends StatefulWidget {
+
+class OptScreen extends StatefulWidget {
+  final bool isFromForgetPassword;
   final String email;
-  final Map data;
-  const RegisterOptScreen({Key? key, required this.email, required this.data})
+  const OptScreen(
+      {Key? key, required this.email, this.isFromForgetPassword = false})
       : super(key: key);
 
   @override
-  State<RegisterOptScreen> createState() => _RegisterOptScreenState();
+  State<OptScreen> createState() => _OptScreenState();
 }
 
-class _RegisterOptScreenState extends State<RegisterOptScreen> {
+class _OptScreenState extends State<OptScreen> {
   final otpController = OtpFieldController();
   String otp = "";
   _onSubmit() {
@@ -34,26 +38,26 @@ class _RegisterOptScreenState extends State<RegisterOptScreen> {
         "otp": otp,
         "email": widget.email,
       };
-      Provider.of<AuthProvider>(context, listen: false)
-          .registerVerifyOtp(data, context);
+      Provider.of<AuthProvider>(context, listen: false).verifyOtp(context, data,
+          isFromForgetPassword: widget.isFromForgetPassword);
     } else {
       showToast("Please enter the valid Code");
     }
   }
 
-  _onsubmitResetOtp() {
-    log(widget.email);
+  // _onsubmitResetOtp() {
+  //   log(widget.email);
 
-    try {
-      Map data = {
-        "email": widget.email,
-      };
-      Provider.of<AuthProvider>(context, listen: false)
-          .resentOtpApiCall(data, context);
-    } catch (e) {
-      showToast(e.toString());
-    }
-  }
+  //   try {
+  //     Map data = {
+  //       "email": widget.email,
+  //     };
+  //     Provider.of<AuthProvider>(context, listen: false)
+  //         .resentOtpApiCall(data, context);
+  //   } catch (e) {
+  //     showToast(e.toString());
+  //   }
+  // }
 
   final bool loading = false;
 
@@ -93,7 +97,7 @@ class _RegisterOptScreenState extends State<RegisterOptScreen> {
                         controller: otpController,
                         length: 4,
                         width: MediaQuery.of(context).size.width,
-                        textFieldAlignment: MainAxisAlignment.spaceBetween,
+                        textFieldAlignment: MainAxisAlignment.spaceEvenly,
                         fieldWidth: 40.w,
                         keyboardType: TextInputType.text,
                         margin: EdgeInsets.zero,
@@ -120,15 +124,7 @@ class _RegisterOptScreenState extends State<RegisterOptScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        _onsubmitResetOtp();
-                        // Provider.of<AuthProvider>(context, listen: false)
-                        //     .signUp(context,
-                        //         data: widget.data,
-                        //         isFromOtpScreen: true,
-                        //         isFromCheckout: false);
-
-                        log(widget.data.toString(),
-                            name: "reset forget password");
+                        // _onsubmitResetOtp();
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
