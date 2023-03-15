@@ -90,11 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            // EachAppbarButton(iconData: Icons.menu_outlined),
                             GeneralIconButton(
                                 iconData: Icons.shopping_bag_outlined,
                                 onPressed: () {
-                                  //TODO: add to cart logic
+                                  navigateNamed(context, RoutesName.cartRoute);
                                 }),
                           ],
                         ),
@@ -247,9 +246,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-
 
 class EachCategoryItem extends StatelessWidget {
   final CategoryModel model;

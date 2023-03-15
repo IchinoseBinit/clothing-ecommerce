@@ -1,17 +1,17 @@
 import 'package:clothing_ecommerce/screens/auth/edit_profile_screen.dart';
-import 'package:clothing_ecommerce/screens/auth/set_password_screen.dart';
+import 'package:clothing_ecommerce/screens/cart/cart_screen.dart';
 import 'package:clothing_ecommerce/screens/home/home_screen.dart';
 import 'package:clothing_ecommerce/screens/home/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import '/data/constants/routes_name.dart';
+import '/screens/navigation_screen.dart';
+import '/widgets/no_internet_screen.dart';
 import '../screens/auth/change_password_screen.dart';
 import '../screens/auth/forgot_password_screen.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
 import '../screens/auth/welcome_screen.dart';
-import '/screens/navigation_screen.dart';
-import '/widgets/no_internet_screen.dart';
 
 class GenerateNavigation {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -21,7 +21,7 @@ class GenerateNavigation {
             builder: (BuildContext context) => const WelcomeScreen());
       case RoutesName.homeRoute:
         return MaterialPageRoute(
-            builder: (BuildContext context) =>  HomeScreen());
+            builder: (BuildContext context) => HomeScreen());
       case RoutesName.loginRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const LoginScreen());
@@ -46,6 +46,9 @@ class GenerateNavigation {
       case RoutesName.productSearchRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ProductSearchScreen());
+      case RoutesName.cartRoute:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const CartScreen());
       // case RoutesName.registerSetPasswordRoute:
       //   return MaterialPageRoute(
       //       builder: (BuildContext context) => const RegisterSetPasswordScreen());

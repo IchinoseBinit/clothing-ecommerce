@@ -11,5 +11,6 @@ class RoutesName {
   static const String editProfileRoute = 'edit_profile';
   static const String connectivityCheckRoute = 'connectivity_check';
   static const String productSearchRoute = 'product_search';
+  static const String cartRoute = 'cart';
   // static const String registerSetPasswordRoute = 'register_set_password';
 }
