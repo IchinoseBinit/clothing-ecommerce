@@ -1,4 +1,6 @@
-import 'package:clothing_ecommerce/api/add_to_cart_api.dart';
+import 'package:clothing_ecommerce/api/cart_api.dart';
+import 'package:clothing_ecommerce/data/response/api_response.dart';
+import 'package:clothing_ecommerce/models/cart_model.dart';
 import 'package:clothing_ecommerce/utils/show_toast.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +30,34 @@ class CartProvider extends ChangeNotifier {
     }).onError((error, stackTrace) {
       setLoading(false);
       showToast(error.toString());
+    });
+  }
+
+  final _productListApi = CartApi();
+  ApiResponse<List<CartModel>> cartItemList = ApiResponse.loading();
+  setCartItemList(ApiResponse<List<CartModel>> response) {
+    cartItemList = response;
+    notifyListeners();
+  }
+
+  increaseCartItemQuantity(index) {
+    cartItemList.data![index].increaseQuantity();
+    notifyListeners();
+  }
+
+  decreaseCartItemQuantity(index) {
+    if (cartItemList.data![index].quantity > 1) {
+      cartItemList.data![index].decreaseQuantity();
+      notifyListeners();
+    }
+  }
+
+  Future<void> fetchCartItems() async {
+    setCartItemList(ApiResponse.loading());
+    await _productListApi.fetchViewCart().then((value) {
+      setCartItemList(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setCartItemList(ApiResponse.error(error.toString()));
     });
   }
 }

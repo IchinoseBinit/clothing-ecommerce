@@ -52,5 +52,6 @@ class AppUrl {
 
   //Add to cart url
   static String addToCartUrl = "$baseUrl/order/add-to-cart/";
+  static String viewCartUrl = "$baseUrl/order/list-cart-items-by-user/";
 
 }
