@@ -36,28 +36,28 @@ class _CartScreenState extends State<CartScreen> {
         padding: const EdgeInsets.symmetric(horizontal: AppSizes.paddingLg),
         child: ScrollConfiguration(
           behavior: MyBehaviour(),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: AppSizes.paddingLg,
-              ),
-              Consumer<CartProvider>(builder: (_, provider, __) {
-                switch (provider.cartItemList.status) {
-                  case Status.LOADING:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  case Status.ERROR:
-                    return const ErrorInfoWidget(
-                      errorInfo: "Your cart is empty. Try adding some item",
-                    );
-                  case Status.COMPLETED:
-                    if (provider.cartItemList.data!.isEmpty) {
-                      return const ErrorInfoWidget(
-                        errorInfo: "Your cart is empty. Try adding some item",
-                      );
-                    }
-                    return Expanded(
+          child: Consumer<CartProvider>(builder: (_, provider, __) {
+            switch (provider.cartItemList.status) {
+              case Status.LOADING:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case Status.ERROR:
+                return const ErrorInfoWidget(
+                  errorInfo: "Your cart is empty. Try adding some item",
+                );
+              case Status.COMPLETED:
+                if (provider.cartItemList.data!.isEmpty) {
+                  return const ErrorInfoWidget(
+                    errorInfo: "Your cart is empty. Try adding some item",
+                  );
+                }
+                return Column(
+                  children: [
+                     const SizedBox(
+                      height: AppSizes.paddingLg,
+                    ),
+                    Expanded(
                       child: ListView.separated(
                         itemCount: provider.cartItemList.data!.length,
                         shrinkWrap: true,
@@ -131,14 +131,14 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                       ),
-                    );
-                  default:
-                    break;
-                }
-                return const SizedBox.shrink();
-              }),
-            ],
-          ),
+                    ),
+                  ],
+                );
+              default:
+                break;
+            }
+            return const SizedBox.shrink();
+          }),
         ),
       ),
     );
