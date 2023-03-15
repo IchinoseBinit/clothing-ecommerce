@@ -12,6 +12,7 @@ import '/providers/auth_provider.dart';
 import '/providers/conectivity_provider.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
+import 'providers/cart_provider.dart';
 import 'providers/product_search_provider.dart';
 import 'providers/profile_provider.dart';
 import 'screens/auth/splash_screen.dart';
@@ -66,6 +67,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<CategoryProvider>(
             create: (_) => CategoryProvider(),
+          ),
+          ChangeNotifierProvider<CartProvider>(
+            create: (_) => CartProvider(),
           ),
         ],
         child: ScreenUtilInit(

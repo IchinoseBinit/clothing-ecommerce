@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:clothing_ecommerce/data/response/status.dart';
 import 'package:clothing_ecommerce/models/product_model.dart';
+import 'package:clothing_ecommerce/providers/cart_provider.dart';
 import 'package:clothing_ecommerce/providers/product_detail_provider.dart';
 import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
@@ -219,14 +220,26 @@ class BodyContent extends StatelessWidget {
                       onDecrement: () {},
                       onIncrement: () {},
                     ),
-                    GeneralElevatedButton(
-                      marginH: 0,
-                      title: "Add to Cart",
-                      width: 180,
-                      borderRadius: 30.r,
-                      onPressed: () {
-                        //TODO: added to cart functionality
-                      },
+                    Consumer<CartProvider>(
+                      builder: (_,cartProvider,__) {
+                        return GeneralElevatedButton(
+                          marginH: 0,
+                          title: "Add to Cart",
+                          width: 180,
+                          borderRadius: 30.r,
+                          loading: cartProvider.loading,
+                          onPressed: () {
+                            cartProvider
+                                .addToCart(
+                                    context,
+                                    quantity: product.quantity *
+                                        Provider.of<ProductDetailProvider>(context,
+                                                listen: false)
+                                            .selectedQuantity,
+                                    productId: product.id);
+                          },
+                        );
+                      }
                     )
                   ],
                 ),

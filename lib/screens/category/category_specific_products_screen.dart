@@ -1,13 +1,13 @@
 import 'package:clothing_ecommerce/data/response/status.dart';
 import 'package:clothing_ecommerce/models/category_model.dart';
 import 'package:clothing_ecommerce/providers/category_provider.dart';
-import 'package:clothing_ecommerce/screens/home/home_screen.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/utils/custom_scroll_behaviour.dart';
 import 'package:clothing_ecommerce/widgets/custom_appbar.dart';
 import 'package:clothing_ecommerce/widgets/error_info_widget.dart';
 import 'package:clothing_ecommerce/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:clothing_ecommerce/widgets/product_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
