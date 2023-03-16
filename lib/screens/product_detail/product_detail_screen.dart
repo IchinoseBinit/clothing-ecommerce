@@ -66,22 +66,13 @@ class BodyContent extends StatelessWidget {
     required this.product,
   });
 
-  List<MaterialColor> productColors = [
-    Colors.indigo,
-    Colors.amber,
-    Colors.cyan,
-    Colors.brown,
-  ];
-
-  List<String> productSizes = [
-    "S",
-    "M",
-    "L",
-    "XL",
-  ];
+  // late List<String> productColors;
+  // late List<String> productSizes;
 
   @override
   Widget build(BuildContext context) {
+    // productColors = product.color.map((color) => color.color).toList();
+    // productSizes = product.size.map((s) => s.title).toList();
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -176,10 +167,10 @@ class BodyContent extends StatelessWidget {
                       height: AppSizes.padding,
                     ),
                     Row(
-                      children: productColors
+                      children: product.colorList
                           .map((e) => ColorPaletteItem(
-                                index: productColors.indexOf(e),
-                                color: e,
+                                index: product.colorList.indexOf(e),
+                                color: int.parse(e.replaceAll("#", "0xff")),
                               ))
                           .toList(),
                     ),
@@ -199,10 +190,10 @@ class BodyContent extends StatelessWidget {
                       height: AppSizes.padding,
                     ),
                     Row(
-                      children: productSizes
+                      children: product.sizeList
                           .map(
                             (e) => SizeItem(
-                              index: productSizes.indexOf(e),
+                              index: product.sizeList.indexOf(e),
                               label: e,
                             ),
                           )
@@ -220,27 +211,23 @@ class BodyContent extends StatelessWidget {
                       onDecrement: () {},
                       onIncrement: () {},
                     ),
-                    Consumer<CartProvider>(
-                      builder: (_,cartProvider,__) {
-                        return GeneralElevatedButton(
-                          marginH: 0,
-                          title: "Add to Cart",
-                          width: 180,
-                          borderRadius: 30.r,
-                          loading: cartProvider.loading,
-                          onPressed: () {
-                            cartProvider
-                                .addToCart(
-                                    context,
-                                    quantity: product.quantity *
-                                        Provider.of<ProductDetailProvider>(context,
-                                                listen: false)
-                                            .selectedQuantity,
-                                    productId: product.id);
-                          },
-                        );
-                      }
-                    )
+                    Consumer<CartProvider>(builder: (_, cartProvider, __) {
+                      return GeneralElevatedButton(
+                        marginH: 0,
+                        title: "Add to Cart",
+                        width: 180,
+                        borderRadius: 30.r,
+                        loading: cartProvider.loading,
+                        onPressed: () {
+                          cartProvider.addToCart(context,
+                              quantity: product.quantity *
+                                  Provider.of<ProductDetailProvider>(context,
+                                          listen: false)
+                                      .selectedQuantity,
+                              productId: product.id);
+                        },
+                      );
+                    })
                   ],
                 ),
                 const SizedBox(
@@ -257,7 +244,7 @@ class BodyContent extends StatelessWidget {
 
 class ColorPaletteItem extends StatelessWidget {
   final int index;
-  final MaterialColor color;
+  final int color;
   const ColorPaletteItem({
     super.key,
     required this.index,
@@ -279,17 +266,25 @@ class ColorPaletteItem extends StatelessWidget {
           margin: const EdgeInsets.only(right: AppSizes.padding),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40.r),
-            color: color,
+            color: Color(color),
           ),
           child: detailProvider.selectedColorIndex == index
               ? Container(
                   height: 15.h,
                   width: 15.h,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40.r),
-                    color: AppColors.whiteColor,
-                  ),
-                  child: Icon(Icons.check_outlined, color: color, size: 8.h),
+                      borderRadius: BorderRadius.circular(40.r),
+                      color: AppColors.whiteColor,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: const Offset(1, 1),
+                          blurRadius: 1,
+                          spreadRadius: 0,
+                          color: AppColors.blackColor.withOpacity(0.1)
+                        )
+                      ]),
+                  child: Icon(Icons.check_outlined,
+                      color: AppColors.darkPrimaryColor, size: 8.h),
                 )
               : null,
         ),

@@ -10,7 +10,6 @@ import '/providers/profile_provider.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 import '/styles/styles.dart';
-import '/utils/will_pop_scope.dart';
 import '/widgets/custom_appbar.dart';
 import '/widgets/error_info_widget.dart';
 
