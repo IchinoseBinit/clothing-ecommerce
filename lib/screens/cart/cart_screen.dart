@@ -106,6 +106,7 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                                 Expanded(
                                   child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -116,24 +117,48 @@ class _CartScreenState extends State<CartScreen> {
                                               .product
                                               .name,
                                           style: bodyText),
-                                      SizedBox(
-                                        height: 2.h,
+                                      // Text(
+                                      //   provider
+                                      //       .cartItemList
+                                      //       .data![listViewIndex]
+                                      //       .product
+                                      //       .description,
+                                      //   maxLines: 1,
+                                      //   style: smallText.copyWith(
+                                      //       color:
+                                      //           AppColors.textLightGreyColor),
+                                      // ),
+                                      Text("Size: XL",
+                                          style: smallText.copyWith(
+                                              color: AppColors
+                                                  .textLightGreyColor)),
+                                      // Text(",",
+                                      //     style: smallText.copyWith(
+                                      //         color: AppColors
+                                      //             .textLightGreyColor)),
+                                    
+                                      Row(
+                                        children: [
+                                          Text("Color: ",
+                                              style: smallText.copyWith(
+                                                  color: AppColors
+                                                      .textLightGreyColor)),
+                                          Container(
+                                            height: 10.h,
+                                            width: 10.h,
+                                            decoration: BoxDecoration(
+                                                color: const Color(0xffead321),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10.h)),
+                                          )
+                                        ],
                                       ),
-                                      Text(
-                                        provider
-                                            .cartItemList
-                                            .data![listViewIndex]
-                                            .product
-                                            .description,
-                                        maxLines: 1,
-                                        style: smallText.copyWith(
-                                            color:
-                                                AppColors.textLightGreyColor),
-                                      ),
-                                      const Spacer(),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
                                         children: [
                                           Text(
                                             "Rs. ${provider.cartItemList.data![listViewIndex].product.price}",
@@ -209,7 +234,7 @@ class OuantityItem extends StatelessWidget {
                 // width: 20.w,
                 alignment: Alignment.center,
                 child: Text(
-                  cartProvider.cartItemList.data![cartIndex].product. quantity
+                  cartProvider.cartItemList.data![cartIndex].product.quantity
                       .toString(),
                   style: bodyText.copyWith(
                     color: AppColors.darkPrimaryColor,
