@@ -59,7 +59,7 @@ class _CartScreenState extends State<CartScreen> {
                         itemCount: provider.cartItemList.data!.length,
                         shrinkWrap: true,
                         separatorBuilder: (context, index) =>
-                            const Divider(height: AppSizes.paddingLg * 2),
+                            const SizedBox(height: AppSizes.paddingLg*1.5 ),
                         itemBuilder: (context, listViewIndex) => Dismissible(
                           key: Key(provider
                               .cartItemList.data![listViewIndex].product.id
