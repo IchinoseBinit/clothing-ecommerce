@@ -88,7 +88,8 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           child: IntrinsicHeight(
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
                                   clipBehavior: Clip.hardEdge,
@@ -155,28 +156,21 @@ class _CartScreenState extends State<CartScreen> {
                                           )
                                         ],
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
+                                       Text(
                                             "Rs. ${provider.cartItemList.data![listViewIndex].product.price}",
                                             style: bodyText.copyWith(
                                               fontWeight: FontWeight.bold,
                                               color: AppColors.blackColor,
                                             ),
-                                          ),
-                                          OuantityItem(
-                                            onDecrement: () {},
-                                            onIncrement: () {},
-                                            cartIndex: listViewIndex,
-                                          ),
-                                        ],
-                                      )
+                                          )
+                                     
                                     ],
                                   ),
+                                ),
+                                  OuantityItem(
+                                  onDecrement: () {},
+                                  onIncrement: () {},
+                                  cartIndex: listViewIndex,
                                 ),
                               ],
                             ),
