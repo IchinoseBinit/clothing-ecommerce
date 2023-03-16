@@ -225,7 +225,7 @@ class OuantityItem extends StatelessWidget {
               child: Container(
                 height: AppSizes.iconButtonSmall,
                 width: AppSizes.iconButtonSmall,
-                margin: const EdgeInsets.only(right: AppSizes.padding),
+                margin: const EdgeInsets.symmetric(horizontal: AppSizes.padding,),
                 child: Icon(Icons.remove,
                     color: AppColors.darkPrimaryColor, size: 10.h),
               ),
