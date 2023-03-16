@@ -32,6 +32,12 @@ class ProductDetailProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  resetData() {
+    selectedColorIndex = 0;
+    selectedSizeIndex = 0;
+    selectedQuantity = 1;
+  }
+
   ApiResponse<ProductModel> productData = ApiResponse.loading();
   setProduct(ApiResponse<ProductModel> response) {
     productData = response;
@@ -39,6 +45,7 @@ class ProductDetailProvider extends ChangeNotifier {
   }
 
   Future<void> fetchProduct(int productId) async {
+    resetData();
     setProduct(ApiResponse.loading());
     await _productListApi.fetchProductApi(productId).then((value) {
       setProduct(ApiResponse.completed(value));
