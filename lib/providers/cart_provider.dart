@@ -41,13 +41,13 @@ class CartProvider extends ChangeNotifier {
   }
 
   increaseCartItemQuantity(index) {
-    cartItemList.data![index].increaseQuantity();
+    cartItemList.data![index].product.increaseQuantity();
     notifyListeners();
   }
 
   decreaseCartItemQuantity(index) {
-    if (cartItemList.data![index].quantity > 1) {
-      cartItemList.data![index].decreaseQuantity();
+    if (cartItemList.data![index].product.quantity > 1) {
+      cartItemList.data![index].product.decreaseQuantity();
       notifyListeners();
     }
   }
