@@ -106,7 +106,8 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                                 Expanded(
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -136,7 +137,7 @@ class _CartScreenState extends State<CartScreen> {
                                       //     style: smallText.copyWith(
                                       //         color: AppColors
                                       //             .textLightGreyColor)),
-                                    
+
                                       Row(
                                         children: [
                                           Text("Color: ",
@@ -223,23 +224,23 @@ class OuantityItem extends StatelessWidget {
                 cartProvider.decreaseCartItemQuantity(cartIndex);
               },
               child: Container(
-                height: AppSizes.iconButtonSmall,
-                width: AppSizes.iconButtonSmall,
-                margin: const EdgeInsets.symmetric(horizontal: AppSizes.padding,),
+                padding: const EdgeInsets.all(
+                  AppSizes.padding*1.2,
+                ),
                 child: Icon(Icons.remove,
-                    color: AppColors.darkPrimaryColor, size: 10.h),
+                    color: AppColors.darkPrimaryColor, size: 12.h),
               ),
             ),
-            Container(
-                // width: 20.w,
-                alignment: Alignment.center,
-                child: Text(
-                  cartProvider.cartItemList.data![cartIndex].product.quantity
-                      .toString(),
-                  style: bodyText.copyWith(
-                    color: AppColors.darkPrimaryColor,
-                  ),
-                )),
+            SizedBox(
+              width: 4.w,
+            ),
+            Text(
+              cartProvider.cartItemList.data![cartIndex].product.quantity
+                  .toString(),
+              style: bodyText.copyWith(
+                color: AppColors.darkPrimaryColor,
+              ),
+            ),
             SizedBox(
               width: 4.w,
             ),
@@ -249,12 +250,11 @@ class OuantityItem extends StatelessWidget {
                 cartProvider.increaseCartItemQuantity(cartIndex);
               },
               child: Container(
-                height: AppSizes.iconButtonSmall,
-                width: AppSizes.iconButtonSmall,
-                alignment: Alignment.center,
-                margin: const EdgeInsets.only(right: AppSizes.padding),
+                padding: const EdgeInsets.all(
+                  AppSizes.padding * 1.2,
+                ),
                 child: Icon(Icons.add,
-                    color: AppColors.darkPrimaryColor, size: 10.h),
+                    color: AppColors.darkPrimaryColor, size: 12.h),
               ),
             )
           ],
