@@ -34,8 +34,8 @@ class Product {
     required this.image,
     required this.category,
     required this.quantity,
-    required this.size,
-    required this.color,
+    required this.sizeDataList,
+    required this.colorDataList,
   });
   late final int id;
   late final String name;
@@ -44,8 +44,10 @@ class Product {
   late final String image;
   late final int category;
   late int quantity;
-  late final List<Size> size;
-  late final List<Color> color;
+  late SizeData sizeData;
+  late ColorData colorData;
+  late final List<SizeData> sizeDataList;
+  late final List<ColorData> colorDataList;
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -55,8 +57,16 @@ class Product {
     image = AppUrl.baseUrl + json['image'];
     category = json['category'];
     quantity = json['quantity'];
-    size = List.from(json['size']).map((e) => Size.fromJson(e)).toList();
-    color = List.from(json['color']).map((e) => Color.fromJson(e)).toList();
+    sizeDataList =
+        List.from(json['size']).map((e) => SizeData.fromJson(e)).toList();
+    colorDataList =
+        List.from(json['color']).map((e) => ColorData.fromJson(e)).toList();
+    colorData = List.from(json['color'])
+        .map((e) => ColorData.fromJson(e))
+        .toList()
+        .first;
+    sizeData =
+        List.from(json['size']).map((e) => SizeData.fromJson(e)).toList().first;
   }
 
   Map<String, dynamic> toJson() {
@@ -68,8 +78,8 @@ class Product {
     _data['image'] = image;
     _data['category'] = category;
     _data['quantity'] = quantity;
-    _data['size'] = size.map((e) => e.toJson()).toList();
-    _data['color'] = color.map((e) => e.toJson()).toList();
+    _data['size'] = sizeDataList.map((e) => e.toJson()).toList();
+    _data['color'] = colorDataList.map((e) => e.toJson()).toList();
     return _data;
   }
 
@@ -82,15 +92,15 @@ class Product {
   }
 }
 
-class Size {
-  Size({
+class SizeData {
+  SizeData({
     required this.id,
     required this.title,
   });
   late final int id;
   late final String title;
 
-  Size.fromJson(Map<String, dynamic> json) {
+  SizeData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
   }
@@ -103,15 +113,15 @@ class Size {
   }
 }
 
-class Color {
-  Color({
+class ColorData {
+  ColorData({
     required this.id,
     required this.color,
   });
   late final int id;
   late final String color;
 
-  Color.fromJson(Map<String, dynamic> json) {
+  ColorData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     color = json['color'];
   }

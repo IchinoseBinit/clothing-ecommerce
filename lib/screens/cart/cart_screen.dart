@@ -88,7 +88,6 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           child: IntrinsicHeight(
                             child: Row(
-
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
@@ -130,7 +129,8 @@ class _CartScreenState extends State<CartScreen> {
                                       //       color:
                                       //           AppColors.textLightGreyColor),
                                       // ),
-                                      Text("Size: XL",
+                                      Text(
+                                          "Size: ${provider.cartItemList.data![listViewIndex].product.sizeData.title}",
                                           style: smallText.copyWith(
                                               color: AppColors
                                                   .textLightGreyColor)),
@@ -149,25 +149,25 @@ class _CartScreenState extends State<CartScreen> {
                                             height: 10.h,
                                             width: 10.h,
                                             decoration: BoxDecoration(
-                                                color: const Color(0xffead321),
+                                                color: Color(int.parse(
+                                                    "0xff${provider.cartItemList.data![listViewIndex].product.colorData.color.substring(1, 7)}")),
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         10.h)),
                                           )
                                         ],
                                       ),
-                                       Text(
-                                            "Rs. ${provider.cartItemList.data![listViewIndex].product.price}",
-                                            style: bodyText.copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.blackColor,
-                                            ),
-                                          )
-                                     
+                                      Text(
+                                        "Rs. ${provider.cartItemList.data![listViewIndex].product.price}",
+                                        style: bodyText.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.blackColor,
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
-                                  OuantityItem(
+                                OuantityItem(
                                   onDecrement: () {},
                                   onIncrement: () {},
                                   cartIndex: listViewIndex,
@@ -219,7 +219,7 @@ class OuantityItem extends StatelessWidget {
               },
               child: Container(
                 padding: const EdgeInsets.all(
-                  AppSizes.padding*1.2,
+                  AppSizes.padding * 1.2,
                 ),
                 child: Icon(Icons.remove,
                     color: AppColors.darkPrimaryColor, size: 12.h),
