@@ -21,10 +21,10 @@ class GeneralIconButton extends StatelessWidget {
         height: size,
         width: size,
         alignment: Alignment.center,
-        padding:size==null? const EdgeInsets.all(AppSizes.padding):null,
+        padding: size == null ? const EdgeInsets.all(AppSizes.padding) : null,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: AppColors.greyColor,
+          color: AppColors.greyColor.withOpacity(0.8),
         ),
         child: Icon(
           iconData,

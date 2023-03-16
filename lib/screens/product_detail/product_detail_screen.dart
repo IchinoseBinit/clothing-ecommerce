@@ -66,13 +66,8 @@ class BodyContent extends StatelessWidget {
     required this.product,
   });
 
-  // late List<String> productColors;
-  // late List<String> productSizes;
-
   @override
   Widget build(BuildContext context) {
-    // productColors = product.color.map((color) => color.color).toList();
-    // productSizes = product.size.map((s) => s.title).toList();
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -126,7 +121,7 @@ class BodyContent extends StatelessWidget {
                     width: 50.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.r),
-                      color: Colors.black,
+                      color: AppColors.greyColor.withOpacity(0.6),
                     ),
                   ),
                 ),
