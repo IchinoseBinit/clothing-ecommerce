@@ -56,5 +56,6 @@ class AppUrl {
 
   //Order apis
   static String orderUrl = "$baseUrl/order/order-products/";
+  static String orderListUrl = "$baseUrl/order/list-user-order/";
 
 }

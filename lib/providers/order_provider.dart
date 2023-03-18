@@ -1,6 +1,8 @@
 import 'package:clothing_ecommerce/api/cart_api.dart';
 import 'package:clothing_ecommerce/api/order_provider.dart';
+import 'package:clothing_ecommerce/data/response/api_response.dart';
 import 'package:clothing_ecommerce/models/cart_model.dart';
+import 'package:clothing_ecommerce/models/order_model.dart';
 import 'package:clothing_ecommerce/utils/show_toast.dart';
 import 'package:flutter/material.dart';
 
@@ -33,20 +35,18 @@ class OrderProvider extends ChangeNotifier {
     });
   }
 
-  // final _orderApi = OrderApi();
-  // ApiResponse<List<CartModel>> cartItemList = ApiResponse.loading();
-  // setCartItemList(ApiResponse<List<CartModel>> response) {
-  //   cartItemList = response;
-  //   notifyListeners();
-  // }
+  ApiResponse<List<OrderModel>> orderList = ApiResponse.loading();
+  setOrderList(ApiResponse<List<OrderModel>> response) {
+    orderList = response;
+    notifyListeners();
+  }
 
-  // Future<void> fetchCartItems() async {
-  //   setCartItemList(ApiResponse.loading());
-  //   await _productListApi.fetchViewCart().then((value) {
-  //     setCartItemList(ApiResponse.completed(value));
-  //     setTotalSelectedCart();
-  //   }).onError((error, stackTrace) {
-  //     setCartItemList(ApiResponse.error(error.toString()));
-  //   });
-  // }
+  Future<void> fetchOrderList() async {
+    setOrderList(ApiResponse.loading());
+    await _myRepo.fetchViewOrderList().then((value) {
+      setOrderList(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setOrderList(ApiResponse.error(error.toString()));
+    });
+  }
 }
