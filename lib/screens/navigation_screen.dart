@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_null_comparison
+import 'package:clothing_ecommerce/screens/order/order_list_screen.dart';
 import 'package:clothing_ecommerce/screens/profile_screen.dart';
 import 'package:clothing_ecommerce/screens/home/home_screen.dart';
+import 'package:clothing_ecommerce/utils/order_list_type.dart';
 import 'package:clothing_ecommerce/utils/will_pop_scope.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +20,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   late List<Widget> navScreens = <Widget>[
     HomeScreen(),
-    HomeScreen(),
+    OrderListScreen(),
     const ProfileScreen(),
     // const UpcomingOrderListScreen(),
     // const ProfileScreen()
