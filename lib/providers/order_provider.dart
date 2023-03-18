@@ -1,5 +1,4 @@
-import 'package:clothing_ecommerce/api/cart_api.dart';
-import 'package:clothing_ecommerce/api/order_provider.dart';
+import 'package:clothing_ecommerce/api/order_api.dart';
 import 'package:clothing_ecommerce/data/response/api_response.dart';
 import 'package:clothing_ecommerce/models/cart_model.dart';
 import 'package:clothing_ecommerce/models/order_model.dart';

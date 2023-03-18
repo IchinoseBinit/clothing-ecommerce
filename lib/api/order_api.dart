@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:clothing_ecommerce/api/network/api_manager.dart';
 import 'package:clothing_ecommerce/data/app_urls.dart';
 import 'package:clothing_ecommerce/models/order_model.dart';
@@ -23,12 +22,13 @@ class OrderApi {
   Future<dynamic> fetchViewOrderList() async {
     try {
       dynamic response = await _apiManager.request(
-        url: AppUrl.viewCartUrl,
+        url: AppUrl.orderListUrl,
         requestType: RequestType.getWithToken,
       );
-      // List<OrderModel> responseData =
-      //     (response["data"] as List).map((e) => OrderModel.fromJson(e)).toList();
-      return response;
+      List<OrderModel> responseData = (response["data"] as List)
+          .map((e) => OrderModel.fromJson(e))
+          .toList();
+      return responseData;
     } catch (e) {
       log(e.toString());
       rethrow;
