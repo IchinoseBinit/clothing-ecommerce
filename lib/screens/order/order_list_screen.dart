@@ -1,10 +1,14 @@
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
+import 'package:clothing_ecommerce/utils/custom_scroll_behaviour.dart';
 import 'package:clothing_ecommerce/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderListScreen extends StatefulWidget {
+  const OrderListScreen({super.key});
+
+  @override
   OrderListScreenState createState() => OrderListScreenState();
 }
 
@@ -62,10 +66,11 @@ class OrderListScreenState extends State<OrderListScreen> {
         title: "Order",
         disableLeading: true,
       ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(AppSizes.padding),
+      body: ScrollConfiguration(
+        behavior: MyBehaviour(),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizes.paddingLg),
             child: ExpansionPanelList(
               expansionCallback: (int index, bool isExpanded) {
                 setState(() {
@@ -81,8 +86,8 @@ class OrderListScreenState extends State<OrderListScreen> {
                         title: Text(
                           item.header,
                           textAlign: TextAlign.left,
-                          style: subTitleText.copyWith(
-                              fontWeight: FontWeight.w500),
+                          style:
+                              subTitleText.copyWith(fontWeight: FontWeight.w500),
                         ));
                   },
                   isExpanded: item.isExpanded,
@@ -98,7 +103,7 @@ class OrderListScreenState extends State<OrderListScreen> {
               }).toList(),
             ),
           ),
-        ],
+        ),
       ),
     );
     return scaffold;
