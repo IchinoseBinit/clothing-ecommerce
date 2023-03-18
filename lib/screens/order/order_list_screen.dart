@@ -74,6 +74,7 @@ class OrderListScreenState extends State<OrderListScreen> {
               },
               children: items.map((NewItem item) {
                 return ExpansionPanel(
+                  canTapOnHeader: true,
                   headerBuilder: (BuildContext context, bool isExpanded) {
                     return ListTile(
                         leading: item.iconpic,
