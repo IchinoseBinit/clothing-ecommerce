@@ -43,6 +43,7 @@ class Product {
   late final int price;
   late final String image;
   late final int category;
+  bool isSelected = false;
   late int quantity;
   late SizeData sizeData;
   late ColorData colorData;
@@ -70,17 +71,17 @@ class Product {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['name'] = name;
-    _data['description'] = description;
-    _data['price'] = price;
-    _data['image'] = image;
-    _data['category'] = category;
-    _data['quantity'] = quantity;
-    _data['size'] = sizeDataList.map((e) => e.toJson()).toList();
-    _data['color'] = colorDataList.map((e) => e.toJson()).toList();
-    return _data;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['description'] = description;
+    data['price'] = price;
+    data['image'] = image;
+    data['category'] = category;
+    data['quantity'] = quantity;
+    data['size'] = sizeDataList.map((e) => e.toJson()).toList();
+    data['color'] = colorDataList.map((e) => e.toJson()).toList();
+    return data;
   }
 
   increaseQuantity() {
@@ -90,6 +91,12 @@ class Product {
   decreaseQuantity() {
     quantity--;
   }
+
+  setSelectedCart({bool? value}) {
+    isSelected =value?? !isSelected;
+  }
+
+  
 }
 
 class SizeData {
