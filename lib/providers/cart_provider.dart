@@ -32,13 +32,13 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
-  selectAllCartItem() {
+  selectAllCartItem(bool val) {
     _totalSelectedCart = cartItemList.data!
         .map((e) => e.product.quantity)
         .toList()
         .reduce((value, element) => _totalSelectedCart = value + element);
     for (CartModel cartItem in cartItemList.data!) {
-      cartItem.product.setSelectedCart(value: true);
+      cartItem.product.setSelectedCart(value: val);
     }
     notifyListeners();
   }

@@ -1,11 +1,9 @@
 import 'dart:io';
-
+import 'package:clothing_ecommerce/data/constants/routes_name.dart';
+import 'package:clothing_ecommerce/main.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '/data/constants/routes_name.dart';
-import '/main.dart';
 
 getIsOnline(BuildContext context) {
   return Provider.of<ConnectivityProvider>(context, listen: false).isOnline;
@@ -38,12 +36,20 @@ class ConnectivityProvider extends ChangeNotifier {
     checkIsOnline();
   }
 
-  Future monitorConnection() async {
+  Future monitorConnection(context) async {
     _connectivity.onConnectivityChanged.listen((event) async {
       if (event == ConnectivityResult.mobile ||
           event == ConnectivityResult.wifi ||
           event == ConnectivityResult.bluetooth) {
         await checkIsOnline();
+        if (isOnline) {
+          if (count == 1) {
+            Navigator.pop(context);
+          } else if (count > 1) {
+            Navigator.popUntil(context, (_) => (count-- <= 0));
+          }
+          resetCounter();
+        }
       } else {
         isOnline = false;
         navKey.currentState?.pushNamed(

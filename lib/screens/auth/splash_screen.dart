@@ -1,5 +1,9 @@
+import 'dart:io';
+import 'package:clothing_ecommerce/providers/location_provider.dart';
+import 'package:clothing_ecommerce/widgets/alert_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import '/data/constants/image_constants.dart';
 import '/providers/conectivity_provider.dart';
@@ -27,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.didChangeDependencies();
     if (isInit) {
       Provider.of<ConnectivityProvider>(context, listen: false)
-          .monitorConnection();
+          .monitorConnection(context);
 
       if (mounted) {
         _onSubmit();
@@ -45,37 +49,42 @@ class _SplashScreenState extends State<SplashScreen> {
     IntroProvider introProvider =
         Provider.of<IntroProvider>(context, listen: false);
     await introProvider.call();
-    if (introProvider.hasAppToken) {
-      navigateReplacement(context, const NavigationScreen());
-    } else if (introProvider.getisSeenWelcomeScreen) {
-      navigateReplacement(context, const LoginScreen());
+
+    if (await Permission.location.request().isGranted || Platform.isIOS) {
+      await Provider.of<LocationProvider>(context, listen: false)
+          .setLocation(saveLocation: true);
+      if (mounted) {
+        if (introProvider.hasAppToken) {
+          navigateReplacement(context, const NavigationScreen());
+        } else if (introProvider.getisSeenWelcomeScreen) {
+          navigateReplacement(context, const LoginScreen());
+        } else {
+          navigateReplacement(context, const WelcomeScreen());
+        }
+      }
     } else {
-      navigateReplacement(context, const WelcomeScreen());
+      if (mounted) {
+        AlertBottomSheet.showAlertBottomSheet(context,
+            iconImage: alert,
+            isDismissible: false,
+            enableDrag: false,
+            title: "Handle Permisson",
+            description:
+                "Please press OK to accept the required permission in settings",
+            okFunc: () async {
+          if (await Permission.location.request().isGranted) {
+            Navigator.pop(context);
+            _onSubmit();
+          } else {
+            await openAppSettings().whenComplete(() async {
+              if (await Permission.location.isGranted) {
+                Navigator.pop(context);
+              }
+            });
+          }
+        }, isCancelButton: false);
+      }
     }
-    // if (await Permission.location.request().isGranted || Platform.isIOS) {
-    // await Provider.of<LocationProvider>(context, listen: false)
-    //     .setLocation(saveLocation: true);
-    // } else {
-    // AlertBottomSheet.showAlertBottomSheet(context,
-    //     iconImage: alert,
-    //     isDismissible: false,
-    //     enableDrag: false,
-    //     title: "Handle Permisson",
-    //     description:
-    //         "Please press OK to accept the required permission in settings",
-    //     okFunc: () async {
-    //   if (await Permission.location.request().isGranted) {
-    //     Navigator.pop(context);
-    //     _onSubmit();
-    //   } else {
-    //     await openAppSettings().whenComplete(() async {
-    //       if (await Permission.location.isGranted) {
-    //         Navigator.pop(context);
-    //       }
-    //     });
-    //   }
-    // }, isCancelButton: false);
-    // }
   }
 
   @override
@@ -113,7 +122,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           );
         }
-        return const ConnectivityCheckWidget();
+        return const NoInternetScreen();
       }),
     );
   }

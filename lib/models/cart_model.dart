@@ -43,7 +43,7 @@ class Product {
   late final int price;
   late final String image;
   late final int category;
-  bool isSelected = false;
+  bool isSelected = true;
   late int quantity;
   late SizeData sizeData;
   late ColorData colorData;

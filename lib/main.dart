@@ -13,6 +13,7 @@ import '/providers/conectivity_provider.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
 import 'providers/cart_provider.dart';
+import 'providers/location_provider.dart';
 import 'providers/order_provider.dart';
 import 'providers/product_search_provider.dart';
 import 'providers/profile_provider.dart';
@@ -74,6 +75,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<OrderProvider>(
             create: (_) => OrderProvider(),
+          ),
+          ChangeNotifierProvider<LocationProvider>(
+            create: (_) => LocationProvider(),
           ),
         ],
         child: ScreenUtilInit(

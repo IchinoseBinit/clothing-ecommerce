@@ -42,7 +42,7 @@ class GenerateNavigation {
             builder: (BuildContext context) => const ChangePasswordScreen());
       case RoutesName.connectivityCheckRoute:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const ConnectivityCheckWidget());
+            builder: (BuildContext context) => const NoInternetScreen());
       case RoutesName.productSearchRoute:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ProductSearchScreen());

@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
 import 'package:clothing_ecommerce/data/response/status.dart';
 import 'package:clothing_ecommerce/providers/cart_provider.dart';
-import 'package:clothing_ecommerce/providers/order_provider.dart';
+import 'package:clothing_ecommerce/screens/checkout/checkout_screen.dart';
+import 'package:clothing_ecommerce/utils/navigation_util.dart';
 import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
@@ -55,7 +56,9 @@ class _CartScreenState extends State<CartScreen> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            cartProvider.selectAllCartItem();
+                            cartProvider.selectAllCartItem(
+                                cartProvider.cartItemList.data!.any((element) =>
+                                    element.product.isSelected == false));
                           },
                           child: Row(
                             children: [
@@ -79,9 +82,14 @@ class _CartScreenState extends State<CartScreen> {
                         GeneralElevatedButton(
                           title: "Checkout (${cartProvider.totalSelectedCart})",
                           onPressed: () {
-                            Provider.of<OrderProvider>(context, listen: false)
-                                .order(context,
-                                    cartList: cartProvider.selectCartItemList);
+                            // Provider.of<OrderProvider>(context, listen: false)
+                            //     .order(context,
+                            //         cartList: cartProvider.selectCartItemList);
+                            navigate(
+                                context,
+                                CheckoutScreen(
+                                  cartModel: cartProvider.selectCartItemList,
+                                ));
                           },
                           marginH: 0,
                           width: 120.h,
