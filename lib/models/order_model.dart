@@ -11,6 +11,7 @@ class OrderModel {
   late final int quantity;
   late final int size;
   late final int color;
+  late bool isExpanded = false;
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     product = json['product'];
@@ -18,6 +19,10 @@ class OrderModel {
     quantity = json['quantity'];
     size = json['size'];
     color = json['color'];
+  }
+
+  setExpanded() {
+    isExpanded = !isExpanded;
   }
 
   Map<String, dynamic> toJson() {
