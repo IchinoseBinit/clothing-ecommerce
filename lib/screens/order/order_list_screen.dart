@@ -106,7 +106,7 @@ class OrderListScreenState extends State<OrderListScreen> {
                                         style: bodyText.copyWith()),
                                   ])),
                                   Text(
-                                    "Rs 200",
+                                    "Rs. 2000",
                                     style: bodyText.copyWith(
                                       color: AppColors.textDarkColor,
                                       fontWeight: FontWeight.w500,
@@ -139,14 +139,15 @@ class OrderListScreenState extends State<OrderListScreen> {
                                       title: "Delivery Fee",
                                       value: "Rs 65",
                                       isDeliveryFree: false),
-                                  // const SizedBox(
-                                  //   height: AppSizes.padding,
-                                  // ),
-                                  // EachPriceItem(
-                                  //     title: "Discount:",
-                                  //     value: "Rs 10",
-                                  //     hasPromo: true,
-                                  //     promoCode: "DSSAD"),
+                                   Divider(
+                                    height: 24.h,
+                                  ),
+                                  EachPriceItem(
+                                      hasTax: true,
+                                      isTotal: true,
+                                      title: "Total",
+                                      value:
+                                          "Rs. 6065"),
                                 ],
                               ),
                             )
