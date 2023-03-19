@@ -46,6 +46,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final LatLng? selectedLocation = await navigate(
       context,
       MapScreen(),
+      fullscreenDialog: true
     );
 
     if (selectedLocation != null) {

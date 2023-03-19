@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-navigate(BuildContext context, Widget screen) {
+navigate(BuildContext context, Widget screen,{bool fullscreenDialog=false}) {
   return Navigator.push(
     context,
     MaterialPageRoute(
       builder: (context) => screen,
+      fullscreenDialog: fullscreenDialog
     ),
   );
 }

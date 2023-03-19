@@ -284,16 +284,16 @@ class _MapScreenState extends State<MapScreen> {
                           zoom: 14,
                         ),
                         // onTap: null,
-                        onTap: _selectLocation ,
+                        onTap: _selectLocation,
                         // markers: (_pickedLocation == null && widget.isSelecting)
                         markers: {}),
-                      Center(
-                        //picker image on google map
-                        child: Image.asset(
-                          userMarker,
-                          width: 42.r,
-                        ),
+                    Center(
+                      //picker image on google map
+                      child: Image.asset(
+                        userMarker,
+                        width: 42.r,
                       ),
+                    ),
                     if (locationTop != "")
                       Positioned(
                         //widget to display location name
@@ -301,69 +301,31 @@ class _MapScreenState extends State<MapScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                              GestureDetector(
-                                onTap: () async {
-                                  Position position =
-                                      await Provider.of<LocationProvider>(
-                                              context,
-                                              listen: false)
-                                          .getUserCurrentLocation();
-                                  mapController.animateCamera(
-                                      CameraUpdate.newLatLngZoom(
-                                          LatLng(position.latitude,
-                                              position.longitude),
-                                          18));
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.all(AppSizes.paddingLg),
-                                  child: Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.only(
-                                            right: AppSizes.padding * 4),
-                                        padding: const EdgeInsets.only(
-                                          left: AppSizes.padding * 1.5,
-                                          top: AppSizes.padding / 1.5,
-                                          bottom: AppSizes.padding / 1.5,
-                                          right: AppSizes.padding * 3,
-                                        ),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                              24.r,
-                                            ),
-                                            color: AppColors.primaryColor),
-                                        child: Text(
-                                          "Current Location",
-                                          style: smallText.copyWith(
-                                              color: AppColors.whiteColor),
-                                        ),
-                                      ),
-                                      const Positioned(
-                                        right: 0,
-                                        top: -10,
-                                        bottom: -10,
-                                        child: FloatingActionButton(
-                                          backgroundColor:
-                                              AppColors.primaryColor,
-                                          onPressed: null,
-                                          child: Icon(Icons.my_location),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                            GestureDetector(
+                              onTap: () async {
+                                Position position =
+                                    await Provider.of<LocationProvider>(context,
+                                            listen: false)
+                                        .getUserCurrentLocation();
+                                mapController.animateCamera(
+                                    CameraUpdate.newLatLngZoom(
+                                        LatLng(position.latitude,
+                                            position.longitude),
+                                        18));
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.all(AppSizes.paddingLg),
+                                child: FloatingActionButton(
+                                  backgroundColor: AppColors.primaryColor,
+                                  onPressed: null,
+                                  child: Icon(Icons.my_location),
                                 ),
                               ),
+                            ),
                             Container(
                               decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft:
-                                        Radius.circular(AppSizes.radius * 3),
-                                    topRight:
-                                        Radius.circular(AppSizes.radius * 3),
-                                  )),
+                                color: Colors.white,
+                              ),
                               padding: const EdgeInsets.all(AppSizes.padding),
                               width: MediaQuery.of(context).size.width,
                               child: Column(
@@ -376,7 +338,7 @@ class _MapScreenState extends State<MapScreen> {
                                     padding: const EdgeInsets.only(
                                         left: AppSizes.padding),
                                     child: Text(
-                                       "Delivery Location",
+                                      "Delivery Location",
                                       style: bodyText.copyWith(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w600),
@@ -406,18 +368,21 @@ class _MapScreenState extends State<MapScreen> {
                                                 fontWeight: FontWeight.w600,
                                               ),
                                             ),
+                                            SizedBox(
+                                              height: 4.h,
+                                            ),
                                             Text(
                                               locationMiddle,
                                               style: bodyText.copyWith(
                                                   fontSize: 14.sp,
                                                   fontWeight: FontWeight.w600),
                                             ),
+                                            SizedBox(
+                                              height: 4.h,
+                                            ),
                                             Text(
                                               locationBottom,
                                               style: TextStyle(fontSize: 14.sp),
-                                            ),
-                                            const SizedBox(
-                                              height: AppSizes.padding,
                                             ),
                                           ],
                                         ),
@@ -428,14 +393,14 @@ class _MapScreenState extends State<MapScreen> {
                                     height: 16.h,
                                   ),
                                   GeneralElevatedButton(
-                                    title:  "Save Location",
+                                    title: "Save Location",
                                     onPressed: () async {
-                                        await DatabaseHelper().addBoxItem(
-                                            key: "deliveryAddress",
-                                            value: addressController.text);
-                                        mapController.dispose();
-                                        Navigator.of(context)
-                                            .pop(_pickedLocation);
+                                      await DatabaseHelper().addBoxItem(
+                                          key: "deliveryAddress",
+                                          value: addressController.text);
+                                      mapController.dispose();
+                                      Navigator.of(context)
+                                          .pop(_pickedLocation);
                                     },
                                   ),
                                   SizedBox(
@@ -447,148 +412,29 @@ class _MapScreenState extends State<MapScreen> {
                           ],
                         ),
                       ),
-                      Positioned(
-                        top: AppSizes.padding * 6,
-                        left: AppSizes.paddingLg,
-                        right: AppSizes.paddingLg,
-                        child: Container(
-                          color: Colors.transparent,
-                          child: Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  mapController.dispose();
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: AppSizes.padding),
-                                  child: Icon(Icons.arrow_back_ios,
-                                      color: Colors.black),
-                                ),
-                              ),
-                              Expanded(
-                                child: Card(
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.r)),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: AppSizes.padding),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8.r),
-                                          color: AppColors.inputColor,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            const SizedBox(
-                                              width: AppSizes.padding * 1.5,
-                                            ),
-                                            const SizedBox(
-                                              width: 20,
-                                              height: 20,
-                                              child: Icon(
-                                                Icons.search,
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 10),
-                                                    height: 25,
-                                                    child: Text(
-                                                      "Deliver to?",
-                                                      style: TextStyle(
-                                                        fontSize: 14.sp,
-                                                        color: AppColors
-                                                            .textSoftGreyColor,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 10),
-                                                    child: Text(
-                                                      (merchantSubAddress == ""
-                                                              ? null
-                                                              : merchantSubAddress) ??
-                                                          Provider.of<LocationProvider>(
-                                                                  context)
-                                                              .subtitleAdd,
-                                                      style: verySmallText
-                                                          .copyWith(
-                                                        color: AppColors
-                                                            .textSoftGreyColor,
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
+                    Positioned(
+                      top: AppSizes.padding * 6,
+                      left: AppSizes.paddingLg,
+                      right: AppSizes.paddingLg,
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                            mapController.dispose();
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: AppSizes.padding),
+                            child:
+                                Icon(Icons.arrow_back_ios, color: Colors.black),
                           ),
                         ),
                       ),
+                    ),
                   ],
                 ),
         ));
-    
   }
-
-  // _onLocationCardPressed() async {
-  //   Map? locationName = await navigate(
-  //     context,
-  //     LocationSearchScreen(
-  //       isFromCheckoutScreen: widget.isFromCheckoutScreen,
-  //       isFromMapScreen: true,
-  //       merchantSubLocation:
-  //           merchantSubAddress == "" ? null : merchantSubAddress,
-  //       merchantAddress: widget.merchantAddress,
-  //       location: widget.isFromCheckoutScreen
-  //           ? Location(
-  //               latitude: merchantLocation!.latitude,
-  //               longitude: merchantLocation!.longitude,
-  //               timestamp: DateTime.now())
-  //           : null,
-  //     ),
-  //   );
-  //   LocationProvider locationProvider =
-  //       Provider.of<LocationProvider>(context, listen: false);
-  //   if (locationName != null) {
-  //     await locationProvider.setLocation(
-  //         locationName: locationName["location"],
-  //         isPlaceId: locationName["isPlaceId"] as bool);
-
-  //     // String latitude = await DatabaseHelper()
-  //     //     .getBoxItem(key: "latitude");
-  //     // String longitude = await DatabaseHelper()
-  //     //     .getBoxItem(key: "longitude");
-
-  //     _pickedLocation = LatLng(locationProvider.locations.first.latitude,
-  //         locationProvider.locations.first.longitude);
-  //     mapController
-  //         .animateCamera(CameraUpdate.newLatLngZoom(_pickedLocation!, 18));
-  //     if (mounted) {
-  //       setState(() {});
-  //     }
-  //   }
-  // }
 }
