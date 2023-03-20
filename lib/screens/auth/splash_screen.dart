@@ -51,8 +51,6 @@ class _SplashScreenState extends State<SplashScreen> {
     await introProvider.call();
 
     if (await Permission.location.request().isGranted || Platform.isIOS) {
-      await Provider.of<LocationProvider>(context, listen: false)
-          .setLocation(saveLocation: true);
       if (mounted) {
         if (introProvider.hasAppToken) {
           navigateReplacement(context, const NavigationScreen());

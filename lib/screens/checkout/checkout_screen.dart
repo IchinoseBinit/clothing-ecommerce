@@ -33,7 +33,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       cancelTitle: "Cancel",
       isCancelButton: true,
       okFunc: () async {
-        await _selectMap(isDelivery: isDelivery);
+        await _selectMap();
         Navigator.pop(context);
       },
       cancelFunc: () {
@@ -42,12 +42,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-  Future<void> _selectMap({required bool isDelivery}) async {
-    final LatLng? selectedLocation = await navigate(
-      context,
-      MapScreen(),
-      fullscreenDialog: true
-    );
+  @override
+  void initState() {
+    //TODO: should be on checkout privder after api call
+   
+    super.initState();
+  }
+
+  Future<void> _selectMap() async {
+    final LatLng? selectedLocation =
+        await navigate(context, MapScreen(), fullscreenDialog: true);
 
     if (selectedLocation != null) {
       await Provider.of<LocationProvider>(context, listen: false).setLocation(
@@ -73,7 +77,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           ),
           GestureDetector(
             onTap: () async {
-              _selectMap(isDelivery: true);
+              //  Provider.of<LocationProvider>(context, listen: false)
+              //     .setLocation(saveLocation: true);
+              _selectMap();
             },
             child: Container(
               color: Colors.transparent,
@@ -103,7 +109,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * .70,
                         child: Text(
-                            Provider.of<LocationProvider>(context).actualStAdd,
+                            Provider.of<LocationProvider>(context).stAdd,
                             softWrap: true,
                             maxLines: 3,
                             style: smallText.copyWith(

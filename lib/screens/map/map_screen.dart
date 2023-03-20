@@ -95,14 +95,8 @@ class _MapScreenState extends State<MapScreen> {
   _initCall() async {
     Provider.of<LocationProvider>(context, listen: false)
         .setloading(value: true, noNotifier: true);
-    Provider.of<LocationProvider>(context, listen: false).reset();
-    deliveryAddress = await DatabaseHelper().getBoxItem(key: "deliveryAddress");
-    if (deliveryAddress != null) {
-      addressController.text = deliveryAddress!;
-    }
     String latitude = await DatabaseHelper().getBoxItem(key: "latitude");
     String longitude = await DatabaseHelper().getBoxItem(key: "longitude");
-    Map? databaseData = await DatabaseHelper().getBoxItem(key: "cart");
 
     widget.initialLocation =
         LatLng(double.parse(latitude), double.parse(longitude));
@@ -224,10 +218,18 @@ class _MapScreenState extends State<MapScreen> {
                         onMapCreated: (controller) async {
                           //method called when map is created
                           mapController = controller;
+                          Position position =
+                              await Provider.of<LocationProvider>(context,
+                                      listen: false)
+                                  .getUserCurrentLocation();
+                          mapController.animateCamera(
+                              CameraUpdate.newLatLngZoom(
+                                  LatLng(position.latitude, position.longitude),
+                                  18));
                           List<Placemark> placemarks =
                               await placemarkFromCoordinates(
-                                  widget.initialLocation!.latitude,
-                                  widget.initialLocation!.longitude);
+                                  position.latitude,
+                                  position.longitude);
                           //get place name from lat and lang
                           locationTop =
                               "${placemarks.first.subLocality}${placemarks.first.subLocality == "" ? "" : ", "}${placemarks.first.locality}";

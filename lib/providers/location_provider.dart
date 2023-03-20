@@ -18,23 +18,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 
 class LocationProvider with ChangeNotifier {
-  String stAdd = "";
+  String stAdd = "Please select your delivery address";
   String subtitleAdd = "";
-  String actualStAdd = "";
-  String actualSubtitleAdd = "";
   bool isLoading = true;
   bool isNearbySearchLoading = false;
   late List<geo.Location> locations;
-  late List<geo.Location> actualLocations;
-  List<geo.Placemark> actualPlacemarks = [];
   List<geo.Placemark> placemarks = [];
 
-  reset() {
-    stAdd = actualStAdd;
-    subtitleAdd = actualSubtitleAdd;
-    locations = actualLocations;
-    placemarks = actualPlacemarks;
-  }
 
   setloading({bool? value, bool noNotifier = false}) {
     isLoading = value ?? !isLoading;
@@ -222,14 +212,6 @@ class LocationProvider with ChangeNotifier {
         log(error.toString());
       });
     }
-
-    if (saveLocation) {
-      actualLocations = locations;
-      actualPlacemarks = placemarks;
-      actualStAdd = stAdd;
-      actualSubtitleAdd = subtitleAdd;
-    }
-
     notifyListeners();
   }
 
