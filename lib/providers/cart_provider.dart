@@ -102,6 +102,7 @@ class CartProvider extends ChangeNotifier {
     setCartItemList(ApiResponse.loading(), noNotifier: true);
     await _productListApi.fetchViewCart().then((value) {
       setCartItemList(ApiResponse.completed(value));
+      setTotalSelectedCount();
     }).onError((error, stackTrace) {
       setCartItemList(ApiResponse.error(error.toString()));
     });
