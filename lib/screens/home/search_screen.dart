@@ -57,6 +57,7 @@ class _ProductSearchScreenState extends State<ProductSearchScreen> {
                     borderColor: Colors.grey.shade200,
                     removePrefixIconDivider: true,
                     keywordType: TextInputType.text,
+                    autofocus: true,
                     validate: (String value) {},
                     onFieldSubmit: () {},
                     textInputAction: TextInputAction.search,
