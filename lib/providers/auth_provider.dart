@@ -104,7 +104,7 @@ class AuthProvider with ChangeNotifier {
     _myRepo.loginApi(body).then((value) async {
       setLoading(false);
 
-      // await DatabaseHelper().addBoxItem(key: "email", value: email.trim());
+      await DatabaseHelper().addBoxItem(key: "email", value: email.trim());
       final dbHelper =
           Provider.of<DatabaseHelperProvider>(context, listen: false);
       await dbHelper.saveToken(LoginModel(
@@ -117,7 +117,6 @@ class AuthProvider with ChangeNotifier {
       if (isFromRefreshToken) {
         Navigator.of(context).pop();
       } else {
-        // navigateNamedReplacement(context, RoutesName.navigationRoute);
         navigateNamedReplacement(context, RoutesName.navigationRoute);
       }
 

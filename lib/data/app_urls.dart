@@ -18,10 +18,10 @@ class AppUrl {
       "JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R";
   // static const String esewaTestSecretKey =
   //     "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==";
-  static String baseUrl =
-      EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.12.33:8000';
   // static String baseUrl =
-  //     EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.1.67:8000';
+  //     EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.12.33:8000';
+  static String baseUrl =
+      EnvironmentConfig.isProd == "true" ? "" : 'http://192.168.1.67:8000';
   static String stagCallbackUrl = "";
   static String prodCallbackUrl = "";
   static String loginUrl = '$baseUrl/users/login/';

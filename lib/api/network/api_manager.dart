@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:clothing_ecommerce/utils/show_toast.dart';
 import 'package:dio/dio.dart';
 
 import '/data/app_exceptions.dart';
@@ -35,12 +36,14 @@ class ApiManager {
         .add(InterceptorsWrapper(onRequest: (options, handler) async {
       return handler.next(options);
     }, onError: (DioError error, handler) async {
-      if (error.response?.statusCode != null && error.response!.statusCode ==  401) {
+      if (error.response?.statusCode != null &&
+          error.response!.statusCode == 401) {
         if (error.response?.data != null) {
           if (error.response!.data["messages"] != null) {
             if (error.response!.data["messages"][0]["token_type"] != null &&
                 error.response!.data["messages"][0]["token_type"].toString() ==
                     "access") {
+              showToast("Session Expired. Please Login.");
               String? token = await _getRefreshToken();
               if (token != null) {
                 Map<String, String> headingWithToken = {
