@@ -33,7 +33,7 @@ class _OptScreenState extends State<OptScreen> {
   final otpController = OtpFieldController();
   String otp = "";
   _onSubmit() {
-    if (otp.length == 4) {
+    if (otp.length == 6) {
       Map data = {
         "otp": otp,
         "email": widget.email,
@@ -95,11 +95,11 @@ class _OptScreenState extends State<OptScreen> {
                     ),
                     OTPTextField(
                         controller: otpController,
-                        length: 4,
+                        length: 6,
                         width: MediaQuery.of(context).size.width,
                         textFieldAlignment: MainAxisAlignment.spaceEvenly,
                         fieldWidth: 40.w,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
                         margin: EdgeInsets.zero,
                         fieldStyle: FieldStyle.box,
                         otpFieldStyle: OtpFieldStyle(

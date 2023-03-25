@@ -44,16 +44,16 @@ class ApiManager {
                 error.response!.data["messages"][0]["token_type"].toString() ==
                     "access") {
               showToast("Session Expired. Please Login.");
-              String? token = await _getRefreshToken();
-              if (token != null) {
-                Map<String, String> headingWithToken = {
-                  'Content-Type': 'application/json',
-                  'Authorization': 'Bearer $token',
-                  'Accept': '*/*',
-                };
-                error.requestOptions.headers = headingWithToken;
-                return handler.resolve(await _retry(error.requestOptions));
-              }
+              // String? token = await _getRefreshToken();
+              // if (token != null) {
+              //   Map<String, String> headingWithToken = {
+              //     'Content-Type': 'application/json',
+              //     'Authorization': 'Bearer $token',
+              //     'Accept': '*/*',
+              //   };
+              //   error.requestOptions.headers = headingWithToken;
+              //   return handler.resolve(await _retry(error.requestOptions));
+              // }
             }
           }
         }

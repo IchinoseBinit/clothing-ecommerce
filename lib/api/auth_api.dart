@@ -51,8 +51,6 @@ class AuthApi {
           url: AppUrl.forgetPasswordApiUrl,
           parameter: data,
           requestType: RequestType.post);
-      // dynamic response = await _apiServices.getPostApiResponseWithHeader(
-      //     AppUrl.registerApiEndPoint, data);
       log(data.toString(), name: "Forget Up Data");
       return response;
     } catch (e) {
