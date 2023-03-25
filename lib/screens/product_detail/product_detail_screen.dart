@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/scroll_sheet_top_bar_icon.dart';
+
 class ProductDetailScreen extends StatefulWidget {
   final int productId;
   ProductDetailScreen({Key? key, required this.productId}) : super(key: key);
@@ -115,16 +117,7 @@ class BodyContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: AppSizes.paddingLg),
-                Center(
-                  child: Container(
-                    height: 4.h,
-                    width: 50.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      color: AppColors.greyColor.withOpacity(0.6),
-                    ),
-                  ),
-                ),
+                const ScrollSheetTopBarIcon(),
                 const SizedBox(height: AppSizes.paddingLg * 1.5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,22 +199,28 @@ class BodyContent extends StatelessWidget {
                       onDecrement: () {},
                       onIncrement: () {},
                     ),
-                    Consumer<CartProvider>(builder: (_, cartProvider, __) {
-                      return GeneralElevatedButton(
-                        marginH: 0,
-                        title: "Add to Cart",
-                        width: 180,
-                        borderRadius: 30.r,
-                        loading: cartProvider.loading,
-                        onPressed: () {
-                          cartProvider.addToCart(context,
-                              quantity: product.quantity *
-                                  Provider.of<ProductDetailProvider>(context,
-                                          listen: false)
-                                      .selectedQuantity,
-                              productId: product.id);
-                        },
-                      );
+                    Consumer<ProductDetailProvider>(
+                        builder: (_, productProvider, __) {
+                      return Consumer<CartProvider>(
+                          builder: (_, cartProvider, __) {
+                        return GeneralElevatedButton(
+                          marginH: 0,
+                          title: "Add to Cart",
+                          width: 180,
+                          borderRadius: 30.r,
+                          loading: cartProvider.loading,
+                          onPressed: () {
+                            cartProvider.addToCart(context,
+                                quantity: productProvider.selectedQuantity,
+                                color: product
+                                    .color[productProvider.selectedColorIndex]
+                                    .id,
+                                size: product
+                                    .size[productProvider.selectedSizeIndex].id,
+                                productId: product.id);
+                          },
+                        );
+                      });
                     })
                   ],
                 ),
@@ -272,11 +271,10 @@ class ColorPaletteItem extends StatelessWidget {
                       color: AppColors.whiteColor,
                       boxShadow: [
                         BoxShadow(
-                          offset: const Offset(1, 1),
-                          blurRadius: 1,
-                          spreadRadius: 0,
-                          color: AppColors.blackColor.withOpacity(0.1)
-                        )
+                            offset: const Offset(1, 1),
+                            blurRadius: 1,
+                            spreadRadius: 0,
+                            color: AppColors.blackColor.withOpacity(0.1))
                       ]),
                   child: Icon(Icons.check_outlined,
                       color: AppColors.darkPrimaryColor, size: 8.h),

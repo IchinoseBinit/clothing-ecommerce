@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
 
-class AddCartButton extends StatefulWidget {
+class QuantityButton extends StatefulWidget {
   final Function setIncrement;
   final Function setDecrement;
   final int itemIndex;
   final int categoryIndex;
-  AddCartButton({
+  const QuantityButton({
     super.key,
     required this.setIncrement,
     required this.setDecrement,
@@ -17,10 +17,10 @@ class AddCartButton extends StatefulWidget {
   });
 
   @override
-  AddCartButtonState createState() => AddCartButtonState();
+  QuantityButtonState createState() => QuantityButtonState();
 }
 
-class AddCartButtonState extends State<AddCartButton> {
+class QuantityButtonState extends State<QuantityButton> {
 
   @override
   Widget build(BuildContext context) {

@@ -46,6 +46,8 @@ class CartProvider extends ChangeNotifier {
   Future<void> addToCart(
     BuildContext context, {
     required int quantity,
+    required int size,
+    required int color,
     required int productId,
   }) async {
     setLoading(true);
@@ -53,6 +55,8 @@ class CartProvider extends ChangeNotifier {
     Map body = {
       'quantity': quantity,
       'product': productId,
+      'size': size,
+      'color': color,
     };
     _myRepo.addToCartApi(body).then((value) async {
       setLoading(false);
