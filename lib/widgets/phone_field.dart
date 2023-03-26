@@ -2,7 +2,6 @@ import 'package:extended_phone_number_input/consts/enums.dart';
 import 'package:extended_phone_number_input/phone_number_controller.dart';
 import 'package:extended_phone_number_input/phone_number_input.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '/styles/app_colors.dart';
 import '/styles/app_sizes.dart';
@@ -24,7 +23,7 @@ class PhoneField extends StatelessWidget {
     return SizedBox(
       child: PhoneNumberInput(
         initialCountry: "NP",
-        // initialValue: _initialValue,
+        initialValue: _initialValue ,
         locale: 'en',
         allowSearch: true,
         searchHint: "Search Country",
