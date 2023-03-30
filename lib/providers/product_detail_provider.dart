@@ -77,24 +77,27 @@ class ProductDetailProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> verifyStock({
+  Future<bool> verifyStock({
     required int productId,
     required int sizeId,
     required int colorId,
   }) async {
+    bool result = false;
     setVerifyStockLoading(true);
-    final data = {"size": sizeId, "color": colorId, "product": productId};
-    _productListApi.verifyStockApi(data).then((value) {
+    final data = {
+      "size": sizeId,
+      "color": colorId,
+      "product": productId,
+    };
+   await _productListApi.verifyStockApi(data).then((value) {
       setVerifyStockLoading(false);
+      result = true;
       // showToast("Send Code Successfully");
     }).onError((error, stackTrace) {
       setVerifyStockLoading(false);
-
       showToast("This item is out of stock. Please try another variation.");
-
-      if (kDebugMode) {
-        log(error.toString());
-      }
+      result = false;
     });
+    return result;
   }
 }

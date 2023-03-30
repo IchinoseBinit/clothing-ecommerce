@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:clothing_ecommerce/api/cart_api.dart';
 import 'package:clothing_ecommerce/data/response/api_response.dart';
 import 'package:clothing_ecommerce/models/cart_model.dart';
+import 'package:clothing_ecommerce/providers/product_detail_provider.dart';
 import 'package:clothing_ecommerce/utils/show_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartProvider extends ChangeNotifier {
   final _myRepo = CartApi();
@@ -22,10 +26,10 @@ class CartProvider extends ChangeNotifier {
 
   setTotalSelectedCount() {
     _selectCartItemList =
-        cartItemList.data!.where((e) => e.product.isSelected).toList();
+        cartItemList.data!.where((e) => e.isSelected).toList();
     if (_selectCartItemList.isNotEmpty) {
       _totalSelectedCart = _selectCartItemList
-          .map((e) => e.product.quantity)
+          .map((e) => e.quantity)
           .reduce((p, n) => p + n);
     } else {
       _totalSelectedCart = 0;
@@ -34,11 +38,11 @@ class CartProvider extends ChangeNotifier {
 
   selectAllCartItem(bool val) {
     _totalSelectedCart = cartItemList.data!
-        .map((e) => e.product.quantity)
+        .map((e) => e.quantity)
         .toList()
         .reduce((value, element) => _totalSelectedCart = value + element);
     for (CartModel cartItem in cartItemList.data!) {
-      cartItem.product.setSelectedCart(value: val);
+      cartItem.setSelectedCart(value: val);
     }
     notifyListeners();
   }
@@ -58,13 +62,20 @@ class CartProvider extends ChangeNotifier {
       'size': size,
       'color': color,
     };
-    _myRepo.addToCartApi(body).then((value) async {
+     bool continueProcess =
+        await Provider.of<ProductDetailProvider>(context, listen: false)
+            .verifyStock(productId: productId, sizeId: size, colorId: color);
+    if (continueProcess) {
+      _myRepo.addToCartApi(body).then((value) async {
+        setLoading(false);
+        showToast(value["message"]);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        showToast(error.toString());
+      });
+    } else {
       setLoading(false);
-      showToast(value["message"]);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      showToast(error.toString());
-    });
+    }
   }
 
   final _productListApi = CartApi();
@@ -77,7 +88,7 @@ class CartProvider extends ChangeNotifier {
   }
 
   increaseCartItemQuantity(index) {
-    cartItemList.data![index].product.increaseQuantity();
+    cartItemList.data![index].increaseQuantity();
     setTotalSelectedCount();
     notifyListeners();
   }
@@ -89,14 +100,14 @@ class CartProvider extends ChangeNotifier {
   }
 
   selectedSingleCartItem(index) {
-    cartItemList.data![index].product.setSelectedCart();
+    cartItemList.data![index].setSelectedCart();
     setTotalSelectedCount();
     notifyListeners();
   }
 
   decreaseCartItemQuantity(index) {
-    if (cartItemList.data![index].product.quantity > 1) {
-      cartItemList.data![index].product.decreaseQuantity();
+    if (cartItemList.data![index].quantity > 1) {
+      cartItemList.data![index].decreaseQuantity();
       setTotalSelectedCount();
       notifyListeners();
     }

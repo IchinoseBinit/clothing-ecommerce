@@ -58,13 +58,13 @@ class _CartScreenState extends State<CartScreen> {
                           onTap: () {
                             cartProvider.selectAllCartItem(
                                 cartProvider.cartItemList.data!.any((element) =>
-                                    element.product.isSelected == false));
+                                    element.isSelected == false));
                           },
                           child: Row(
                             children: [
                               Icon(
                                 cartProvider.cartItemList.data!.any((element) =>
-                                        element.product.isSelected == false)
+                                        element.isSelected == false)
                                     ? Icons.radio_button_off
                                     : Icons.check_circle,
                                 color: AppColors.greyColor,
@@ -182,7 +182,7 @@ class _CartScreenState extends State<CartScreen> {
                               child: Center(
                                 child: Icon(
                                   cartProvider.cartItemList.data![listViewIndex]
-                                          .product.isSelected
+                                          .isSelected
                                       ? Icons.check_circle
                                       : Icons.radio_button_off,
                                   color: AppColors.greyColor,
@@ -206,6 +206,7 @@ class _CartScreenState extends State<CartScreen> {
                               child: Image.network(
                                 cartProvider.cartItemList.data![listViewIndex]
                                     .product.image,
+                                    fit: BoxFit.cover,
                               ),
                             ),
                             SizedBox(
@@ -233,7 +234,7 @@ class _CartScreenState extends State<CartScreen> {
                                   //           AppColors.textLightGreyColor),
                                   // ),
                                   Text(
-                                      "Size: ${cartProvider.cartItemList.data![listViewIndex].product.sizeData.title}",
+                                      "Size: ${cartProvider.cartItemList.data![listViewIndex].product.sizes.first. title}",
                                       style: smallText.copyWith(
                                           color: AppColors.textLightGreyColor)),
                                   // Text(",",
@@ -252,7 +253,7 @@ class _CartScreenState extends State<CartScreen> {
                                         width: 10.h,
                                         decoration: BoxDecoration(
                                             color: Color(int.parse(
-                                                "0xff${cartProvider.cartItemList.data![listViewIndex].product.colorData.color.substring(1, 7)}")),
+                                                "0xff${cartProvider.cartItemList.data![listViewIndex].product.colors.first.color.substring(1, 7)}")),
                                             borderRadius:
                                                 BorderRadius.circular(10.h)),
                                       )
@@ -328,7 +329,7 @@ class OuantityItem extends StatelessWidget {
               width: 4.w,
             ),
             Text(
-              cartProvider.cartItemList.data![cartIndex].product.quantity
+              cartProvider.cartItemList.data![cartIndex].quantity
                   .toString(),
               style: bodyText.copyWith(
                 color: AppColors.darkPrimaryColor,
