@@ -70,168 +70,187 @@ class BodyContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-        image: NetworkImage(
-          product.image,
-        ),
-        fit: BoxFit.fitWidth,
-        alignment: Alignment.topCenter,
-      )),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: AppSizes.paddingLg * 3,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: AppSizes.paddingLg),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GeneralIconButton(
-                    iconData: Icons.arrow_back_ios_new_outlined,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-                const SizedBox.shrink()
-              ],
-            ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .30,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(32.r),
-                topRight: Radius.circular(32.r),
+    return Stack(
+      children: [
+        Container(
+           decoration: BoxDecoration(
+                image: DecorationImage(
+
+              image: NetworkImage(
+                product.image,
               ),
-              color: AppColors.backgroundColor,
-            ),
-            padding: const EdgeInsets.only(
-              left: AppSizes.paddingLg * 2,
-              right: AppSizes.paddingLg * 2,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: AppSizes.paddingLg),
-                const ScrollSheetTopBarIcon(),
-                const SizedBox(height: AppSizes.paddingLg * 1.5),
-                Row(
+              fit: BoxFit.cover,
+              alignment: Alignment.topCenter,
+
+            )),
+            height: MediaQuery.of(context).size.height * .35,
+        ),
+        Container(
+          // decoration: BoxDecoration(
+          //     image: DecorationImage(
+                
+          //   image: NetworkImage(
+          //     product.image,
+          //   ),
+          //   fit: BoxFit. cover,
+          //   alignment: Alignment.topCenter,
+            
+          // )),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: AppSizes.paddingLg * 3,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: AppSizes.paddingLg),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      product.name,
-                      style: subTitleText.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "Rs.${product.price}",
-                      style: subTitleText.copyWith(fontWeight: FontWeight.bold),
-                    ),
+                    GeneralIconButton(
+                        iconData: Icons.arrow_back_ios_new_outlined,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }),
+                    const SizedBox.shrink()
                   ],
                 ),
-                const SizedBox(
-                  height: AppSizes.paddingLg * 1.5,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .20,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(32.r),
+                    topRight: Radius.circular(32.r),
+                  ),
+                  color: AppColors.backgroundColor,
                 ),
-                Text(
-                  product.description,
-                  style: bodyText.copyWith(color: AppColors.textGreyColor),
+                padding: const EdgeInsets.only(
+                  left: AppSizes.paddingLg * 2,
+                  right: AppSizes.paddingLg * 2,
                 ),
-                const SizedBox(
-                  height: AppSizes.paddingLg * 1.5,
-                ),
-                Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Color",
-                      style: bodyText.copyWith(fontWeight: FontWeight.w500),
+                    const SizedBox(height: AppSizes.paddingLg),
+                    const Center(child: ScrollSheetTopBarIcon()),
+                    const SizedBox(height: AppSizes.paddingLg * 1.5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          product.name,
+                          style: subTitleText.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Rs.${product.price}",
+                          style: subTitleText.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: AppSizes.padding,
+                      height: AppSizes.paddingLg * 1.5,
                     ),
-                    Row(
-                      children: product.colorList
-                          .map((e) => ColorPaletteItem(
-                                index: product.colorList.indexOf(e),
-                                color: int.parse(e.replaceAll("#", "0xff")),
-                              ))
-                          .toList(),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: AppSizes.paddingLg,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
                     Text(
-                      "Size",
-                      style: bodyText.copyWith(fontWeight: FontWeight.w500),
+                      product.description,
+                      style: bodyText.copyWith(color: AppColors.textGreyColor),
                     ),
                     const SizedBox(
-                      height: AppSizes.padding,
+                      height: AppSizes.paddingLg * 1.5,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Color",
+                          style: bodyText.copyWith(fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(
+                          height: AppSizes.padding,
+                        ),
+                        Row(
+                          children: product.colorList
+                              .map((e) => ColorPaletteItem(
+                                    index: product.colorList.indexOf(e),
+                                    color: int.parse(e.replaceAll("#", "0xff")),
+                                  ))
+                              .toList(),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: AppSizes.paddingLg,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Size",
+                          style: bodyText.copyWith(fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(
+                          height: AppSizes.padding,
+                        ),
+                        Row(
+                          children: product.sizeList
+                              .map(
+                                (e) => SizeItem(
+                                  index: product.sizeList.indexOf(e),
+                                  label: e,
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: AppSizes.paddingLg * 1.5,
                     ),
                     Row(
-                      children: product.sizeList
-                          .map(
-                            (e) => SizeItem(
-                              index: product.sizeList.indexOf(e),
-                              label: e,
-                            ),
-                          )
-                          .toList(),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        OuantityItem(
+                          onDecrement: () {},
+                          onIncrement: () {},
+                        ),
+                        Consumer<ProductDetailProvider>(
+                            builder: (_, productProvider, __) {
+                          return Consumer<CartProvider>(
+                              builder: (_, cartProvider, __) {
+                            return GeneralElevatedButton(
+                              marginH: 0,
+                              title: "Add to Cart",
+                              width: 180,
+                              borderRadius: 30.r,
+                              loading: cartProvider.loading,
+                              onPressed: () {
+                                cartProvider.addToCart(context,
+                                    quantity: productProvider.selectedQuantity,
+                                    color: product
+                                        .color[productProvider.selectedColorIndex]
+                                        .id,
+                                    size: product
+                                        .size[productProvider.selectedSizeIndex].id,
+                                    productId: product.id);
+                              },
+                            );
+                          });
+                        })
+                      ],
+                    ),
+                    const SizedBox(
+                      height: AppSizes.paddingLg * 2,
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: AppSizes.paddingLg * 1.5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    OuantityItem(
-                      onDecrement: () {},
-                      onIncrement: () {},
-                    ),
-                    Consumer<ProductDetailProvider>(
-                        builder: (_, productProvider, __) {
-                      return Consumer<CartProvider>(
-                          builder: (_, cartProvider, __) {
-                        return GeneralElevatedButton(
-                          marginH: 0,
-                          title: "Add to Cart",
-                          width: 180,
-                          borderRadius: 30.r,
-                          loading: cartProvider.loading,
-                          onPressed: () {
-                            cartProvider.addToCart(context,
-                                quantity: productProvider.selectedQuantity,
-                                color: product
-                                    .color[productProvider.selectedColorIndex]
-                                    .id,
-                                size: product
-                                    .size[productProvider.selectedSizeIndex].id,
-                                productId: product.id);
-                          },
-                        );
-                      });
-                    })
-                  ],
-                ),
-                const SizedBox(
-                  height: AppSizes.paddingLg * 2,
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
