@@ -36,27 +36,35 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ScrollConfiguration(
-        behavior: MyBehaviour(),
-        child: SingleChildScrollView(
-          child:
-              Consumer<ProductDetailProvider>(builder: (_, detailProvider, __) {
-            switch (detailProvider.productData.status) {
-              case Status.LOADING:
-                return LoadingWidget(
-                  height: .5.sh,
-                );
-              case Status.ERROR:
-                return const ErrorInfoWidget();
-              case Status.COMPLETED:
-                return BodyContent(product: detailProvider.productData.data!);
-              default:
-                return const SizedBox.shrink();
-            }
-          }),
+    return Stack(
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height,
+          child: Scaffold(
+            body: ScrollConfiguration(
+              behavior: MyBehaviour(),
+              child: SingleChildScrollView(
+                child: Consumer<ProductDetailProvider>(
+                    builder: (_, detailProvider, __) {
+                  switch (detailProvider.productData.status) {
+                    case Status.LOADING:
+                      return LoadingWidget(
+                        height: .5.sh,
+                      );
+                    case Status.ERROR:
+                      return const ErrorInfoWidget();
+                    case Status.COMPLETED:
+                      return BodyContent(
+                          product: detailProvider.productData.data!);
+                    default:
+                      return const SizedBox.shrink();
+                  }
+                }),
+              ),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -83,173 +91,160 @@ class BodyContent extends StatelessWidget {
           )),
           height: MediaQuery.of(context).size.height * .35,
         ),
-        Container(
-          // decoration: BoxDecoration(
-          //     image: DecorationImage(
-
-          //   image: NetworkImage(
-          //     product.image,
-          //   ),
-          //   fit: BoxFit. cover,
-          //   alignment: Alignment.topCenter,
-
-          // )),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: AppSizes.paddingLg * 3,
+        Column(
+          children: [
+            const SizedBox(
+              height: AppSizes.paddingLg * 3,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: AppSizes.paddingLg),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GeneralIconButton(
+                      iconData: Icons.arrow_back_ios_new_outlined,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                  const SizedBox.shrink()
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: AppSizes.paddingLg),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GeneralIconButton(
-                        iconData: Icons.arrow_back_ios_new_outlined,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        }),
-                    const SizedBox.shrink()
-                  ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .20,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(32.r),
+                  topRight: Radius.circular(32.r),
                 ),
+                color: AppColors.backgroundColor,
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .20,
+              padding: const EdgeInsets.only(
+                left: AppSizes.paddingLg * 2,
+                right: AppSizes.paddingLg * 2,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(32.r),
-                    topRight: Radius.circular(32.r),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: AppSizes.paddingLg),
+                  const Center(child: ScrollSheetTopBarIcon()),
+                  const SizedBox(height: AppSizes.paddingLg * 1.5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        product.name,
+                        style: subTitleText.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Rs.${product.price}",
+                        style:
+                            subTitleText.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                  color: AppColors.backgroundColor,
-                ),
-                padding: const EdgeInsets.only(
-                  left: AppSizes.paddingLg * 2,
-                  right: AppSizes.paddingLg * 2,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: AppSizes.paddingLg),
-                    const Center(child: ScrollSheetTopBarIcon()),
-                    const SizedBox(height: AppSizes.paddingLg * 1.5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          product.name,
-                          style: subTitleText.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "Rs.${product.price}",
-                          style: subTitleText.copyWith(
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: AppSizes.paddingLg * 1.5,
-                    ),
-                    Text(
-                      product.description,
-                      style: bodyText.copyWith(color: AppColors.textGreyColor),
-                    ),
-                    const SizedBox(
-                      height: AppSizes.paddingLg * 1.5,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Color",
-                          style: bodyText.copyWith(fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(
-                          height: AppSizes.padding,
-                        ),
-                        Row(
-                          children: product.colorList
-                              .map((e) => ColorPaletteItem(
-                                    index: product.colorList.indexOf(e),
-                                    color: int.parse(e.replaceAll("#", "0xff")),
-                                  ))
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: AppSizes.paddingLg,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Size",
-                          style: bodyText.copyWith(fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(
-                          height: AppSizes.padding,
-                        ),
-                        Row(
-                          children: product.sizeList
-                              .map(
-                                (e) => SizeItem(
-                                  index: product.sizeList.indexOf(e),
-                                  label: e,
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: AppSizes.paddingLg * 1.5,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        OuantityItem(
-                          onDecrement: () {},
-                          onIncrement: () {},
-                        ),
-                        Consumer<ProductDetailProvider>(
-                            builder: (_, productProvider, __) {
-                          return Consumer<CartProvider>(
-                              builder: (_, cartProvider, __) {
-                            return GeneralElevatedButton(
-                              marginH: 0,
-                              title: "Add to Cart",
-                              width: 180,
-                              borderRadius: 30.r,
-                              loading: cartProvider.loading,
-                              onPressed: () {
-                                cartProvider.addToCart(context,
-                                    quantity: productProvider.selectedQuantity,
-                                    color: product
-                                        .color[
-                                            productProvider.selectedColorIndex]
-                                        .id,
-                                    size: product
-                                        .size[productProvider.selectedSizeIndex]
-                                        .id,
-                                    productId: product.id);
-                              },
-                            );
-                          });
-                        })
-                      ],
-                    ),
-                    const SizedBox(
-                      height: AppSizes.paddingLg * 2,
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
+                  const SizedBox(
+                    height: AppSizes.paddingLg * 1.5,
+                  ),
+                  Text(
+                    product.description,
+                    style: bodyText.copyWith(color: AppColors.textGreyColor),
+                  ),
+                  const SizedBox(
+                    height: AppSizes.paddingLg * 1.5,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Color",
+                        style: bodyText.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(
+                        height: AppSizes.padding,
+                      ),
+                      Row(
+                        children: product.colorList
+                            .map((e) => ColorPaletteItem(
+                                  index: product.colorList.indexOf(e),
+                                  color: int.parse(e.replaceAll("#", "0xff")),
+                                ))
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: AppSizes.paddingLg,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Size",
+                        style: bodyText.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(
+                        height: AppSizes.padding,
+                      ),
+                      Row(
+                        children: product.sizeList
+                            .map(
+                              (e) => SizeItem(
+                                index: product.sizeList.indexOf(e),
+                                label: e,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: AppSizes.paddingLg * 1.5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      OuantityItem(
+                        onDecrement: () {},
+                        onIncrement: () {},
+                      ),
+                      Consumer<ProductDetailProvider>(
+                          builder: (_, productProvider, __) {
+                        return Consumer<CartProvider>(
+                            builder: (_, cartProvider, __) {
+                          return GeneralElevatedButton(
+                            marginH: 0,
+                            title: "Add to Cart",
+                            width: 180,
+                            borderRadius: 30.r,
+                            loading: cartProvider.loading,
+                            onPressed: () {
+                              cartProvider.addToCart(context,
+                                  quantity: productProvider.selectedQuantity,
+                                  color: product
+                                      .color[productProvider.selectedColorIndex]
+                                      .id,
+                                  size: product
+                                      .size[productProvider.selectedSizeIndex]
+                                      .id,
+                                  productId: product.id);
+                            },
+                          );
+                        });
+                      })
+                    ],
+                  ),
+                  const SizedBox(
+                    height: AppSizes.paddingLg * 2,
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ],
     );

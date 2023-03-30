@@ -31,8 +31,10 @@ class AppUrl {
   static const String changePasswordUrl = '$baseUrl/users/change-password/';
   static const String getTokenUrl = "$baseUrl/auth/customers/jwt/refresh/";
   static const String registerVerifyOtpUrl = "$baseUrl/users/verify-otp/";
-  static const String forgetPasswordVerifyOtpUrl = "$baseUrl/users/verify-otp-reset/";
-  static const String setPasswordUrl = "$baseUrl/users/change-password-after-otp";
+  static const String forgetPasswordVerifyOtpUrl =
+      "$baseUrl/users/verify-otp-reset/";
+  static const String setPasswordUrl =
+      "$baseUrl/users/change-password-after-otp";
   static const String forgetPasswordApiUrl = '$baseUrl/users/reset-password/';
   //TODO: left api
   static const String resentOtpRegisterApiUrl = "$baseUrl/";
@@ -40,7 +42,8 @@ class AppUrl {
   static const String editProfileApiUrl = '$baseUrl/';
 
   //Stripe Url
-  static const String stripePaymentUrl = "https://api.stripe.com/v1/payment_intents";
+  static const String stripePaymentUrl =
+      "https://api.stripe.com/v1/payment_intents";
   static const String kStripePaymentUrl =
       "https://us-central1-stripe-checkout-flutter.cloudfunctions.net/stripePaymentIntentRequest";
 
@@ -49,8 +52,10 @@ class AppUrl {
   static const String categoryListUrl = "$baseUrl/product/categories-list/";
   static const String categorySpecificProductsUrl =
       "$baseUrl/product/category-product/name/";
-  static const String productDetailUrl = "$baseUrl/product/product-detail/name/";
-  static const String productSearchUrl = "$baseUrl/product/product-search/name/";
+  static const String productDetailUrl =
+      "$baseUrl/product/product-detail/name/";
+  static const String productSearchUrl =
+      "$baseUrl/product/product-search/name/";
 
   //Add to cart url
   static const String addToCartUrl = "$baseUrl/order/add-to-cart/";
@@ -59,4 +64,7 @@ class AppUrl {
   //Order apis
   static const String orderUrl = "$baseUrl/order/order-products/";
   static const String orderListUrl = "$baseUrl/order/list-user-order/";
+
+  //Verify Stock api
+  static const String verifyStockUrl = "$baseUrl/order/verify-stock/";
 }

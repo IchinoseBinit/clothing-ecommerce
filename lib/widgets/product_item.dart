@@ -61,135 +61,135 @@ class ProductItem extends StatelessWidget {
                   ),
                 ],
               ),
-              GestureDetector(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(30),
-                    )),
-                    builder: (context) => Container(
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(AppSizes.radius),
-                        topRight: Radius.circular(AppSizes.radius),
-                      )),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: AppSizes.paddingLg),
-                      child: Column(mainAxisSize: MainAxisSize.min, children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: AppSizes.paddingLg),
-                            const Center(child: ScrollSheetTopBarIcon()),
-                            const SizedBox(height: AppSizes.paddingLg * 1.5),
-                            Text(
-                              "Color",
-                              style: bodyText.copyWith(
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(
-                              height: AppSizes.padding,
-                            ),
-                            Row(
-                              children: product.colorList
-                                  .map((e) => ColorPaletteItem(
-                                        index: product.colorList.indexOf(e),
-                                        color: int.parse(
-                                            e.replaceAll("#", "0xff")),
-                                      ))
-                                  .toList(),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: AppSizes.paddingLg,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Size",
-                              style: bodyText.copyWith(
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(
-                              height: AppSizes.padding,
-                            ),
-                            Row(
-                              children: product.sizeList
-                                  .map(
-                                    (e) => SizeItem(
-                                      index: product.sizeList.indexOf(e),
-                                      label: e,
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: AppSizes.paddingLg * 1.5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            OuantityItem(
-                              onDecrement: () {},
-                              onIncrement: () {},
-                            ),
-                            Consumer<ProductDetailProvider>(
-                                builder: (_, productProvider, __) {
-                              return Consumer<CartProvider>(
-                                  builder: (_, cartProvider, __) {
-                                return GeneralElevatedButton(
-                                  marginH: 0,
-                                  title: "Add to Cart",
-                                  width: 180,
-                                  borderRadius: 30.r,
-                                  loading: cartProvider.loading,
-                                  onPressed: () async {
-                                    await cartProvider.addToCart(context,
-                                        quantity:
-                                            productProvider.selectedQuantity,
-                                        color: product
-                                            .color[productProvider
-                                                .selectedColorIndex]
-                                            .id,
-                                        size: product
-                                            .size[productProvider
-                                                .selectedSizeIndex]
-                                            .id,
-                                        productId: product.id);
-                                    if (context.mounted) {
-                                      Navigator.pop(context);
-                                    }
-                                  },
-                                );
-                              });
-                            })
-                          ],
-                        ),
-                        const SizedBox(
-                          height: AppSizes.paddingLg * 2,
-                        ),
-                      ]),
-                    ),
-                  );
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(AppSizes.padding),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50.r),
-                    color: AppColors.iconBtnBgColor,
-                  ),
-                  child: const Icon(
-                    Icons.shopping_bag_outlined,
-                  ),
-                ),
-              )
+              // GestureDetector(
+              //   onTap: () {
+              //     showModalBottomSheet(
+              //       context: context,
+              //       isScrollControlled: true,
+              //       shape: const RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.vertical(
+              //         top: Radius.circular(30),
+              //       )),
+              //       builder: (context) => Container(
+              //         decoration: const BoxDecoration(
+              //             borderRadius: BorderRadius.only(
+              //           topLeft: Radius.circular(AppSizes.radius),
+              //           topRight: Radius.circular(AppSizes.radius),
+              //         )),
+              //         padding: const EdgeInsets.symmetric(
+              //             horizontal: AppSizes.paddingLg),
+              //         child: Column(mainAxisSize: MainAxisSize.min, children: [
+              //           Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: [
+              //               const SizedBox(height: AppSizes.paddingLg),
+              //               const Center(child: ScrollSheetTopBarIcon()),
+              //               const SizedBox(height: AppSizes.paddingLg * 1.5),
+              //               Text(
+              //                 "Color",
+              //                 style: bodyText.copyWith(
+              //                     fontWeight: FontWeight.w500),
+              //               ),
+              //               const SizedBox(
+              //                 height: AppSizes.padding,
+              //               ),
+              //               Row(
+              //                 children: product.colorList
+              //                     .map((e) => ColorPaletteItem(
+              //                           index: product.colorList.indexOf(e),
+              //                           color: int.parse(
+              //                               e.replaceAll("#", "0xff")),
+              //                         ))
+              //                     .toList(),
+              //               ),
+              //             ],
+              //           ),
+              //           const SizedBox(
+              //             height: AppSizes.paddingLg,
+              //           ),
+              //           Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: [
+              //               Text(
+              //                 "Size",
+              //                 style: bodyText.copyWith(
+              //                     fontWeight: FontWeight.w500),
+              //               ),
+              //               const SizedBox(
+              //                 height: AppSizes.padding,
+              //               ),
+              //               Row(
+              //                 children: product.sizeList
+              //                     .map(
+              //                       (e) => SizeItem(
+              //                         index: product.sizeList.indexOf(e),
+              //                         label: e,
+              //                       ),
+              //                     )
+              //                     .toList(),
+              //               ),
+              //             ],
+              //           ),
+              //           const SizedBox(
+              //             height: AppSizes.paddingLg * 1.5,
+              //           ),
+              //           Row(
+              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //             children: [
+              //               OuantityItem(
+              //                 onDecrement: () {},
+              //                 onIncrement: () {},
+              //               ),
+              //               Consumer<ProductDetailProvider>(
+              //                   builder: (_, productProvider, __) {
+              //                 return Consumer<CartProvider>(
+              //                     builder: (_, cartProvider, __) {
+              //                   return GeneralElevatedButton(
+              //                     marginH: 0,
+              //                     title: "Add to Cart",
+              //                     width: 180,
+              //                     borderRadius: 30.r,
+              //                     loading: cartProvider.loading,
+              //                     onPressed: () async {
+              //                       await cartProvider.addToCart(context,
+              //                           quantity:
+              //                               productProvider.selectedQuantity,
+              //                           color: product
+              //                               .color[productProvider
+              //                                   .selectedColorIndex]
+              //                               .id,
+              //                           size: product
+              //                               .size[productProvider
+              //                                   .selectedSizeIndex]
+              //                               .id,
+              //                           productId: product.id);
+              //                       if (context.mounted) {
+              //                         Navigator.pop(context);
+              //                       }
+              //                     },
+              //                   );
+              //                 });
+              //               })
+              //             ],
+              //           ),
+              //           const SizedBox(
+              //             height: AppSizes.paddingLg * 2,
+              //           ),
+              //         ]),
+              //       ),
+              //     );
+              //   },
+              //   child: Container(
+              //     padding: const EdgeInsets.all(AppSizes.padding),
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(50.r),
+              //       color: AppColors.iconBtnBgColor,
+              //     ),
+              //     child: const Icon(
+              //       Icons.shopping_bag_outlined,
+              //     ),
+              //   ),
+              // )
             ],
           )
         ],

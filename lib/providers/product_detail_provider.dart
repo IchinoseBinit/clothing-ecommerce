@@ -1,22 +1,37 @@
+import 'dart:developer';
+
 import 'package:clothing_ecommerce/api/product_detail_api.dart';
 import 'package:clothing_ecommerce/models/product_model.dart';
-import 'package:flutter/material.dart';
+import 'package:clothing_ecommerce/utils/show_toast.dart';
+import 'package:flutter/foundation.dart';
 
 import '../data/response/api_response.dart';
 
 class ProductDetailProvider extends ChangeNotifier {
   final _productListApi = ProductDetailApi();
-  int selectedColorIndex = 0;
-  int selectedSizeIndex = 0;
+  int selectedColorIndex = -1;
+  int selectedSizeIndex = -1;
   int selectedQuantity = 1;
 
   setSelectedColorIndex(int index) {
     selectedColorIndex = index;
+    if (selectedColorIndex != -1 && selectedSizeIndex != -1) {
+      verifyStock(
+          productId: productData.data!.id,
+          sizeId: productData.data!.size[selectedColorIndex].id,
+          colorId: productData.data!.color[selectedColorIndex].id);
+    }
     notifyListeners();
   }
 
   setSelectedSizeIndex(int index) {
     selectedSizeIndex = index;
+    if (selectedColorIndex != -1 && selectedSizeIndex != -1) {
+      verifyStock(
+          productId: productData.data!.id,
+          sizeId: productData.data!.size[selectedColorIndex].id,
+          colorId: productData.data!.color[selectedColorIndex].id);
+    }
     notifyListeners();
   }
 
@@ -33,8 +48,8 @@ class ProductDetailProvider extends ChangeNotifier {
   }
 
   resetData() {
-    selectedColorIndex = 0;
-    selectedSizeIndex = 0;
+    selectedColorIndex = -1;
+    selectedSizeIndex = -1;
     selectedQuantity = 1;
   }
 
@@ -51,6 +66,35 @@ class ProductDetailProvider extends ChangeNotifier {
       setProduct(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       setProduct(ApiResponse.error(error.toString()));
+    });
+  }
+
+  bool _loading = false;
+  bool get loading => _loading;
+
+  setVerifyStockLoading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
+  Future<void> verifyStock({
+    required int productId,
+    required int sizeId,
+    required int colorId,
+  }) async {
+    setVerifyStockLoading(true);
+    final data = {"size": sizeId, "color": colorId, "product": productId};
+    _productListApi.verifyStockApi(data).then((value) {
+      setVerifyStockLoading(false);
+      // showToast("Send Code Successfully");
+    }).onError((error, stackTrace) {
+      setVerifyStockLoading(false);
+
+      showToast("This item is out of stock. Please try another variation.");
+
+      if (kDebugMode) {
+        log(error.toString());
+      }
     });
   }
 }
