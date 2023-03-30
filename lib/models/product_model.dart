@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:clothing_ecommerce/data/app_urls.dart';
 
 class ProductModel {
@@ -10,6 +12,7 @@ class ProductModel {
     required this.category,
     required this.size,
     required this.color,
+    required this.stock,
   });
   late final int id;
   late final String name;
@@ -21,6 +24,8 @@ class ProductModel {
   late final List<ColorData> color;
   late final Category category;
   late final List<String> colorList;
+  late final List<Stock> stock;
+  // late final List<EachStock> eachStock;
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -29,12 +34,34 @@ class ProductModel {
     price = json['price'];
     image = AppUrl.baseUrl + json['image'];
     category = Category.fromJson(json['category']);
-    color = List.from(json['colors']).map((e) => ColorData.fromJson(e)).toList();
+    color =
+        List.from(json['colors']).map((e) => ColorData.fromJson(e)).toList();
     colorList =
         List.from(json['colors']).map((e) => e["color"].toString()).toList();
     size = List.from(json['sizes']).map((e) => SizeData.fromJson(e)).toList();
     sizeList =
         List.from(json['sizes']).map((e) => e["title"].toString()).toList();
+    stock = List.from(json['stock']).map((e) => Stock.fromJson(e)).toList();
+    // eachStock = [];
+    // for (ColorData colorData in color) {
+    //   List<Stock> selectedVal =
+    //       stock.where((element) => element.color.id == colorData.id).toList();
+    //   List<SizeData> sizeDataListVal = [];
+    //   List<int> quantityListVal = [];
+    //   for (var val in selectedVal) {
+    //     //TODO: put static data of size
+    //     sizeDataListVal.add(SizeData(id: 1, title: val.size));
+    //     quantityListVal.add(val.quantity);
+    //   }
+    //   eachStock.add(
+    //     EachStock(
+    //       color: selectedVal.first.color,
+    //       sizes: sizeDataListVal,
+    //       quantities: quantityListVal,
+    //     ),
+    //   );
+    //   debugger();
+    // }
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +74,7 @@ class ProductModel {
     data['category'] = category.toJson();
     data['sizes'] = size.map((e) => e.toJson()).toList();
     data['colors'] = color.map((e) => e.toJson()).toList();
+    data['stock'] = stock.map((e) => e.toJson()).toList();
     return data;
   }
 }
@@ -92,6 +120,7 @@ class ColorData {
     return data;
   }
 }
+
 class Stock {
   Stock({
     required this.product,
@@ -120,6 +149,24 @@ class Stock {
     return _data;
   }
 }
+
+// class EachStock {
+//   EachStock({
+//     required this.color,
+//     required this.sizes,
+//     required this.quantities,
+//   });
+//   late final ColorData color;
+//   late final List<SizeData> sizes;
+//   late final List<int> quantities;
+
+//   EachStock.fromJson(Map<String, dynamic> json) {
+//     color = json['color'];
+//     sizes = json['sizes'];
+//     quantities = json['quantities'];
+//   }
+// }
+
 class Category {
   Category({
     required this.id,

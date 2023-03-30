@@ -73,28 +73,26 @@ class BodyContent extends StatelessWidget {
     return Stack(
       children: [
         Container(
-           decoration: BoxDecoration(
-                image: DecorationImage(
-
-              image: NetworkImage(
-                product.image,
-              ),
-              fit: BoxFit.cover,
-              alignment: Alignment.topCenter,
-
-            )),
-            height: MediaQuery.of(context).size.height * .35,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: NetworkImage(
+              product.image,
+            ),
+            fit: BoxFit.cover,
+            alignment: Alignment.topCenter,
+          )),
+          height: MediaQuery.of(context).size.height * .35,
         ),
         Container(
           // decoration: BoxDecoration(
           //     image: DecorationImage(
-                
+
           //   image: NetworkImage(
           //     product.image,
           //   ),
           //   fit: BoxFit. cover,
           //   alignment: Alignment.topCenter,
-            
+
           // )),
           child: Column(
             children: [
@@ -147,7 +145,8 @@ class BodyContent extends StatelessWidget {
                         ),
                         Text(
                           "Rs.${product.price}",
-                          style: subTitleText.copyWith(fontWeight: FontWeight.bold),
+                          style: subTitleText.copyWith(
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -230,10 +229,12 @@ class BodyContent extends StatelessWidget {
                                 cartProvider.addToCart(context,
                                     quantity: productProvider.selectedQuantity,
                                     color: product
-                                        .color[productProvider.selectedColorIndex]
+                                        .color[
+                                            productProvider.selectedColorIndex]
                                         .id,
                                     size: product
-                                        .size[productProvider.selectedSizeIndex].id,
+                                        .size[productProvider.selectedSizeIndex]
+                                        .id,
                                     productId: product.id);
                               },
                             );
@@ -279,13 +280,13 @@ class ColorPaletteItem extends StatelessWidget {
           margin: const EdgeInsets.only(right: AppSizes.padding),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40.r),
-              boxShadow: [
-                        BoxShadow(
-                            offset: const Offset(1, 1),
-                            // blurRadius: 1,
-                            // spreadRadius: 0,
-                            color: AppColors.blackColor.withOpacity(0.1))
-                      ],
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(1, 1),
+                  // blurRadius: 1,
+                  // spreadRadius: 0,
+                  color: AppColors.blackColor.withOpacity(0.1))
+            ],
             color: Color(color),
           ),
           child: detailProvider.selectedColorIndex == index
