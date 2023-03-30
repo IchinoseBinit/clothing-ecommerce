@@ -279,6 +279,13 @@ class ColorPaletteItem extends StatelessWidget {
           margin: const EdgeInsets.only(right: AppSizes.padding),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40.r),
+              boxShadow: [
+                        BoxShadow(
+                            offset: const Offset(1, 1),
+                            // blurRadius: 1,
+                            // spreadRadius: 0,
+                            color: AppColors.blackColor.withOpacity(0.1))
+                      ],
             color: Color(color),
           ),
           child: detailProvider.selectedColorIndex == index
