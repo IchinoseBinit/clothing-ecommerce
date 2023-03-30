@@ -8,7 +8,6 @@ class ProductModel {
     required this.price,
     required this.image,
     required this.category,
-    required this.quantity,
     required this.size,
     required this.color,
   });
@@ -17,11 +16,10 @@ class ProductModel {
   late final String description;
   late final int price;
   late final String image;
-  late final int category;
-  late final int quantity;
   late final List<SizeData> size;
   late final List<String> sizeList;
   late final List<ColorData> color;
+  late final Category category;
   late final List<String> colorList;
 
   ProductModel.fromJson(Map<String, dynamic> json) {
@@ -30,14 +28,13 @@ class ProductModel {
     description = json['description'];
     price = json['price'];
     image = AppUrl.baseUrl + json['image'];
-    category = json['category'];
-    quantity = json['quantity'];
-    color = List.from(json['color']).map((e) => ColorData.fromJson(e)).toList();
+    category = Category.fromJson(json['category']);
+    color = List.from(json['colors']).map((e) => ColorData.fromJson(e)).toList();
     colorList =
-        List.from(json['color']).map((e) => e["color"].toString()).toList();
-    size = List.from(json['size']).map((e) => SizeData.fromJson(e)).toList();
+        List.from(json['colors']).map((e) => e["color"].toString()).toList();
+    size = List.from(json['sizes']).map((e) => SizeData.fromJson(e)).toList();
     sizeList =
-        List.from(json['size']).map((e) => e["title"].toString()).toList();
+        List.from(json['sizes']).map((e) => e["title"].toString()).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -47,10 +44,9 @@ class ProductModel {
     data['description'] = description;
     data['price'] = price;
     data['image'] = image;
-    data['category'] = category;
-    data['quantity'] = quantity;
-    data['size'] = size.map((e) => e.toJson()).toList();
-    data['color'] = color.map((e) => e.toJson()).toList();
+    data['category'] = category.toJson();
+    data['sizes'] = size.map((e) => e.toJson()).toList();
+    data['colors'] = color.map((e) => e.toJson()).toList();
     return data;
   }
 }
@@ -94,5 +90,61 @@ class ColorData {
     data['id'] = id;
     data['color'] = color;
     return data;
+  }
+}
+class Stock {
+  Stock({
+    required this.product,
+    required this.color,
+    required this.size,
+    required this.quantity,
+  });
+  late final int product;
+  late final ColorData color;
+  late final String size;
+  late final int quantity;
+
+  Stock.fromJson(Map<String, dynamic> json) {
+    product = json['product'];
+    color = ColorData.fromJson(json['color']);
+    size = json['size'];
+    quantity = json['quantity'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['product'] = product;
+    _data['color'] = color.toJson();
+    _data['size'] = size;
+    _data['quantity'] = quantity;
+    return _data;
+  }
+}
+class Category {
+  Category({
+    required this.id,
+    required this.name,
+    required this.image,
+    required this.description,
+  });
+  late final int id;
+  late final String name;
+  late final String image;
+  late final String description;
+
+  Category.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    image = json['image'];
+    description = json['description'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['name'] = name;
+    _data['image'] = image;
+    _data['description'] = description;
+    return _data;
   }
 }

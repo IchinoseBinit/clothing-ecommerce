@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 class ProductListProvider extends ChangeNotifier {
   final _productListApi = ProductListApi();
   ApiResponse<List<ProductModel>> productList = ApiResponse.loading();
-  setProductList(ApiResponse<List<ProductModel>> response) {
+  setProductList(ApiResponse<List<ProductModel>> response,
+      {bool noNotifier = false}) {
     productList = response;
-    notifyListeners();
+    if (!noNotifier) notifyListeners();
   }
 
   Future<void> fetchProductList() async {
-    // setProductList(ApiResponse.loading());
+    setProductList(ApiResponse.loading(),noNotifier: true);
     await _productListApi.fectchProductListApi().then((value) {
       setProductList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
