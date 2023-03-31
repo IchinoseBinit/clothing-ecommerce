@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:clothing_ecommerce/api/product_detail_api.dart';
+import 'package:clothing_ecommerce/main.dart';
 import 'package:clothing_ecommerce/models/product_model.dart';
 import 'package:clothing_ecommerce/utils/show_toast.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 import '../data/response/api_response.dart';
 
