@@ -28,9 +28,8 @@ class CartProvider extends ChangeNotifier {
     _selectCartItemList =
         cartItemList.data!.where((e) => e.isSelected).toList();
     if (_selectCartItemList.isNotEmpty) {
-      _totalSelectedCart = _selectCartItemList
-          .map((e) => e.quantity)
-          .reduce((p, n) => p + n);
+      _totalSelectedCart =
+          _selectCartItemList.map((e) => e.quantity).reduce((p, n) => p + n);
     } else {
       _totalSelectedCart = 0;
     }
@@ -62,10 +61,8 @@ class CartProvider extends ChangeNotifier {
       'size': size,
       'color': color,
     };
-     bool continueProcess =
-        await Provider.of<ProductDetailProvider>(context, listen: false)
-            .verifyStock(productId: productId, sizeId: size, colorId: color);
-    if (continueProcess) {
+    if (Provider.of<ProductDetailProvider>(context, listen: false)
+        .showQuantity) {
       _myRepo.addToCartApi(body).then((value) async {
         setLoading(false);
         showToast(value["message"]);
@@ -74,6 +71,7 @@ class CartProvider extends ChangeNotifier {
         showToast(error.toString());
       });
     } else {
+      showToast("This item is out of stock. Please try another variation.");
       setLoading(false);
     }
   }

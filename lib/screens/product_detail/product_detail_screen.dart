@@ -208,7 +208,7 @@ class BodyContent extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      OuantityItem(
+                      QuantityItem(
                         onDecrement: () {},
                         onIncrement: () {},
                       ),
@@ -349,10 +349,10 @@ class SizeItem extends StatelessWidget {
   }
 }
 
-class OuantityItem extends StatelessWidget {
+class QuantityItem extends StatelessWidget {
   final Function onIncrement;
   final Function onDecrement;
-  const OuantityItem({
+  const QuantityItem({
     super.key,
     required this.onIncrement,
     required this.onDecrement,
@@ -361,53 +361,56 @@ class OuantityItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductDetailProvider>(builder: (_, detailProvider, __) {
-      return Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              onDecrement();
-              detailProvider.onDecrement();
-              log("decrement");
-            },
-            child: Container(
-              height: AppSizes.iconButtonSize,
-              width: AppSizes.iconButtonSize,
-              margin: const EdgeInsets.only(right: AppSizes.padding),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40.r),
-                color: AppColors.iconBtnBgColor,
-              ),
-              child:
-                  Icon(Icons.remove, color: AppColors.blackColor, size: 18.h),
-            ),
-          ),
-          Container(
-              width: 20.w,
-              alignment: Alignment.center,
-              child: Text(detailProvider.selectedQuantity.toString())),
-          SizedBox(
-            width: 4.w,
-          ),
-          GestureDetector(
-            onTap: () {
-              onIncrement();
-              detailProvider.onIncrement();
-              log("increment");
-            },
-            child: Container(
-              height: AppSizes.iconButtonSize,
-              width: AppSizes.iconButtonSize,
-              alignment: Alignment.center,
-              margin: const EdgeInsets.only(right: AppSizes.padding),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40.r),
-                color: AppColors.iconBtnBgColor,
-              ),
-              child: Icon(Icons.add, color: AppColors.blackColor, size: 16.h),
-            ),
-          )
-        ],
-      );
+      return !detailProvider.showQuantity
+          ? const SizedBox.shrink()
+          : Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    onDecrement();
+                    detailProvider.onDecrement();
+                    log("decrement");
+                  },
+                  child: Container(
+                    height: AppSizes.iconButtonSize,
+                    width: AppSizes.iconButtonSize,
+                    margin: const EdgeInsets.only(right: AppSizes.padding),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40.r),
+                      color: AppColors.iconBtnBgColor,
+                    ),
+                    child: Icon(Icons.remove,
+                        color: AppColors.blackColor, size: 18.h),
+                  ),
+                ),
+                Container(
+                    width: 20.w,
+                    alignment: Alignment.center,
+                    child: Text(detailProvider.selectedQuantity.toString())),
+                SizedBox(
+                  width: 4.w,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    onIncrement();
+                    detailProvider.onIncrement();
+                    log("increment");
+                  },
+                  child: Container(
+                    height: AppSizes.iconButtonSize,
+                    width: AppSizes.iconButtonSize,
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(right: AppSizes.padding),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40.r),
+                      color: AppColors.iconBtnBgColor,
+                    ),
+                    child: Icon(Icons.add,
+                        color: AppColors.blackColor, size: 16.h),
+                  ),
+                )
+              ],
+            );
     });
   }
 }
