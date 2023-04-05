@@ -361,56 +361,72 @@ class QuantityItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductDetailProvider>(builder: (_, detailProvider, __) {
-      return !detailProvider.showQuantity
-          ? const SizedBox.shrink()
-          : Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
+      return Row(
+        children: [
+          GestureDetector(
+            onTap: detailProvider.showQuantity
+                ? () {
                     onDecrement();
                     detailProvider.onDecrement();
                     log("decrement");
-                  },
-                  child: Container(
-                    height: AppSizes.iconButtonSize,
-                    width: AppSizes.iconButtonSize,
-                    margin: const EdgeInsets.only(right: AppSizes.padding),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40.r),
-                      color: AppColors.iconBtnBgColor,
-                    ),
-                    child: Icon(Icons.remove,
-                        color: AppColors.blackColor, size: 18.h),
-                  ),
-                ),
-                Container(
-                    width: 20.w,
-                    alignment: Alignment.center,
-                    child: Text(detailProvider.selectedQuantity.toString())),
-                SizedBox(
-                  width: 4.w,
-                ),
-                GestureDetector(
-                  onTap: () {
+                  }
+                : null,
+            child: Container(
+              height: AppSizes.iconButtonSize,
+              width: AppSizes.iconButtonSize,
+              margin: const EdgeInsets.only(right: AppSizes.padding),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40.r),
+                color: AppColors.iconBtnBgColor,
+              ),
+              child: Icon(Icons.remove,
+                  color: detailProvider.showQuantity
+                      ? AppColors.blackColor
+                      : AppColors.greyColor,
+                  size: 18.h),
+            ),
+          ),
+          Container(
+            width: 20.w,
+            alignment: Alignment.center,
+            child: Text(
+              detailProvider.selectedQuantity.toString(),
+              style: bodyText.copyWith(
+                color: detailProvider.showQuantity
+                    ? AppColors.blackColor
+                    : AppColors.greyColor,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 4.w,
+          ),
+          GestureDetector(
+            onTap: detailProvider.showQuantity
+                ? () {
                     onIncrement();
                     detailProvider.onIncrement();
                     log("increment");
-                  },
-                  child: Container(
-                    height: AppSizes.iconButtonSize,
-                    width: AppSizes.iconButtonSize,
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(right: AppSizes.padding),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40.r),
-                      color: AppColors.iconBtnBgColor,
-                    ),
-                    child: Icon(Icons.add,
-                        color: AppColors.blackColor, size: 16.h),
-                  ),
-                )
-              ],
-            );
+                  }
+                : null,
+            child: Container(
+              height: AppSizes.iconButtonSize,
+              width: AppSizes.iconButtonSize,
+              alignment: Alignment.center,
+              margin: const EdgeInsets.only(right: AppSizes.padding),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40.r),
+                color: AppColors.iconBtnBgColor,
+              ),
+              child: Icon(Icons.add,
+                  color: detailProvider.showQuantity
+                      ? AppColors.blackColor
+                      : AppColors.greyColor,
+                  size: 16.h),
+            ),
+          )
+        ],
+      );
     });
   }
 }
