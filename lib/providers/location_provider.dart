@@ -93,43 +93,11 @@ class LocationProvider with ChangeNotifier {
     }
   }
 
-  onCheckOut(context,
-      {required String merchantName,
-      required int merchantId,
-      bool isFromDetail = false}) async {
-    String? latitude = await DatabaseHelper().getBoxItem(key: "latitude");
-    String? longitude = await DatabaseHelper().getBoxItem(key: "longitude");
-    if (latitude == null && longitude == null) {
-      AlertBottomSheet.showAlertBottomSheet(
-        context,
-        title: "Select location",
-        description:
-            "Please select your delivery location to checkout the cart item",
-        iconImage: alert,
-        cancelTitle: "Cancel",
-        isCancelButton: true,
-        okFunc: () {
-          selectMap(context,
-              merchantId: merchantId, merchantName: merchantName);
-        },
-        cancelFunc: () {
-          Navigator.pop(context);
-        },
-      );
-    } else {
-      navigateReplacement(
-          context,
-          const CheckoutScreen(
-            cartModel: [],
-          ));
-    }
-  }
+  
 
   setLocation({
     String? locationName,
     LatLng? address,
-    bool saveLocation = false,
-    bool isFromSelectCity = false,
     bool isPlaceId = false,
   }) async {
     if (locationName != null) {

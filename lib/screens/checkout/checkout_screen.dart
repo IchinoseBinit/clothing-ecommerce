@@ -58,9 +58,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
     if (selectedLocation != null) {
       await Provider.of<LocationProvider>(context, listen: false).setLocation(
-          address: LatLng(selectedLocation["location"].latitude,
-              selectedLocation["location"].longitude),
-          saveLocation: true);
+        address: LatLng(selectedLocation["location"].latitude,
+            selectedLocation["location"].longitude),
+      );
       locationName = selectedLocation["name"];
     }
   }
