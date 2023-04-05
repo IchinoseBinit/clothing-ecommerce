@@ -4,11 +4,11 @@ import 'package:clothing_ecommerce/data/constants/image_constants.dart';
 import 'package:clothing_ecommerce/data/response/status.dart';
 import 'package:clothing_ecommerce/providers/cart_provider.dart';
 import 'package:clothing_ecommerce/screens/checkout/checkout_screen.dart';
-import 'package:clothing_ecommerce/utils/navigation_util.dart';
 import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
 import 'package:clothing_ecommerce/utils/custom_scroll_behaviour.dart';
+import 'package:clothing_ecommerce/utils/navigation_util.dart';
 import 'package:clothing_ecommerce/utils/show_toast.dart';
 import 'package:clothing_ecommerce/widgets/alert_bottom_sheet.dart';
 import 'package:clothing_ecommerce/widgets/custom_appbar.dart';
@@ -36,69 +36,69 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Consumer<CartProvider>(builder: (_, cartProvider, __) {
       return Scaffold(
-        bottomNavigationBar:
-            cartProvider.cartItemList.status == Status.COMPLETED
-                ? Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(0, 0),
-                          blurRadius: 12,
-                          spreadRadius: 8,
-                          color: Colors.grey.withOpacity(0.25),
-                        ),
-                      ],
-                      color: Colors.white,
+        bottomNavigationBar: cartProvider.cartItemList.status ==
+                Status.COMPLETED
+            ? Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 0),
+                      blurRadius: 12,
+                      spreadRadius: 8,
+                      color: Colors.grey.withOpacity(0.25),
                     ),
-                    padding: const EdgeInsets.all(AppSizes.paddingLg),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            cartProvider.selectAllCartItem(
-                                cartProvider.cartItemList.data!.any((element) =>
-                                    element.isSelected == false));
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                cartProvider.cartItemList.data!.any((element) =>
-                                        element.isSelected == false)
-                                    ? Icons.radio_button_off
-                                    : Icons.check_circle,
-                                color: AppColors.greyColor,
-                              ),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              Text(
-                                "All",
-                                style: bodyText,
-                              )
-                            ],
+                  ],
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(AppSizes.paddingLg),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        cartProvider.selectAllCartItem(cartProvider
+                            .cartItemList.data!
+                            .any((element) => element.isSelected == false));
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            cartProvider.cartItemList.data!.any(
+                                    (element) => element.isSelected == false)
+                                ? Icons.radio_button_off
+                                : Icons.check_circle,
+                            color: AppColors.greyColor,
                           ),
-                        ),
-                        GeneralElevatedButton(
-                          title: "Checkout (${cartProvider.totalSelectedCart})",
-                          onPressed: () {
-                            // Provider.of<OrderProvider>(context, listen: false)
-                            //     .order(context,
-                            //         cartList: cartProvider.selectCartItemList);
-                            navigate(
-                                context,
-                                CheckoutScreen(
-                                  cartModel: cartProvider.selectCartItemList,
-                                ));
-                          },
-                          marginH: 0,
-                          width: 120.h,
-                          height: 35.h,
-                        )
-                      ],
+                          SizedBox(
+                            width: 4.w,
+                          ),
+                          Text(
+                            "All",
+                            style: bodyText,
+                          )
+                        ],
+                      ),
                     ),
-                  )
-                : null,
+                    GeneralElevatedButton(
+                      title: "Checkout (${cartProvider.totalSelectedCart})",
+                      onPressed: () {
+                        // Provider.of<OrderProvider>(context, listen: false)
+                        //     .order(context,
+                        //         cartList: cartProvider.selectCartItemList);
+                        navigate(
+                            context,
+                            CheckoutScreen(
+                              cartModel: cartProvider.selectCartItemList,
+                            ));
+                      },
+                      marginH: 0,
+                      width: 120.h,
+                      height: 35.h,
+                    )
+                  ],
+                ),
+              )
+            : null,
         appBar: CustomAppBar(title: "Cart"),
         body: ScrollConfiguration(
           behavior: MyBehaviour(),
@@ -206,7 +206,7 @@ class _CartScreenState extends State<CartScreen> {
                               child: Image.network(
                                 cartProvider.cartItemList.data![listViewIndex]
                                     .product.image,
-                                    fit: BoxFit.cover,
+                                fit: BoxFit.cover,
                               ),
                             ),
                             SizedBox(
@@ -234,7 +234,7 @@ class _CartScreenState extends State<CartScreen> {
                                   //           AppColors.textLightGreyColor),
                                   // ),
                                   Text(
-                                      "Size: ${cartProvider.cartItemList.data![listViewIndex].product.sizes.first. title}",
+                                      "Size: ${cartProvider.cartItemList.data![listViewIndex].size.title}",
                                       style: smallText.copyWith(
                                           color: AppColors.textLightGreyColor)),
                                   // Text(",",
@@ -253,7 +253,7 @@ class _CartScreenState extends State<CartScreen> {
                                         width: 10.h,
                                         decoration: BoxDecoration(
                                             color: Color(int.parse(
-                                                "0xff${cartProvider.cartItemList.data![listViewIndex].product.colors.first.color.substring(1, 7)}")),
+                                                "0xff${cartProvider.cartItemList.data![listViewIndex].color.color.substring(1, 7)}")),
                                             borderRadius:
                                                 BorderRadius.circular(10.h)),
                                       )
@@ -329,8 +329,7 @@ class OuantityItem extends StatelessWidget {
               width: 4.w,
             ),
             Text(
-              cartProvider.cartItemList.data![cartIndex].quantity
-                  .toString(),
+              cartProvider.cartItemList.data![cartIndex].quantity.toString(),
               style: bodyText.copyWith(
                 color: AppColors.darkPrimaryColor,
               ),

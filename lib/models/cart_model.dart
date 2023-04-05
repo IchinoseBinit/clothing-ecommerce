@@ -9,9 +9,9 @@ class CartModel {
   late final Product product;
   late final int quantity;
   late final int cart;
-  late final int size;
+  late final SizeData size;
   bool isSelected = true;
-  late final int color;
+  late final ColorData color;
 
   CartModel.fromJson(Map<String, dynamic> json) {
     product = Product.fromJson(json['product']);
