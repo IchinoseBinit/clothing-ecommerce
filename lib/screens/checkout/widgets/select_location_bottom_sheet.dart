@@ -12,9 +12,11 @@ import 'package:provider/provider.dart';
 
 class SelectLocationBottomSheet extends StatefulWidget {
   final VoidCallback onEdit;
+  final VoidCallback onAdd;
   const SelectLocationBottomSheet({
     super.key,
     required this.onEdit,
+    required this.onAdd,
   });
 
   @override
@@ -41,102 +43,122 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
           case Status.COMPLETED:
             return Column(
               children: [
-                const UpperContentBottomSheet(title: "Select Category"),
+                const UpperContentBottomSheet(title: "Select Shipping Address"),
                 SizedBox(
                   height: 8.h,
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: AppSizes.paddingLg),
-                    itemCount: locationProvider.locationList.data!.length,
-                    itemBuilder: (context, index) => Container(
-                      padding: const EdgeInsets.all(AppSizes.paddingLg),
-                      decoration: BoxDecoration(
-                          color: AppColors.whiteColor,
-                          boxShadow: generalBoxShadow,
-                          borderRadius: BorderRadius.circular(
-                            AppSizes.radius,
-                          )),
-                      child: IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Niraj Karanjeet",
-                                    style: bodyText.copyWith(
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  SizedBox(
-                                    height: 6.h,
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 2.h,
-                                      horizontal: 2.h,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: AppColors.primaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(
-                                        AppSizes.radius / 3,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      "Default Shipping Address",
-                                      style: verySmallText.copyWith(
-                                        color: AppColors.primaryColor,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 6.h,
-                                  ),
-                                  const Text(
-                                      "Jayabageshowri, Bagmati Province, Kathmandu Metro 8 - Gausala Area, Gaushala"),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 16.w,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ListView.builder(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.paddingLg),
+                  itemCount: locationProvider.locationList.data!.length,
+                  itemBuilder: (context, index) => Container(
+                    padding: const EdgeInsets.all(AppSizes.paddingLg),
+                    decoration: BoxDecoration(
+                        color: AppColors.whiteColor,
+                        boxShadow: generalBoxShadow,
+                        borderRadius: BorderRadius.circular(
+                          AppSizes.radius,
+                        )),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    widget.onEdit();
-                                  },
+                                Text(
+                                  "Niraj Karanjeet",
+                                  style: bodyText.copyWith(
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                SizedBox(
+                                  height: 6.h,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 2.h,
+                                    horizontal: 2.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppColors.primaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                      AppSizes.radius / 3,
+                                    ),
+                                  ),
                                   child: Text(
-                                    "Edit",
-                                    style: smallText,
+                                    "Default Shipping Address",
+                                    style: verySmallText.copyWith(
+                                      color: AppColors.primaryColor,
+                                    ),
                                   ),
                                 ),
-                                Icon(
-                                  true
-                                      ? Icons.check_circle
-                                      : Icons.radio_button_off,
-                                  color: AppColors.greyColor,
-                                  size: 18.h,
+                                SizedBox(
+                                  height: 6.h,
                                 ),
-                                const SizedBox.shrink()
+                                const Text(
+                                    "Jayabageshowri, Bagmati Province, Kathmandu Metro 8 - Gausala Area, Gaushala"),
                               ],
-                            )
-                          ],
-                        ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 16.w,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  widget.onEdit();
+                                },
+                                child: Text(
+                                  "Edit",
+                                  style: smallText,
+                                ),
+                              ),
+                              Icon(
+                                true
+                                    ? Icons.check_circle
+                                    : Icons.radio_button_off,
+                                color: AppColors.greyColor,
+                                size: 18.h,
+                              ),
+                              const SizedBox.shrink()
+                            ],
+                          )
+                        ],
                       ),
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      widget.onAdd();
+                    },
+                    child: Container(
+                      height: AppSizes.iconButtonSize * 1.5,
+                      width: AppSizes.iconButtonSize * 1.5,
+                      margin: const EdgeInsets.only(right: AppSizes.padding),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100.r),
+                        color: AppColors.iconBtnBgColor,
+                      ),
+                      child: Icon(Icons.add,
+                          color: AppColors.primaryColor, size: 24.h),
+                    ),
+                  ),
+                )
               ],
             );
           default:
         }
-        return Container();
+        return const SizedBox.shrink();
       },
     );
   }

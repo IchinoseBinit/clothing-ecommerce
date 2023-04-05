@@ -9,6 +9,7 @@ import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
 import 'package:clothing_ecommerce/widgets/alert_bottom_sheet.dart';
 import 'package:clothing_ecommerce/widgets/general_elevated_button.dart';
+import 'package:clothing_ecommerce/widgets/general_textfield.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,9 +32,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  String merchantSubAddress = "";
   LatLng? _pickedLocation;
-  LatLng? merchantLocation;
   final addressController = TextEditingController();
   late Uint8List userMarkerbitmap;
   late Uint8List merchantMarkerbitmap;
@@ -228,8 +227,7 @@ class _MapScreenState extends State<MapScreen> {
                                   18));
                           List<Placemark> placemarks =
                               await placemarkFromCoordinates(
-                                  position.latitude,
-                                  position.longitude);
+                                  position.latitude, position.longitude);
                           //get place name from lat and lang
                           locationTop =
                               "${placemarks.first.subLocality}${placemarks.first.subLocality == "" ? "" : ", "}${placemarks.first.locality}";
@@ -391,18 +389,38 @@ class _MapScreenState extends State<MapScreen> {
                                       ),
                                     ],
                                   ),
+                                  const SizedBox(
+                                    height: AppSizes.padding,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: AppSizes.padding),
+                                    child: GeneralTextField(
+                                      controller: addressController,
+                                      obscureText: false,
+                                      keywordType: TextInputType.text,
+                                      validate: (_) {},
+                                      onFieldSubmit: (_) {},
+                                      textInputAction: TextInputAction.go,
+                                      onSave: (_) {},
+                                      labelText: "Name",
+                                      hintText: "Eg. Home, Work or Gym",
+                                      fillColor: AppColors.inputColor,
+                                      borderColor: Colors.grey,
+                                    ),
+                                  ),
                                   SizedBox(
                                     height: 16.h,
                                   ),
                                   GeneralElevatedButton(
                                     title: "Save Location",
                                     onPressed: () async {
-                                      await DatabaseHelper().addBoxItem(
-                                          key: "deliveryAddress",
-                                          value: addressController.text);
                                       mapController.dispose();
-                                      Navigator.of(context)
-                                          .pop(_pickedLocation);
+
+                                      Navigator.of(context).pop({
+                                        "location": _pickedLocation,
+                                        "name": addressController.text
+                                      });
                                     },
                                   ),
                                   SizedBox(

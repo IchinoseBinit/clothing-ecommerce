@@ -132,12 +132,6 @@ class LocationProvider with ChangeNotifier {
     bool isFromSelectCity = false,
     bool isPlaceId = false,
   }) async {
-    String? deliveryAddress = await DatabaseHelper().getBoxItem(
-      key: "deliveryAddress",
-    );
-    if (deliveryAddress == "") {
-      deliveryAddress = null;
-    }
     if (locationName != null) {
       // locations = await geo.locationFromAddress(locationName);
 
@@ -172,22 +166,8 @@ class LocationProvider with ChangeNotifier {
         ];
       }
 
-      setCoordinateDatabase(
-          latitude: locations.last.latitude.toString(),
-          longitude: locations.last.longitude.toString(),
-          saveLocation: saveLocation);
       placemarks = await geo.placemarkFromCoordinates(
           locations.last.latitude, locations.last.longitude);
-      if (isFromSelectCity) {
-        subtitleAdd = locationName;
-        stAdd = locationName +
-            (deliveryAddress == null ? "" : ", $deliveryAddress");
-      } else {
-        stAdd = locationName +
-            (deliveryAddress == null ? "" : ", $deliveryAddress");
-        subtitleAdd =
-            "${placemarks.first.subAdministrativeArea}, ${placemarks.first.country}";
-      }
       log("New Location Set get Location Location Provider start !!!");
       log(locationName);
       log('${locations.last.latitude} ${locations.last.longitude}');
@@ -195,24 +175,14 @@ class LocationProvider with ChangeNotifier {
     }
 
     if (address != null) {
-      setCoordinateDatabase(
-          latitude: address.latitude.toString(),
-          longitude: address.longitude.toString(),
-          saveLocation: saveLocation);
       log("My Location");
       log('${address.latitude} ${address.longitude} using Address Model');
       await setPlacemark(
-          deliveryAddress: deliveryAddress,
-          latitude: address.latitude,
-          longitude: address.longitude);
+          latitude: address.latitude, longitude: address.longitude);
     }
 
     if (address == null && locationName == null) {
       await getUserCurrentLocation().then((value) async {
-        setCoordinateDatabase(
-            latitude: value.latitude.toString(),
-            longitude: value.longitude.toString(),
-            saveLocation: saveLocation);
         log("My Location");
         log('${value.latitude} ${value.longitude}');
         locations = [
@@ -222,9 +192,7 @@ class LocationProvider with ChangeNotifier {
               timestamp: DateTime.now())
         ];
         await setPlacemark(
-            deliveryAddress: deliveryAddress,
-            latitude: value.latitude,
-            longitude: value.longitude);
+            latitude: value.latitude, longitude: value.longitude);
       }).onError((error, stackTrace) {
         log(error.toString());
       });
@@ -232,19 +200,8 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  setCoordinateDatabase(
-      {required String latitude,
-      required String longitude,
-      required bool saveLocation}) async {
-    if (saveLocation) {
-      await DatabaseHelper().addBoxItem(key: "latitude", value: latitude);
-      await DatabaseHelper().addBoxItem(key: "longitude", value: longitude);
-    }
-  }
-
   setPlacemark({
     required double latitude,
-    required String? deliveryAddress,
     required double longitude,
   }) async {
     placemarks = await geo.placemarkFromCoordinates(latitude, longitude);
@@ -252,7 +209,7 @@ class LocationProvider with ChangeNotifier {
     subtitleAdd =
         "${placemarks.first.subAdministrativeArea}, ${placemarks.first.country}";
     stAdd =
-        "${placemarks.first.street}, ${placemarks.first.subLocality}${placemarks.first.subLocality == "" ? "" : ", "}${placemarks.first.locality}${deliveryAddress == null ? "" : ", $deliveryAddress"}";
+        "${placemarks.first.street}, ${placemarks.first.subLocality}${placemarks.first.subLocality == "" ? "" : ", "}${placemarks.first.locality}";
     log(stAdd.toString(), name: "Sraddress");
   }
 }

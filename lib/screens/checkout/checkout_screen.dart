@@ -25,6 +25,7 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
+  String locationName = "";
   _checkDeliveryIsLocationIsValid({required bool isDelivery}) {
     AlertBottomSheet.showAlertBottomSheet(
       context,
@@ -52,16 +53,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   Future<void> _selectMap() async {
-    final LatLng? selectedLocation =
+    final Map? selectedLocation =
         await navigate(context, MapScreen(), fullscreenDialog: true);
 
     if (selectedLocation != null) {
       await Provider.of<LocationProvider>(context, listen: false).setLocation(
-          address:
-              LatLng(selectedLocation.latitude, selectedLocation.longitude),
+          address: LatLng(selectedLocation["location"].latitude,
+              selectedLocation["location"].longitude),
           saveLocation: true);
-
-      // _apiCall(isRefreshContent: true);
+      locationName = selectedLocation["name"];
     }
   }
 
@@ -103,8 +103,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       maxChildSize: .9,
                       expand: false,
                       builder: (context, scrollController) {
-                        return  SelectLocationBottomSheet(
+                        return SelectLocationBottomSheet(
                           onEdit: () {
+                            //TODO: edit map
+                            // _selectMap();
+                          },
+                          onAdd: () {
                             _selectMap();
                           },
                         );
