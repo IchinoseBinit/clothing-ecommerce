@@ -70,4 +70,6 @@ class AppUrl {
 
   //Location list api url
   static const String locationListUrl = "$baseUrl/users/address-by-user/";
+
+  static const String addLocationUrl = "$baseUrl/users/add-address-by-user/";
 }

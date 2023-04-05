@@ -47,119 +47,154 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
                 SizedBox(
                   height: 8.h,
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSizes.paddingLg),
-                  itemCount: locationProvider.locationList.data!.length,
-                  itemBuilder: (context, index) => Container(
-                    padding: const EdgeInsets.all(AppSizes.paddingLg),
-                    decoration: BoxDecoration(
-                        color: AppColors.whiteColor,
-                        boxShadow: generalBoxShadow,
-                        borderRadius: BorderRadius.circular(
-                          AppSizes.radius,
-                        )),
-                    child: IntrinsicHeight(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Niraj Karanjeet",
-                                  style: bodyText.copyWith(
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                SizedBox(
-                                  height: 6.h,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 2.h,
-                                    horizontal: 2.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: AppColors.primaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(
-                                      AppSizes.radius / 3,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "Default Shipping Address",
-                                    style: verySmallText.copyWith(
-                                      color: AppColors.primaryColor,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 6.h,
-                                ),
-                                const Text(
-                                    "Jayabageshowri, Bagmati Province, Kathmandu Metro 8 - Gausala Area, Gaushala"),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 16.w,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  widget.onEdit();
-                                },
-                                child: Text(
-                                  "Edit",
-                                  style: smallText,
-                                ),
-                              ),
-                              Icon(
-                                true
-                                    ? Icons.check_circle
-                                    : Icons.radio_button_off,
-                                color: AppColors.greyColor,
-                                size: 18.h,
-                              ),
-                              const SizedBox.shrink()
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      widget.onAdd();
-                    },
-                    child: Container(
-                      height: AppSizes.iconButtonSize * 1.5,
-                      width: AppSizes.iconButtonSize * 1.5,
-                      margin: const EdgeInsets.only(right: AppSizes.padding),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100.r),
-                        color: AppColors.iconBtnBgColor,
-                      ),
-                      child: Icon(Icons.add,
-                          color: AppColors.primaryColor, size: 24.h),
-                    ),
-                  ),
-                )
+                Consumer<LocationProvider>(builder: (__, locationProvider, _) {
+                  switch (locationProvider.locationList.status) {
+                    case Status.LOADING:
+                      return const Center(child: CircularProgressIndicator());
+                    case Status.ERROR:
+                      return const ErrorInfoWidget();
+                    case Status.COMPLETED:
+                      return BodyContent(
+                        locationProvider: locationProvider,
+                        onAdd: widget.onAdd,
+                        onEdit: widget.onEdit,
+                      );
+                    default:
+                  }
+                  return const SizedBox.shrink();
+                }),
               ],
             );
           default:
         }
         return const SizedBox.shrink();
       },
+    );
+  }
+}
+
+class BodyContent extends StatelessWidget {
+  final LocationProvider locationProvider;
+  final VoidCallback onEdit;
+  final VoidCallback onAdd;
+  const BodyContent({
+    super.key,
+    required this.locationProvider,
+    required this.onEdit,
+    required this.onAdd,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListView.separated(
+          shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(horizontal: AppSizes.paddingLg),
+          separatorBuilder: (context, index) =>
+              const SizedBox(height: AppSizes.paddingLg),
+          itemCount: locationProvider.locationList.data!.length,
+          itemBuilder: (context, index) => Container(
+            padding: const EdgeInsets.all(AppSizes.paddingLg),
+            decoration: BoxDecoration(
+                color: AppColors.whiteColor,
+                boxShadow: generalBoxShadow,
+                borderRadius: BorderRadius.circular(
+                  AppSizes.radius,
+                )),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          locationProvider.locationList.data![index].name,
+                          style: bodyText.copyWith(fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(
+                          height: 6.h,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 2.h,
+                            horizontal: 2.h,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppColors.primaryColor,
+                            ),
+                            borderRadius: BorderRadius.circular(
+                              AppSizes.radius / 3,
+                            ),
+                          ),
+                          child: Text(
+                            "Default Shipping Address",
+                            style: verySmallText.copyWith(
+                              color: AppColors.primaryColor,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 6.h,
+                        ),
+                        const Text(
+                            "Jayabageshowri, Bagmati Province, Kathmandu Metro 8 - Gausala Area, Gaushala"),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 16.w,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          onEdit();
+                        },
+                        child: Text(
+                          "Edit",
+                          style: smallText,
+                        ),
+                      ),
+                      Icon(
+                        locationProvider.locationList.data![index].isSelected
+                            ? Icons.check_circle
+                            : Icons.radio_button_off,
+                        color: AppColors.greyColor,
+                        size: 18.h,
+                      ),
+                      const SizedBox.shrink()
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 16.h,
+        ),
+        Center(
+          child: GestureDetector(
+            onTap: () {
+              onAdd();
+            },
+            child: Container(
+              height: AppSizes.iconButtonSize * 1.2,
+              width: AppSizes.iconButtonSize * 1.2,
+              margin: const EdgeInsets.only(right: AppSizes.padding),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100.r),
+                color: AppColors.iconBtnBgColor,
+              ),
+              child: Icon(Icons.add, color: AppColors.primaryColor, size: 22.h),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
