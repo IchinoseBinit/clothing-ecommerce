@@ -7,7 +7,7 @@ class CartModel {
     required this.cart,
   });
   late final Product product;
-  late final int quantity;
+  late int quantity;
   late final int cart;
   late final SizeData size;
   bool isSelected = true;
@@ -17,8 +17,8 @@ class CartModel {
     product = Product.fromJson(json['product']);
     quantity = json['quantity'];
     cart = json['cart'];
-    size = json['size'];
-    color = json['color'];
+    size = SizeData.fromJson(json['size']);
+    color = ColorData.fromJson(json['color']);
   }
 
   Map<String, dynamic> toJson() {
@@ -45,7 +45,7 @@ class CartModel {
 }
 
 class Product {
- Product({
+  Product({
     required this.id,
     required this.name,
     required this.description,
@@ -71,10 +71,11 @@ class Product {
     name = json['name'];
     description = json['description'];
     price = json['price'];
-    image = AppUrl.baseUrl+json['image'];
+    image = AppUrl.baseUrl + json['image'];
     category = Category.fromJson(json['category']);
     sizes = List.from(json['sizes']).map((e) => SizeData.fromJson(e)).toList();
-    colors = List.from(json['colors']).map((e) => ColorData.fromJson(e)).toList();
+    colors =
+        List.from(json['colors']).map((e) => ColorData.fromJson(e)).toList();
     stock = List.from(json['stock']).map((e) => Stock.fromJson(e)).toList();
   }
 
