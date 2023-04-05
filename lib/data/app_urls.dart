@@ -67,4 +67,7 @@ class AppUrl {
 
   //Verify Stock api
   static const String verifyStockUrl = "$baseUrl/order/verify-stock/";
+
+  //Location list api url
+  static const String locationListUrl = "$baseUrl/users/address-by-user/";
 }

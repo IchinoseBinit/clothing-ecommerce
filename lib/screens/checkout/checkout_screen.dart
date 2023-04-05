@@ -1,6 +1,8 @@
+import 'package:clothing_ecommerce/data/constants/contants.dart';
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
 import 'package:clothing_ecommerce/models/cart_model.dart';
 import 'package:clothing_ecommerce/providers/location_provider.dart';
+import 'package:clothing_ecommerce/screens/checkout/widgets/select_location_bottom_sheet.dart';
 import 'package:clothing_ecommerce/screens/map/map_screen.dart';
 import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
@@ -45,7 +47,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   void initState() {
     //TODO: should be on checkout privder after api call
-   
+
     super.initState();
   }
 
@@ -75,62 +77,102 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           SizedBox(
             height: 10.h,
           ),
-          GestureDetector(
-            onTap: () async {
-              //  Provider.of<LocationProvider>(context, listen: false)
-              //     .setLocation(saveLocation: true);
-              _selectMap();
-            },
-            child: Container(
-              color: Colors.transparent,
-              padding: EdgeInsets.only(right: 16.w, left: 16.w),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
+          Container(
+            decoration: BoxDecoration(
+              boxShadow: generalBoxShadow,
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(AppSizes.radius),
+            ),
+            margin: const EdgeInsets.symmetric(horizontal: AppSizes.paddingLg),
+            child: GestureDetector(
+              onTap: () async {
+                //  Provider.of<LocationProvider>(context, listen: false)
+                //     .setLocation(saveLocation: true);
+                //TODO: location todos
+
+                await showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(30),
+                  )),
+                  builder: (context) => DraggableScrollableSheet(
+                      initialChildSize: .6,
+                      minChildSize: .6,
+                      maxChildSize: .9,
+                      expand: false,
+                      builder: (context, scrollController) {
+                        return  SelectLocationBottomSheet(
+                          onEdit: () {
+                            _selectMap();
+                          },
+                        );
+                      }),
+                );
+              },
+              child: Column(
                 children: [
-                  SvgPicture.asset(
-                    locationIcon,
-                    height: AppSizes.iconHeight,
-                    color: AppColors.primaryColor,
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Container(
+                    color: Colors.transparent,
+                    padding: EdgeInsets.only(right: 16.w, left: 16.w),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        SvgPicture.asset(
+                          locationIcon,
+                          height: AppSizes.iconHeight,
+                          color: AppColors.primaryColor,
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Delivery Location",
+                              style: bodyText.copyWith(
+                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(
+                              height: 4.h,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * .70,
+                              child: Text(
+                                  Provider.of<LocationProvider>(context).stAdd,
+                                  softWrap: true,
+                                  maxLines: 3,
+                                  style: smallText.copyWith(
+                                    color: AppColors.textSoftGreyColor,
+                                  )),
+                            )
+                          ],
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18.sp,
+                          color: AppColors.primaryColor,
+                        )
+                      ],
+                    ),
                   ),
                   SizedBox(
-                    width: 10.w,
+                    height: 10.h,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Delivery Location",
-                        style: bodyText.copyWith(
-                            fontSize: 14.sp, fontWeight: FontWeight.w600),
-                      ),
-                      SizedBox(
-                        height: 4.h,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .70,
-                        child: Text(
-                            Provider.of<LocationProvider>(context).stAdd,
-                            softWrap: true,
-                            maxLines: 3,
-                            style: smallText.copyWith(
-                              color: AppColors.textSoftGreyColor,
-                            )),
-                      )
-                    ],
-                  ),
-                  const Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 18.sp,
-                    color: AppColors.primaryColor,
-                  )
                 ],
               ),
             ),
           ),
-          Divider(
-            height: 20.h,
+          const SizedBox(
+            height: AppSizes.paddingLg,
           ),
+          const Card()
         ],
       ),
     );

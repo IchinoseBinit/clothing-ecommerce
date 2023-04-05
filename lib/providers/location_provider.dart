@@ -1,8 +1,11 @@
 import 'dart:developer';
 import 'dart:ui' as ui;
 
+import 'package:clothing_ecommerce/api/location_list_api.dart';
 import 'package:clothing_ecommerce/data/app_urls.dart';
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
+import 'package:clothing_ecommerce/data/response/api_response.dart';
+import 'package:clothing_ecommerce/models/location_model.dart';
 import 'package:clothing_ecommerce/providers/hive_database_helper.dart';
 import 'package:clothing_ecommerce/screens/checkout/checkout_screen.dart';
 import 'package:clothing_ecommerce/screens/map/map_screen.dart';
@@ -18,13 +21,27 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 
 class LocationProvider with ChangeNotifier {
+  final _locationListApi = LocationListApi();
   String stAdd = "Please select your delivery address";
   String subtitleAdd = "";
   bool isLoading = true;
   bool isNearbySearchLoading = false;
   late List<geo.Location> locations;
   List<geo.Placemark> placemarks = [];
+  ApiResponse<List<LocationModel>> locationList = ApiResponse.loading();
 
+  setLocationList(ApiResponse<List<LocationModel>> response) {
+    locationList = response;
+    notifyListeners();
+  }
+
+  Future<void> fetchLocationList() async {
+    await _locationListApi.fetchLocationListApi().then((value) {
+      setLocationList(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setLocationList(ApiResponse.error(error.toString()));
+    });
+  }
 
   setloading({bool? value, bool noNotifier = false}) {
     isLoading = value ?? !isLoading;
