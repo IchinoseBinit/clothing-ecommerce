@@ -72,4 +72,5 @@ class AppUrl {
   static const String locationListUrl = "$baseUrl/users/address-by-user/";
 
   static const String addLocationUrl = "$baseUrl/users/add-address-by-user/";
+  static const String updateLocationUrl = "$baseUrl/users/update-address/name";
 }

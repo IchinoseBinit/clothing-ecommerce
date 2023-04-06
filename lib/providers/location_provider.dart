@@ -2,24 +2,19 @@ import 'dart:developer';
 import 'dart:ui' as ui;
 
 import 'package:clothing_ecommerce/api/location_api.dart';
-import 'package:clothing_ecommerce/data/app_urls.dart';
-import 'package:clothing_ecommerce/data/constants/image_constants.dart';
+import 'package:clothing_ecommerce/data/extensions/decimal_round_off.dart';
 import 'package:clothing_ecommerce/data/response/api_response.dart';
 import 'package:clothing_ecommerce/models/location_model.dart';
-import 'package:clothing_ecommerce/providers/hive_database_helper.dart';
 import 'package:clothing_ecommerce/screens/checkout/checkout_screen.dart';
 import 'package:clothing_ecommerce/screens/map/map_screen.dart';
 import 'package:clothing_ecommerce/utils/navigation_util.dart';
 import 'package:clothing_ecommerce/utils/show_toast.dart';
-import 'package:clothing_ecommerce/widgets/alert_bottom_sheet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:geolocator/geolocator.dart';
-import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_webservice/places.dart';
 
 class LocationProvider with ChangeNotifier {
   final _locationListApi = LocationApi();
@@ -55,14 +50,25 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addAddress(
+  Future<void> setAddress(
     BuildContext context, {
     required String name,
+    required String address,
     required double longitude,
     required double latitude,
+    int? id,
+    required bool isUpdateAddress,
   }) async {
-    Map body = {"name": name, "longitude": longitude, "latitude": latitude};
-    _locationListApi.addAddressApi(body).then((value) async {
+    Map body = {
+      "name": name,
+      "longitude": longitude.toPrecision(5),
+      "latitude": latitude.toPrecision(5),
+      "address": address,
+    };
+    await _locationListApi
+        .setAddressApi(context,
+            id: id, body: body, isUpdateAddress: isUpdateAddress)
+        .then((value) {
       showToast(value["message"]);
     }).onError((error, stackTrace) {
       showToast(error.toString());
@@ -122,24 +128,14 @@ class LocationProvider with ChangeNotifier {
   setLocation(
     BuildContext context, {
     required String locationName,
+    required bool isUpdateAddress,
     required LatLng address,
+    int? id,
   }) async {
     log("My Location");
     log('${address.latitude} ${address.longitude} using Address Model');
-    await setPlacemark(context,
-        locationName: locationName,
-        latitude: address.latitude,
-        longitude: address.longitude);
-    notifyListeners();
-  }
-
-  setPlacemark(
-    context, {
-    required String locationName,
-    required double latitude,
-    required double longitude,
-  }) async {
-    placemarks = await geo.placemarkFromCoordinates(latitude, longitude);
+    placemarks =
+        await geo.placemarkFromCoordinates(address.latitude, address.longitude);
 
     subtitleAdd =
         "${placemarks.first.subAdministrativeArea}, ${placemarks.first.country}";
@@ -147,8 +143,14 @@ class LocationProvider with ChangeNotifier {
         "${placemarks.first.street}, ${placemarks.first.subLocality}${placemarks.first.subLocality == "" ? "" : ", "}${placemarks.first.locality}";
     log(stAdd.toString(), name: "Sraddress");
 
-    await addAddress(context,
-        name: locationName, longitude: longitude, latitude: latitude);
+    await setAddress(context,
+        id: id,
+        isUpdateAddress: isUpdateAddress,
+        address: stAdd,
+        name: locationName,
+        longitude: address.longitude,
+        latitude: address.latitude);
     fetchLocationList();
+    // notifyListeners();
   }
 }

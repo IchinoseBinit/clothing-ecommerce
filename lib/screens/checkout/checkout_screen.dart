@@ -8,7 +8,6 @@ import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
 import 'package:clothing_ecommerce/utils/navigation_util.dart';
-import 'package:clothing_ecommerce/widgets/alert_bottom_sheet.dart';
 import 'package:clothing_ecommerce/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,24 +24,24 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-  _checkDeliveryIsLocationIsValid({required bool isDelivery}) {
-    AlertBottomSheet.showAlertBottomSheet(
-      context,
-      title: "Select new location",
-      description:
-          "We regret to inform you that delivery is not available in the selected location. To proceed with checking out the items in your cart, please choose a different delivery location.",
-      iconImage: alert,
-      cancelTitle: "Cancel",
-      isCancelButton: true,
-      okFunc: () async {
-        await _selectMap();
-        Navigator.pop(context);
-      },
-      cancelFunc: () {
-        Navigator.pop(context);
-      },
-    );
-  }
+  // _checkDeliveryIsLocationIsValid({required bool isDelivery}) {
+  //   AlertBottomSheet.showAlertBottomSheet(
+  //     context,
+  //     title: "Select new location",
+  //     description:
+  //         "We regret to inform you that delivery is not available in the selected location. To proceed with checking out the items in your cart, please choose a different delivery location.",
+  //     iconImage: alert,
+  //     cancelTitle: "Cancel",
+  //     isCancelButton: true,
+  //     okFunc: () async {
+  //       await _selectMap(true);
+  //       Navigator.pop(context);
+  //     },
+  //     cancelFunc: () {
+  //       Navigator.pop(context);
+  //     },
+  //   );
+  // }
 
   @override
   void initState() {
@@ -51,13 +50,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     super.initState();
   }
 
-  Future<void> _selectMap() async {
+  Future<void> _selectMap(bool isUpdateLocation, {int? id}) async {
     final Map? selectedLocation =
         await navigate(context, MapScreen(), fullscreenDialog: true);
 
     if (selectedLocation != null) {
       await Provider.of<LocationProvider>(context, listen: false).setLocation(
           context,
+          isUpdateAddress: isUpdateLocation,
+          id: id,
           address: LatLng(selectedLocation["location"].latitude,
               selectedLocation["location"].longitude),
           locationName: selectedLocation["name"]);
@@ -96,22 +97,27 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       borderRadius: BorderRadius.vertical(
                     top: Radius.circular(30),
                   )),
-                  builder: (context) => DraggableScrollableSheet(
-                      initialChildSize: .6,
-                      minChildSize: .6,
-                      maxChildSize: .9,
-                      expand: false,
-                      builder: (context, scrollController) {
-                        return SelectLocationBottomSheet(
-                          onEdit: () {
-                            //TODO: edit map
-                            // _selectMap();
-                          },
-                          onAdd: () {
-                            _selectMap();
-                          },
-                        );
-                      }),
+                  builder: (context) =>
+                      Consumer<LocationProvider>(builder: (_, provider, __) {
+                    return DraggableScrollableSheet(
+                        initialChildSize: .6,
+                        minChildSize: .6,
+                        maxChildSize: .9,
+                        expand: false,
+                        builder: (context, scrollController) {
+                          return SelectLocationBottomSheet(
+                            onEdit: (int id) {
+                              //TODO: edit map
+                              _selectMap(true, id: id);
+                            },
+                            onAdd: () {
+                              _selectMap(
+                                false,
+                              );
+                            },
+                          );
+                        });
+                  }),
                 );
               },
               child: Column(

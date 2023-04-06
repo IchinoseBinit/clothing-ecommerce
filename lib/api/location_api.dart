@@ -1,8 +1,13 @@
 import 'dart:developer';
+
 import 'package:clothing_ecommerce/models/location_model.dart';
-import 'network/api_manager.dart';
+import 'package:clothing_ecommerce/providers/location_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '/data/app_urls.dart';
 import '/utils/request_type.dart';
+import 'network/api_manager.dart';
 
 class LocationApi {
   final _apiManager = ApiManager();
@@ -35,13 +40,21 @@ class LocationApi {
     }
   }
 
-  Future<dynamic> addAddressApi(Map body) async {
+  Future<dynamic> setAddressApi(
+    BuildContext context, {
+    required Map body,
+    int? id,
+    required bool isUpdateAddress,
+  }) async {
     try {
       dynamic response = await _apiManager.request(
-        url: AppUrl.addLocationUrl,
-        requestType: RequestType.postWithToken,
-        parameter: body
-      );
+          url: isUpdateAddress
+              ? AppUrl.updateLocationUrl.replaceAll("name", id.toString())
+              : AppUrl.addLocationUrl,
+          requestType: isUpdateAddress
+              ? RequestType.patchWithToken
+              : RequestType.postWithToken,
+          parameter: body);
       return response;
     } catch (e) {
       log(e.toString());

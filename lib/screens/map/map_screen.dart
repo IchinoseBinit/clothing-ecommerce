@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
 import 'package:clothing_ecommerce/providers/hive_database_helper.dart';
 import 'package:clothing_ecommerce/providers/location_provider.dart';
@@ -21,10 +19,11 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class MapScreen extends StatefulWidget {
-  LatLng? initialLocation;
+  final String? addressName;
 
   MapScreen({
     Key? key,
+    this.addressName,
   }) : super(key: key);
 
   @override
@@ -32,6 +31,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  LatLng? initialLocation;
   LatLng? _pickedLocation;
   final addressController = TextEditingController();
   late Uint8List userMarkerbitmap;
@@ -97,8 +97,7 @@ class _MapScreenState extends State<MapScreen> {
     String latitude = await DatabaseHelper().getBoxItem(key: "latitude");
     String longitude = await DatabaseHelper().getBoxItem(key: "longitude");
 
-    widget.initialLocation =
-        LatLng(double.parse(latitude), double.parse(longitude));
+    initialLocation = LatLng(double.parse(latitude), double.parse(longitude));
     _pickedLocation = LatLng(double.parse(latitude), double.parse(longitude));
     userMarkerbitmap =
         await Provider.of<LocationProvider>(context, listen: false)
@@ -117,6 +116,9 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.addressName != null) {
+      addressController.text = widget.addressName!;
+    }
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.dark,
@@ -278,8 +280,8 @@ class _MapScreenState extends State<MapScreen> {
                         },
                         initialCameraPosition: CameraPosition(
                           target: LatLng(
-                            widget.initialLocation!.latitude,
-                            widget.initialLocation!.longitude,
+                            initialLocation!.latitude,
+                            initialLocation!.longitude,
                           ),
                           zoom: 14,
                         ),
