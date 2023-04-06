@@ -50,9 +50,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     super.initState();
   }
 
-  Future<void> _selectMap(bool isUpdateLocation, {int? id}) async {
-    final Map? selectedLocation =
-        await navigate(context, MapScreen(), fullscreenDialog: true);
+  Future<void> _selectMap(bool isUpdateLocation,
+      {int? id, String? addressName}) async {
+    final Map? selectedLocation = await navigate(
+        context, MapScreen(addressName: addressName),
+        fullscreenDialog: true);
 
     if (selectedLocation != null) {
       await Provider.of<LocationProvider>(context, listen: false).setLocation(
@@ -106,9 +108,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         expand: false,
                         builder: (context, scrollController) {
                           return SelectLocationBottomSheet(
-                            onEdit: (int id) {
+                            onEdit: (int id,String addressName) {
                               //TODO: edit map
-                              _selectMap(true, id: id);
+                              _selectMap(true, id: id,addressName: addressName);
                             },
                             onAdd: () {
                               _selectMap(

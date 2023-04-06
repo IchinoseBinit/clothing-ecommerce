@@ -12,7 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class SelectLocationBottomSheet extends StatefulWidget {
-  final Function(int) onEdit;
+  final Function(int, String) onEdit;
   final VoidCallback onAdd;
   const SelectLocationBottomSheet({
     super.key,
@@ -78,7 +78,7 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
 
 class BodyContent extends StatelessWidget {
   final LocationProvider locationProvider;
-  final Function(int) onEdit;
+  final Function(int, String) onEdit;
   final VoidCallback onAdd;
   const BodyContent({
     super.key,
@@ -97,7 +97,8 @@ class BodyContent extends StatelessWidget {
             ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: AppSizes.paddingLg),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: AppSizes.paddingLg),
               separatorBuilder: (context, index) =>
                   const SizedBox(height: AppSizes.paddingLg),
               itemCount: locationProvider.locationList.data!.length,
@@ -118,8 +119,8 @@ class BodyContent extends StatelessWidget {
                           children: [
                             Text(
                               locationProvider.locationList.data![index].name,
-                              style:
-                                  bodyText.copyWith(fontWeight: FontWeight.w500),
+                              style: bodyText.copyWith(
+                                  fontWeight: FontWeight.w500),
                             ),
                             SizedBox(
                               height: 6.h,
@@ -163,7 +164,9 @@ class BodyContent extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               onEdit(
-                                  locationProvider.locationList.data![index].id);
+                                  locationProvider.locationList.data![index].id,
+                                  locationProvider
+                                      .locationList.data![index].name);
                             },
                             child: Text(
                               "Edit",
@@ -207,8 +210,8 @@ class BodyContent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100.r),
                     color: AppColors.iconBtnBgColor,
                   ),
-                  child:
-                      Icon(Icons.add, color: AppColors.primaryColor, size: 22.h),
+                  child: Icon(Icons.add,
+                      color: AppColors.primaryColor, size: 22.h),
                 ),
               ),
             ),

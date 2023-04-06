@@ -5,6 +5,7 @@ import 'package:clothing_ecommerce/providers/location_provider.dart';
 import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
+import 'package:clothing_ecommerce/utils/validation_mixin.dart';
 import 'package:clothing_ecommerce/widgets/alert_bottom_sheet.dart';
 import 'package:clothing_ecommerce/widgets/general_elevated_button.dart';
 import 'package:clothing_ecommerce/widgets/general_textfield.dart';
@@ -43,7 +44,7 @@ class _MapScreenState extends State<MapScreen> {
   String locationBottom = "";
   String? deliveryAddress;
   bool isInit = true;
-
+  final _formKey = GlobalKey<FormState>();
   BuildContext? myContext;
 
   void _selectLocation(LatLng position) async {
@@ -397,18 +398,23 @@ class _MapScreenState extends State<MapScreen> {
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: AppSizes.padding),
-                                    child: GeneralTextField(
-                                      controller: addressController,
-                                      obscureText: false,
-                                      keywordType: TextInputType.text,
-                                      validate: (_) {},
-                                      onFieldSubmit: (_) {},
-                                      textInputAction: TextInputAction.go,
-                                      onSave: (_) {},
-                                      labelText: "Name",
-                                      hintText: "Eg. Home, Work or Gym",
-                                      fillColor: AppColors.inputColor,
-                                      borderColor: Colors.grey,
+                                    child: Form(
+                                      key: _formKey,
+                                      child: GeneralTextField(
+                                        controller: addressController,
+                                        obscureText: false,
+                                        keywordType: TextInputType.text,
+                                        validate: (value) => Validation()
+                                            .validate(value,
+                                                title: "location name."),
+                                        onFieldSubmit: (_) {},
+                                        textInputAction: TextInputAction.go,
+                                        onSave: (_) {},
+                                        labelText: "Name",
+                                        hintText: "Eg. Home, Work or Gym",
+                                        fillColor: AppColors.inputColor,
+                                        borderColor: Colors.grey,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -417,12 +423,13 @@ class _MapScreenState extends State<MapScreen> {
                                   GeneralElevatedButton(
                                     title: "Save Location",
                                     onPressed: () async {
-                                      mapController.dispose();
-
-                                      Navigator.of(context).pop({
-                                        "location": _pickedLocation,
-                                        "name": addressController.text
-                                      });
+                                      if (_formKey.currentState!.validate()) {
+                                        mapController.dispose();
+                                        Navigator.of(context).pop({
+                                          "location": _pickedLocation,
+                                          "name": addressController.text
+                                        });
+                                      }
                                     },
                                   ),
                                   SizedBox(
