@@ -9,6 +9,7 @@ class LocationModel {
   });
   late final int id;
   late final String name;
+  late final String address;
   late final String longitude;
   late final String latitude;
   late final int user;
@@ -17,6 +18,7 @@ class LocationModel {
   LocationModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    address = json['address'];
     longitude = json['longitude'];
     latitude = json['latitude'];
     user = json['user'];
@@ -26,6 +28,7 @@ class LocationModel {
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['id'] = id;
+    data['address'] = address;
     data['name'] = name;
     data['longitude'] = longitude;
     data['latitude'] = latitude;

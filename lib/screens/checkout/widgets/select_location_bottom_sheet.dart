@@ -116,31 +116,33 @@ class BodyContent extends StatelessWidget {
                         SizedBox(
                           height: 6.h,
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 2.h,
-                            horizontal: 2.h,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: AppColors.primaryColor,
+                        if (locationProvider
+                            .locationList.data![index].isSelected)
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 2.h,
+                              horizontal: 2.h,
                             ),
-                            borderRadius: BorderRadius.circular(
-                              AppSizes.radius / 3,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: AppColors.primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                AppSizes.radius / 3,
+                              ),
+                            ),
+                            child: Text(
+                              "Default Shipping Address",
+                              style: verySmallText.copyWith(
+                                color: AppColors.primaryColor,
+                              ),
                             ),
                           ),
-                          child: Text(
-                            "Default Shipping Address",
-                            style: verySmallText.copyWith(
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                        ),
                         SizedBox(
                           height: 6.h,
                         ),
-                        const Text(
-                            "Jayabageshowri, Bagmati Province, Kathmandu Metro 8 - Gausala Area, Gaushala"),
+                        Text(
+                            locationProvider.locationList.data![index].address),
                       ],
                     ),
                   ),
