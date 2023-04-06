@@ -44,6 +44,17 @@ class LocationProvider with ChangeNotifier {
     });
   }
 
+  setSelected(int index) {
+    if (!locationList.data![index].isSelected) {
+      for (LocationModel locationModel in locationList.data!) {
+        locationModel.setSelect(val: false);
+      }
+    }
+    locationList.data![index].setSelect();
+
+    notifyListeners();
+  }
+
   Future<void> addAddress(
     BuildContext context, {
     required String name,
@@ -53,7 +64,6 @@ class LocationProvider with ChangeNotifier {
     Map body = {"name": name, "longitude": longitude, "latitude": latitude};
     _locationListApi.addAddressApi(body).then((value) async {
       showToast(value["message"]);
-     
     }).onError((error, stackTrace) {
       showToast(error.toString());
     });
@@ -129,7 +139,6 @@ class LocationProvider with ChangeNotifier {
     required double latitude,
     required double longitude,
   }) async {
-    
     placemarks = await geo.placemarkFromCoordinates(latitude, longitude);
 
     subtitleAdd =
@@ -137,9 +146,9 @@ class LocationProvider with ChangeNotifier {
     stAdd =
         "${placemarks.first.street}, ${placemarks.first.subLocality}${placemarks.first.subLocality == "" ? "" : ", "}${placemarks.first.locality}";
     log(stAdd.toString(), name: "Sraddress");
-   
+
     await addAddress(context,
         name: locationName, longitude: longitude, latitude: latitude);
-         fetchLocationList();
+    fetchLocationList();
   }
 }

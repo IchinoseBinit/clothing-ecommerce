@@ -159,12 +159,17 @@ class BodyContent extends StatelessWidget {
                           style: smallText,
                         ),
                       ),
-                      Icon(
-                        locationProvider.locationList.data![index].isSelected
-                            ? Icons.check_circle
-                            : Icons.radio_button_off,
-                        color: AppColors.greyColor,
-                        size: 18.h,
+                      GestureDetector(
+                        onTap: () {
+                          locationProvider.setSelected(index);
+                        },
+                        child: Icon(
+                          locationProvider.locationList.data![index].isSelected
+                              ? Icons.check_circle
+                              : Icons.radio_button_off,
+                          color: AppColors.greyColor,
+                          size: 18.h,
+                        ),
                       ),
                       const SizedBox.shrink()
                     ],
