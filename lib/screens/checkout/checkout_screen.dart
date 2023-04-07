@@ -106,7 +106,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             : null,
         appBar: CustomAppBar(
           disableLeading: true,
-          title: "Checkout Screen",
+          title: "Checkout",
         ),
         body: Builder(builder: (_) {
           switch (provider.checkoutData.status) {
