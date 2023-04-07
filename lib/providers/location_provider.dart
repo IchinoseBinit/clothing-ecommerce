@@ -20,9 +20,7 @@ class LocationProvider with ChangeNotifier {
   final _locationListApi = LocationApi();
   String tempStAdd = "Please select your delivery address";
   String stAdd = "Please select your delivery address";
-  String subtitleAdd = "";
   bool isLoading = true;
-  bool isNearbySearchLoading = false;
   late List<geo.Location> locations;
   List<geo.Placemark> placemarks = [];
   ApiResponse<List<LocationModel>> locationList = ApiResponse.loading();
@@ -32,8 +30,22 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  resetData() {
+    tempStAdd = "Please select your delivery address";
+    stAdd = "Please select your delivery address";
+  }
+
   Future<void> fetchLocationList() async {
+    resetData();
     await _locationListApi.fetchLocationListApi().then((value) {
+      List<LocationModel> selectedDefault = value
+          .where(
+            (element) => element.defaultVal,
+          )
+          .toList();
+      if (selectedDefault.isNotEmpty) {
+        stAdd = selectedDefault.first.address;
+      }
       setLocationList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       setLocationList(ApiResponse.error(error.toString()));
@@ -46,6 +58,7 @@ class LocationProvider with ChangeNotifier {
         locationModel.setSelect(val: false);
       }
     }
+
     locationList.data![index].setSelect();
     stAdd = locationList.data![index].address;
     notifyListeners();
@@ -78,11 +91,6 @@ class LocationProvider with ChangeNotifier {
 
   setloading({bool? value, bool noNotifier = false}) {
     isLoading = value ?? !isLoading;
-    if (!noNotifier) notifyListeners();
-  }
-
-  setNearByloading({bool? value, bool noNotifier = false}) {
-    isNearbySearchLoading = value ?? !isNearbySearchLoading;
     if (!noNotifier) notifyListeners();
   }
 
@@ -137,9 +145,6 @@ class LocationProvider with ChangeNotifier {
     log('${address.latitude} ${address.longitude} using Address Model');
     placemarks =
         await geo.placemarkFromCoordinates(address.latitude, address.longitude);
-
-    subtitleAdd =
-        "${placemarks.first.subAdministrativeArea}, ${placemarks.first.country}";
     tempStAdd =
         "${placemarks.first.street}, ${placemarks.first.subLocality}${placemarks.first.subLocality == "" ? "" : ", "}${placemarks.first.locality}";
     log(tempStAdd.toString(), name: "Sraddress");
