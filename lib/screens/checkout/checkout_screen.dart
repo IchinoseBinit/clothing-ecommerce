@@ -116,7 +116,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               );
             case Status.ERROR:
               return const ErrorInfoWidget(
-                errorInfo: "Your cart is empty. Try adding some item",
               );
             case Status.COMPLETED:
               return ScrollConfiguration(
