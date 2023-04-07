@@ -144,7 +144,7 @@ class BodyContent extends StatelessWidget {
                                 ),
                               ),
                             SizedBox(
-                              height: 6.h,
+                              height: 8.h,
                             ),
                             Text(locationProvider
                                 .locationList.data![index].address),
@@ -169,6 +169,9 @@ class BodyContent extends StatelessWidget {
                               style: smallText,
                             ),
                           ),
+                           SizedBox(
+                              height: 8.h,
+                            ),
                           GestureDetector(
                             onTap: () {
                               locationProvider.setSelected(index);
