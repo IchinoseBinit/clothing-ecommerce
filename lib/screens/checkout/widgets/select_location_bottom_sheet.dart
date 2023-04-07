@@ -126,7 +126,7 @@ class BodyContent extends StatelessWidget {
                               height: 6.h,
                             ),
                             if (locationProvider
-                                .locationList.data![index].isSelected)
+                                .locationList.data![index].defaultVal)
                               Container(
                                 padding: EdgeInsets.symmetric(
                                   vertical: 2.h,

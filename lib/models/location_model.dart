@@ -14,6 +14,7 @@ class LocationModel {
   late final String latitude;
   late final int user;
   late bool isSelected;
+  late final bool defaultVal;
 
   LocationModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -22,6 +23,7 @@ class LocationModel {
     longitude = json['longitude'];
     latitude = json['latitude'];
     user = json['user'];
+    defaultVal = json['default'];
     isSelected = json['default'];
   }
 
@@ -33,7 +35,7 @@ class LocationModel {
     data['longitude'] = longitude;
     data['latitude'] = latitude;
     data['user'] = user;
-    data['default'] = isSelected;
+    data['default'] = defaultVal;
     return data;
   }
 
