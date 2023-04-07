@@ -18,6 +18,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LocationProvider with ChangeNotifier {
   final _locationListApi = LocationApi();
+  String tempStAdd = "Please select your delivery address";
   String stAdd = "Please select your delivery address";
   String subtitleAdd = "";
   bool isLoading = true;
@@ -46,7 +47,7 @@ class LocationProvider with ChangeNotifier {
       }
     }
     locationList.data![index].setSelect();
-
+    stAdd = locationList.data![index].address;
     notifyListeners();
   }
 
@@ -139,14 +140,14 @@ class LocationProvider with ChangeNotifier {
 
     subtitleAdd =
         "${placemarks.first.subAdministrativeArea}, ${placemarks.first.country}";
-    stAdd =
+    tempStAdd =
         "${placemarks.first.street}, ${placemarks.first.subLocality}${placemarks.first.subLocality == "" ? "" : ", "}${placemarks.first.locality}";
-    log(stAdd.toString(), name: "Sraddress");
+    log(tempStAdd.toString(), name: "Sraddress");
 
     await setAddress(context,
         id: id,
         isUpdateAddress: isUpdateAddress,
-        address: stAdd,
+        address: tempStAdd,
         name: locationName,
         longitude: address.longitude,
         latitude: address.latitude);

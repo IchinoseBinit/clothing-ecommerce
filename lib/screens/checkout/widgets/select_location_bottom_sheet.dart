@@ -26,11 +26,7 @@ class SelectLocationBottomSheet extends StatefulWidget {
 }
 
 class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<LocationProvider>(context, listen: false).fetchLocationList();
-  }
+
 
   @override
   Widget build(BuildContext context) {

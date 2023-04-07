@@ -45,9 +45,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   void initState() {
-    //TODO: should be on checkout privder after api call
-
     super.initState();
+    Provider.of<LocationProvider>(context, listen: false).fetchLocationList();
   }
 
   Future<void> _selectMap(bool isUpdateLocation,
@@ -108,9 +107,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         expand: false,
                         builder: (context, scrollController) {
                           return SelectLocationBottomSheet(
-                            onEdit: (int id,String addressName) {
+                            onEdit: (int id, String addressName) {
                               //TODO: edit map
-                              _selectMap(true, id: id,addressName: addressName);
+                              _selectMap(true,
+                                  id: id, addressName: addressName);
                             },
                             onAdd: () {
                               _selectMap(
