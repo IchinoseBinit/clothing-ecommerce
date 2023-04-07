@@ -1,4 +1,5 @@
 import 'package:clothing_ecommerce/providers/category_provider.dart';
+import 'package:clothing_ecommerce/providers/checkout_provider.dart';
 import 'package:clothing_ecommerce/providers/product_detail_provider.dart';
 import 'package:clothing_ecommerce/providers/product_list_provider.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<LocationProvider>(
             create: (_) => LocationProvider(),
+          ),
+          ChangeNotifierProvider<CheckoutProvider>(
+            create: (_) => CheckoutProvider(),
           ),
         ],
         child: ScreenUtilInit(

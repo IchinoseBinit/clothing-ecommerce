@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:clothing_ecommerce/data/constants/image_constants.dart';
 import 'package:clothing_ecommerce/data/response/status.dart';
 import 'package:clothing_ecommerce/providers/cart_provider.dart';
+import 'package:clothing_ecommerce/providers/checkout_provider.dart';
 import 'package:clothing_ecommerce/screens/checkout/checkout_screen.dart';
 import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
@@ -82,9 +83,9 @@ class _CartScreenState extends State<CartScreen> {
                     GeneralElevatedButton(
                       title: "Checkout (${cartProvider.totalSelectedCart})",
                       onPressed: () {
-                        // Provider.of<OrderProvider>(context, listen: false)
-                        //     .order(context,
-                        //         cartList: cartProvider.selectCartItemList);
+                        Provider.of<CheckoutProvider>(context, listen: false)
+                            .fetchCheckout(context,
+                                cartList: cartProvider.selectCartItemList);
                         navigate(
                             context,
                             CheckoutScreen(

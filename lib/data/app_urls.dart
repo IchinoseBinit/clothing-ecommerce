@@ -70,7 +70,9 @@ class AppUrl {
 
   //Location list api url
   static const String locationListUrl = "$baseUrl/users/address-by-user/";
-
   static const String addLocationUrl = "$baseUrl/users/add-address-by-user/";
   static const String updateLocationUrl = "$baseUrl/users/update-address/name";
+
+  //Checkout Url
+  static const String checkoutUrl = "$baseUrl/order/checkout/";
 }

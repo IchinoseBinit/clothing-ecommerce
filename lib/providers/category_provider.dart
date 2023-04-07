@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 class CategoryProvider extends ChangeNotifier {
   final _categoryListApi = CategoryListApi();
   final _categorySpecificProductListApi = CategorySpecificProductsApi();
-  ApiResponse<List<CategoryModel>> categoryList = ApiResponse.loading();
   ApiResponse<List<ProductModel>> categoryProductList = ApiResponse.loading();
+  ApiResponse<List<CategoryModel>> categoryList = ApiResponse.loading();
   setCategoryList(ApiResponse<List<CategoryModel>> response) {
     categoryList = response;
     notifyListeners();
