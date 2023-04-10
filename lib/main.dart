@@ -1,5 +1,7 @@
+import 'package:clothing_ecommerce/data/app_urls.dart';
 import 'package:clothing_ecommerce/providers/category_provider.dart';
 import 'package:clothing_ecommerce/providers/checkout_provider.dart';
+import 'package:clothing_ecommerce/providers/payment_gateway_provider.dart';
 import 'package:clothing_ecommerce/providers/product_detail_provider.dart';
 import 'package:clothing_ecommerce/providers/product_list_provider.dart';
 import 'package:flutter/material.dart';
@@ -9,17 +11,18 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
+
 import '/providers/auth_provider.dart';
 import '/providers/conectivity_provider.dart';
 import '/providers/database_provider.dart';
 import '/providers/intro_notifier.dart';
+import '/styles/themes.dart';
 import 'providers/cart_provider.dart';
 import 'providers/location_provider.dart';
 import 'providers/order_provider.dart';
 import 'providers/product_search_provider.dart';
 import 'providers/profile_provider.dart';
 import 'screens/auth/splash_screen.dart';
-import '/styles/themes.dart';
 import 'utils/generate_navigation.dart';
 
 main() async {
@@ -28,8 +31,7 @@ main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  Stripe.publishableKey =
-      "pk_test_51JT7jkCTAUDjRNFVfafy4Gskx1KzUNk8nPj8T51zzCPE18fA17DOFO6MqSZVTCxhVCSWGwouDSe0yjcObAznHLW600VBoGyDcg";
+  Stripe.publishableKey = AppUrl.stripePublishableKey;
   await Stripe.instance.applySettings();
   runApp(const MyApp());
 }
@@ -82,6 +84,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<CheckoutProvider>(
             create: (_) => CheckoutProvider(),
+          ),
+          ChangeNotifierProvider<PaymentProvider>(
+            create: (_) => PaymentProvider(),
           ),
         ],
         child: ScreenUtilInit(
