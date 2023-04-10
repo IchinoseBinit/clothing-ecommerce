@@ -44,9 +44,9 @@ class AppUrl {
   //Stripe Url
   static const String stripePaymentUrl =
       "https://api.stripe.com/v1/payment_intents";
-  static const String stripeTestSecretUrl =
-      "sk_test_51HVCd6IF8RJ3zogV1nmaPWdj0U3rCuacljtk2iCAXtC3V2atuYgLKdyoKOnoFBPs1Os0k5zmn4ioSD0PJGbPrhvR00jGPBBO8B";
-  static const String stripePublishableKey = "pk_live_fLCVlovTvwL3PkqjFFJjs7rO";
+  //This is not be used for futher after app production
+  static const String stripeTestSecretUrl = "sk_test_JjZpCEF82uCj3wC1gQIXJUCW";
+  static const String stripePublishableKey = "pk_test_3M4o9dxNjNkYIEWGxuUsER13";
   static const String kStripePaymentUrl =
       "https://us-central1-stripe-checkout-flutter.cloudfunctions.net/stripePaymentIntentRequest";
 

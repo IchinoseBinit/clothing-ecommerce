@@ -118,7 +118,6 @@ class PaymentProvider with ChangeNotifier {
             "amount": calculateAmount(total),
             "currency": currency,
           });
-      Navigator.pop(context);
       // 2. initialize the payment sheet
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
