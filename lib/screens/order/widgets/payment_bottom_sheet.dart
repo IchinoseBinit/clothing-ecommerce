@@ -63,7 +63,7 @@ class _PaymentBottomSheetState extends State<PaymentBottomSheet> {
                       setState(() {});
                     },
                     title: Text(e["name"]),
-                    leading: Image.asset(e["image"], height: 40),
+                    leading: Image.asset(e["image"], height: 40,width: 40,),
                     trailing: Radio(
                       value: e["type"] as PaymentMethod,
                       groupValue: selectedPayment,
