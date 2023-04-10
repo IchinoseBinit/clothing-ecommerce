@@ -103,12 +103,13 @@ class PaymentProvider with ChangeNotifier {
     //TODO: yo need to have secret key
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     try {
-      ApiManager _apiManagerClient = ApiManager();
+      ApiManager apiManagerClient = ApiManager();
       const String currency = "NPR";
       //1. create payment intent on the server
-      final response = await _apiManagerClient.request(
+      final response = await apiManagerClient.request(
           url: AppUrl.stripePaymentUrl,
           //TODO:Use different live secret key for production
+          //TODO: Note card credential for test card number all 42424242..... until field is comeplete and other field can be any text
           requestType: RequestType.postWithOnlyHeaders,
           headers: {
             'Authorization': 'Bearer ${AppUrl.stripeTestSecretUrl}',
