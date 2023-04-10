@@ -1,0 +1,1 @@
+enum PaymentMethod {creditCard,khalti, eSewa,cod}

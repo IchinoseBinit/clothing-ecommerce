@@ -24,4 +24,9 @@ const String appbarBgImage = "$baseAsset/appbar_background.jpg";
 const String intro1 = "$baseAsset/auth/intro1.svg";
 const String intro2 = "$baseAsset/auth/intro2.svg";
 const String intro3 = "$baseAsset/auth/intro3.svg";
-const String staticImage = "https://cdn.shopify.com/s/files/1/0258/7862/6349/products/pant2.jpg";
+const String stripeLogo = "$baseAsset/stripe.png";
+const String esewaLogo = "$baseAsset/esewa.png";
+const String khaltiLogo = "$baseAsset/khalti.png";
+const String cashOnDeliveryLogo = "$baseAsset/cod.png";
+const String staticImage =
+    "https://cdn.shopify.com/s/files/1/0258/7862/6349/products/pant2.jpg";

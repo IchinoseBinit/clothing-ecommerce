@@ -6,6 +6,7 @@ import 'package:clothing_ecommerce/providers/checkout_provider.dart';
 import 'package:clothing_ecommerce/providers/location_provider.dart';
 import 'package:clothing_ecommerce/screens/checkout/widgets/select_location_bottom_sheet.dart';
 import 'package:clothing_ecommerce/screens/map/map_screen.dart';
+import 'package:clothing_ecommerce/screens/order/widgets/payment_bottom_sheet.dart';
 import 'package:clothing_ecommerce/styles/app_colors.dart';
 import 'package:clothing_ecommerce/styles/app_sizes.dart';
 import 'package:clothing_ecommerce/styles/styles.dart';
@@ -92,13 +93,26 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 padding: const EdgeInsets.all(AppSizes.paddingLg),
                 child: GeneralElevatedButton(
                   title: "Place Order",
-                  onPressed: () {
+                  onPressed: () async {
                     // Provider.of<OrderProvider>(context, listen: false)
                     //     .order(context,
                     //         cartList: cartProvider.selectCartItemList);
                     // navigate(
                     //     context,
                     //    );
+
+                    await showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(30),
+                      )),
+                      builder: (context) => Consumer<LocationProvider>(
+                          builder: (_, provider, __) {
+                        return PaymentBottomSheet();
+                      }),
+                    );
                   },
                   marginH: 0,
                 ),
@@ -115,8 +129,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 child: CircularProgressIndicator(),
               );
             case Status.ERROR:
-              return const ErrorInfoWidget(
-              );
+              return const ErrorInfoWidget();
             case Status.COMPLETED:
               return ScrollConfiguration(
                 behavior: MyBehaviour(),
@@ -407,7 +420,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ],
                         ),
                       ),
-                       const SizedBox(
+                      const SizedBox(
                         height: AppSizes.paddingLg,
                       ),
                     ],
