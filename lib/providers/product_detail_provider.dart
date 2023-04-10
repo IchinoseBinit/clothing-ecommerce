@@ -12,7 +12,7 @@ class ProductDetailProvider extends ChangeNotifier {
   int selectedColorIndex = -1;
   int selectedSizeIndex = -1;
   int selectedQuantity = 1;
-  bool showQuantity = false;
+  bool isActive = false;
 
   setSelectedColorIndex(int index) {
     selectedColorIndex = index;
@@ -54,7 +54,7 @@ class ProductDetailProvider extends ChangeNotifier {
     selectedColorIndex = -1;
     selectedSizeIndex = -1;
     selectedQuantity = 1;
-    showQuantity = false;
+    isActive = false;
     selectedQuantity = 1;
   }
 
@@ -96,13 +96,13 @@ class ProductDetailProvider extends ChangeNotifier {
     await _productListApi.verifyStockApi(data).then((value) {
       Fluttertoast.cancel();
       if (resetData) {
-        showQuantity = true;
+        isActive = true;
         selectedQuantity = 1;
       }
       setVerifyStockLoading(false);
     }).onError((error, stackTrace) {
       if (resetData) {
-        showQuantity = false;
+        isActive = false;
         selectedQuantity = 1;
       }
       setVerifyStockLoading(false);

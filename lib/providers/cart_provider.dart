@@ -61,8 +61,7 @@ class CartProvider extends ChangeNotifier {
       'size': size,
       'color': color,
     };
-    if (Provider.of<ProductDetailProvider>(context, listen: false)
-        .showQuantity) {
+    if (Provider.of<ProductDetailProvider>(context, listen: false).isActive) {
       _myRepo.addToCartApi(body).then((value) async {
         setLoading(false);
         showToast(value["message"]);

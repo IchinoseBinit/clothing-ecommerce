@@ -222,17 +222,23 @@ class BodyContent extends StatelessWidget {
                             width: 180,
                             borderRadius: 30.r,
                             loading: cartProvider.loading,
-                            onPressed: () {
-                              cartProvider.addToCart(context,
-                                  quantity: productProvider.selectedQuantity,
-                                  color: product
-                                      .color[productProvider.selectedColorIndex]
-                                      .id,
-                                  size: product
-                                      .size[productProvider.selectedSizeIndex]
-                                      .id,
-                                  productId: product.id);
-                            },
+                            isDisabled: !productProvider.isActive ,
+                            onPressed: productProvider.isActive
+                                ? () {
+                                    cartProvider.addToCart(context,
+                                        quantity:
+                                            productProvider.selectedQuantity,
+                                        color: product
+                                            .color[productProvider
+                                                .selectedColorIndex]
+                                            .id,
+                                        size: product
+                                            .size[productProvider
+                                                .selectedSizeIndex]
+                                            .id,
+                                        productId: product.id);
+                                  }
+                                : null,
                           );
                         });
                       })
@@ -364,7 +370,7 @@ class QuantityItem extends StatelessWidget {
       return Row(
         children: [
           GestureDetector(
-            onTap: detailProvider.showQuantity
+            onTap: detailProvider.isActive
                 ? () {
                     onDecrement();
                     detailProvider.onDecrement();
@@ -380,7 +386,7 @@ class QuantityItem extends StatelessWidget {
                 color: AppColors.iconBtnBgColor,
               ),
               child: Icon(Icons.remove,
-                  color: detailProvider.showQuantity
+                  color: detailProvider.isActive
                       ? AppColors.blackColor
                       : AppColors.greyColor,
                   size: 18.h),
@@ -392,7 +398,7 @@ class QuantityItem extends StatelessWidget {
             child: Text(
               detailProvider.selectedQuantity.toString(),
               style: bodyText.copyWith(
-                color: detailProvider.showQuantity
+                color: detailProvider.isActive
                     ? AppColors.blackColor
                     : AppColors.greyColor,
               ),
@@ -402,7 +408,7 @@ class QuantityItem extends StatelessWidget {
             width: 4.w,
           ),
           GestureDetector(
-            onTap: detailProvider.showQuantity
+            onTap: detailProvider.isActive
                 ? () {
                     onIncrement();
                     detailProvider.onIncrement();
@@ -419,7 +425,7 @@ class QuantityItem extends StatelessWidget {
                 color: AppColors.iconBtnBgColor,
               ),
               child: Icon(Icons.add,
-                  color: detailProvider.showQuantity
+                  color: detailProvider.isActive
                       ? AppColors.blackColor
                       : AppColors.greyColor,
                   size: 16.h),
